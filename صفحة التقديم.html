@@ -390,14 +390,14 @@
     <div class="nav-buttons">
         <button class="btn-prev" onclick="goToPage('الاستبيان الرابع.html')"><i class="fas fa-arrow-right"></i> السابق</button>
         <span class="page-indicator">الجزء <span>10</span> من <span>10</span></span>
-        <button class="btn-next" onclick="goToPage('صفحة البداية.html')">الرئيسية <i class="fas fa-arrow-left"></i></button>
+        <button class="btn-next" onclick="goToPage('index.html')">الرئيسية <i class="fas fa-arrow-left"></i></button>
     </div>
 
 </div>
 
 <script>
     // ================================================================
-    // ✅ الرابط الجديد بتاعك (حطيتوه)
+    // ✅ الرابط الجديد بتاعك
     // ================================================================
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF0jboT5itIhVxXPzOdiQaBrubn7LmCof1nvqaSnrfHekyOBE936K1vtRvNmEJeiT7Vg/exec';
 
@@ -682,7 +682,7 @@
     }
 
     // ================================================================
-    // الإرسال (مع التنسيق الطويل)
+    // الإرسال (مع تحميل احتياطي مضمون)
     // ================================================================
     async function sendData() {
         const status = getCompletionStatus();
@@ -737,6 +737,7 @@
         statusMsg.innerHTML = `⏳ جاري الإرسال (النمط: ${mode === 'full' ? 'كامل' : mode === 'partial' ? 'جزئي' : 'إجباري'})...`;
 
         try {
+            // محاولة الإرسال
             await fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -744,19 +745,23 @@
                 body: JSON.stringify(payload)
             });
 
+            // في no-cors، لا يمكن قراءة الاستجابة، لكن نعتبره نجاحاً
             statusMsg.className = 'status-msg success';
             statusMsg.innerHTML = `✅ تم الإرسال بنجاح إلى جوجل شيت! (النمط: ${mode}) سيتم تحميل نسخة احتياطية.`;
+            
+            // === تحميل النسخة الاحتياطية تلقائياً (مضمون) ===
             downloadJSON(payload);
 
         } catch (error) {
             statusMsg.className = 'status-msg error';
-            statusMsg.innerHTML = '❌ فشل الإرسال التلقائي. استخدم زر "عرض البيانات يدوياً".';
+            statusMsg.innerHTML = '❌ فشل الإرسال التلقائي. سيتم تحميل نسخة احتياطية، يرجى إرسالها يدوياً.';
+            downloadJSON(payload);
             prepareAndShow();
         }
     }
 
     // ================================================================
-    // عرض البيانات يدوياً (بالتنسيق الطويل)
+    // عرض البيانات يدوياً + تحميل
     // ================================================================
     function prepareAndShow() {
         const longData = convertToLongFormat();

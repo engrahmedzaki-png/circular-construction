@@ -584,8 +584,29 @@
 </div>
 
 <script>
-    function goToPage(page) { window.location.href = page; }
+    // دالة الانتقال مع التحقق
+    function goToPage(page) {
+        // التحقق من أن مجموع كل قطاع = 100
+        let allValid = true;
+        let errorMsg = '';
+        for (let i = 1; i <= 6; i++) {
+            const inputs = document.querySelectorAll(`.weight-input[data-sector="${i}"]`);
+            let sum = 0;
+            inputs.forEach(inp => { sum += parseInt(inp.value) || 0; });
+            // إذا كان المجموع صفر (يعني الخبير مش ماسك القطاع) نتجاوزه، لكن لو دخل أي رقم يبقى لازم 100
+            if (sum > 0 && sum !== 100) {
+                allValid = false;
+                errorMsg += `\n- القطاع ${i}: ${sum} (يجب 100)`;
+            }
+        }
+        if (!allValid) {
+            alert('⚠️ مجموع النقاط في بعض القطاعات لا يساوي 100:' + errorMsg + '\n\nيرجى تصحيح الأرقام قبل الانتقال.');
+            return;
+        }
+        window.location.href = page;
+    }
 
+    // باقي الكود كما هو (نفس الكود القديم)
     document.querySelectorAll('.weight-input').forEach(input => {
         input.addEventListener('input', function() {
             const sector = this.dataset.sector;
@@ -706,13 +727,8 @@
         alert('✅ تم تصدير البيانات بنجاح!');
     }
 
-    // ============================================================
-    // إصلاح دالة resetAll — مسح المفتاح الصحيح
-    // ============================================================
     function resetAll() {
         if (!confirm('⚠️ هل تريد مسح كل البيانات المدخلة؟')) return;
-
-        // مسح الحقول من الواجهة
         document.querySelectorAll('.weight-input').forEach(input => { input.value = ''; });
         for (let i = 1; i <= 6; i++) {
             document.getElementById(`sum-${i}`).textContent = '0';
@@ -721,12 +737,11 @@
         document.getElementById('globalWarning').innerHTML = '✅ جميع القطاعات متوازنة (مجموع كل قطاع = 100)';
         document.getElementById('globalWarning').style.color = '#1a5a3a';
 
-        // مسح البيانات من localStorage بشكل صحيح
         const expertID = localStorage.getItem('expertID');
         if (expertID) {
             const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
             if (allData[expertID]) {
-                delete allData[expertID]['sector']; // المفتاح الصحيح
+                delete allData[expertID]['sector'];
                 localStorage.setItem('surveyData', JSON.stringify(allData));
             }
         }

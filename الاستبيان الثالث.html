@@ -290,6 +290,32 @@
         .guide-content .note-box ul li { font-size: 14px; font-weight: 500; color: #000000; padding: 2px 0; line-height: 1.6; }
         .guide-content .note-box ul li::before { content: "• "; color: #1a5a3a; font-weight: 700; }
 
+        .session-notice {
+            background: #ffffff;
+            border: 3px solid #8b1a1a;
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .session-notice p { font-size: 16px; font-weight: 700; color: #000000; margin: 0; }
+        .session-notice p strong { color: #000000; }
+        .session-notice i { color: #8b1a1a; margin-left: 6px; }
+
+        .info-notice {
+            background: #ffffff;
+            border: 3px solid #1a3a5a;
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .info-notice i { font-size: 20px; color: #1a3a5a; }
+        .info-notice p { font-size: 16px; font-weight: 700; color: #000000; margin: 0; }
+        .info-notice .arrow { color: #1a3a5a; font-size: 20px; margin: 0 4px; }
+
         .session-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -337,29 +363,106 @@
         .session-title .color-badge.b { background: #8b1a1a; }
         .session-title .tech-count { font-size: 16px; font-weight: 400; color: #000000; }
 
+        /* ========================================================= */
+        /*            تحسينات الجداول (تثبيت + راديو + فواصل)        */
+        /* ========================================================= */
         .table-wrapper {
             overflow-x: auto;
+            overflow-y: auto;
             border-radius: 14px;
             border: 1px solid #d8d0c8;
             background: #ffffff;
+            position: relative;
+            max-height: 800px;
         }
         .table-wrapper table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             font-size: 14px;
             min-width: 1300px;
         }
+        /* تثبيت الرأس */
+        .table-wrapper thead th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #f8f4f0;
+        }
+        /* تثبيت العمود الأول (الكود) */
+        .table-wrapper th:nth-child(1),
+        .table-wrapper td:nth-child(1) {
+            position: sticky;
+            right: 0;
+            z-index: 5;
+            background: #ffffff;
+            border-left: 2px solid #c0b8b0;
+            min-width: 60px;
+        }
+        .table-wrapper th:nth-child(1) {
+            z-index: 15;
+            background: #f8f4f0;
+        }
+        /* تثبيت العمود الثاني (اسم التكنولوجيا) */
+        .table-wrapper th:nth-child(2),
+        .table-wrapper td:nth-child(2) {
+            position: sticky;
+            right: 60px;
+            z-index: 4;
+            background: #ffffff;
+            border-left: 2px solid #c0b8b0;
+            min-width: 180px;
+        }
+        .table-wrapper th:nth-child(2) {
+            z-index: 15;
+            background: #f8f4f0;
+        }
+        /* ظل للأعمدة الثابتة */
+        .table-wrapper td:nth-child(2)::after {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            height: 100%;
+            width: 6px;
+            background: linear-gradient(to left, rgba(0,0,0,0.08), transparent);
+            pointer-events: none;
+        }
+
+        /* === حدود بين كل المعايير === */
+        .table-wrapper td,
         .table-wrapper th {
-            padding: 10px 6px;
+            border-left: 1px solid #e0d8d0;
+            border-bottom: 1px solid #f0ece8;
+            padding: 6px 2px;
             text-align: center;
             font-weight: 800;
-            font-size: 13px;
+            font-size: 12px;
+            vertical-align: middle;
+            min-width: 70px;
+        }
+        .table-wrapper td:last-child,
+        .table-wrapper th:last-child {
+            border-right: 1px solid #e0d8d0;
+        }
+
+        /* === فواصل سميكة بين المجموعات الرئيسية (CF, AF, IP) === */
+        /* العمود رقم 7 = CF5، نضع حداً أيمن سميكاً لفصل CF عن AF */
+        .table-wrapper td:nth-child(7),
+        .table-wrapper th:nth-child(7) {
+            border-left: 3px solid #9a9088 !important;
+        }
+        /* العمود رقم 12 = AF5، نضع حداً أيمن سميكاً لفصل AF عن IP */
+        .table-wrapper td:nth-child(12),
+        .table-wrapper th:nth-child(12) {
+            border-left: 3px solid #9a9088 !important;
+        }
+
+        /* تحسين ظهور رأس الجدول */
+        .table-wrapper th {
+            background: #f8f4f0;
             border-bottom: 2px solid #d8d0c8;
             color: #000000;
-            background: #f8f4f0;
-            white-space: normal;
-            vertical-align: middle;
-            min-width: 45px;
         }
         .table-wrapper th .sub {
             display: block;
@@ -371,30 +474,33 @@
         .table-wrapper th .sub.cf-color { color: #000000; font-weight: 800; }
         .table-wrapper th .sub.af-color { color: #cc0000; font-weight: 800; }
         .table-wrapper th .sub.ip-color { color: #0055cc; font-weight: 800; }
-        .table-wrapper th .label-main { font-size: 12px; font-weight: 800; color: #000000; }
-        .table-wrapper th.group-cf { background: #f8f4f0; border-top: 3px solid #000000; }
-        .table-wrapper th.group-af { background: #f8f4f0; border-top: 3px solid #cc0000; }
-        .table-wrapper th.group-ip { background: #f8f4f0; border-top: 3px solid #0055cc; }
+        .table-wrapper th .label-main { font-size: 11px; font-weight: 800; color: #000000; }
+        .table-wrapper th.group-cf { background: #f8f8f8; border-top: 3px solid #000000; }
+        .table-wrapper th.group-af { background: #fef6f6; border-top: 3px solid #cc0000; }
+        .table-wrapper th.group-ip { background: #f0f4ff; border-top: 3px solid #0055cc; }
 
-        .table-wrapper td {
-            padding: 6px 4px;
-            text-align: center;
-            border-bottom: 1px solid #f0ece8;
+        .table-wrapper td .code {
+            font-weight: 900;
+            color: #000000;
+            font-size: 15px;
         }
-        .table-wrapper td .code { font-weight: 900; color: #000000; font-size: 16px; }
         .table-wrapper td .tech-name {
             font-size: 14px;
             font-weight: 800;
             color: #000000;
             text-align: right;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding-right: 4px;
         }
         .table-wrapper td .status {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
-            padding: 2px 12px;
+            padding: 2px 8px;
             border-radius: 12px;
-            margin-right: 6px;
+            white-space: nowrap;
         }
         .table-wrapper td .status.baseline { color: #1a5a3a; background: #e8f5e9; }
         .table-wrapper td .status.candidate { color: #e67e22; background: #fef5e7; }
@@ -403,35 +509,62 @@
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             color: #1a3a5a;
             transition: all 0.3s;
-            padding: 4px 8px;
-            margin-right: 6px;
+            padding: 2px 6px;
+            margin-right: 4px;
         }
         .arrow-btn:hover { color: #8b1a1a; transform: scale(1.15); }
 
-        .score-input {
-            width: 42px;
-            height: 36px;
-            text-align: center;
-            border: 2px solid #1a3a5a;
-            border-radius: 8px;
+        /* ========================== */
+        /* تصميم أزرار الراديو (الدوائر) */
+        /* ========================== */
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+            direction: ltr;
+        }
+        .radio-group label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid #c8c0b8;
             background: #ffffff;
-            color: #000000;
-            font-size: 16px;
+            transition: all 0.2s ease;
+            font-size: 12px;
             font-weight: 700;
-            font-family: 'Cairo', sans-serif;
-            transition: all 0.2s;
+            color: #555;
+            margin: 0;
         }
-        .score-input:focus {
+        .radio-group label:hover {
             border-color: #1a3a5a;
-            outline: none;
             background: #f0f4f8;
-            box-shadow: 0 0 0 4px rgba(26,58,90,0.08);
+            transform: scale(1.1);
         }
-        .score-input::placeholder { color: #b8b0a8; font-size: 11px; font-weight: 400; }
-        .score-input:hover { border-color: #1a3a5a; }
+        .radio-group input[type="radio"] {
+            display: none;
+        }
+        .radio-group input[type="radio"]:checked + label {
+            border-color: #1a3a5a;
+            color: #fff;
+            font-weight: 900;
+        }
+        .radio-group input[type="radio"][value="1"]:checked + label { background: #8b1a1a; border-color: #8b1a1a; color: #fff; }
+        .radio-group input[type="radio"][value="2"]:checked + label { background: #e67e22; border-color: #e67e22; color: #fff; }
+        .radio-group input[type="radio"][value="3"]:checked + label { background: #1a5a3a; border-color: #1a5a3a; color: #fff; }
+        .radio-group input[type="radio"][value="4"]:checked + label { background: #1a3a5a; border-color: #1a3a5a; color: #fff; }
+        .radio-group input[type="radio"][value="5"]:checked + label { background: #1a3a5a; border-color: #1a3a5a; color: #fff; }
+        .radio-cell.has-value {
+            background: #fafffe;
+        }
 
         .modal-overlay {
             display: none;
@@ -582,14 +715,14 @@
         .nav-buttons .page-indicator span { color: #14b8a6; font-weight: 800; }
 
         @media (max-width: 768px) {
-            .score-input { width: 36px; height: 32px; font-size: 14px; }
-            .table-wrapper table { font-size: 12px; min-width: 1000px; }
+            .radio-group label { width: 22px; height: 22px; font-size: 10px; }
+            .table-wrapper table { min-width: 1100px; }
             .main-header h1 { font-size: 22px; }
             .likert-scale .item { font-size: 13px; }
             .likert-scale .item .num { width: 26px; height: 26px; font-size: 12px; }
             .modal-box { padding: 24px; }
             .session-tab { padding: 10px 18px; font-size: 14px; }
-            .table-wrapper th { font-size: 11px; }
+            .table-wrapper th { font-size: 10px; }
             .table-wrapper th .sub { font-size: 9px; }
             .modal-box .modal-header .title .code { font-size: 22px; }
             .modal-box .modal-header .title .name { font-size: 17px; }
@@ -603,14 +736,16 @@
             nav .nav-links { justify-content: center; }
             nav .nav-links a { font-size: 0.65rem; padding: 4px 6px; }
             nav .nav-links .sep { display: none; }
+            .table-wrapper th:nth-child(2), .table-wrapper td:nth-child(2) { min-width: 140px; right: 50px; }
+            .table-wrapper th:nth-child(1), .table-wrapper td:nth-child(1) { min-width: 50px; }
         }
         @media (max-width: 480px) {
-            .score-input { width: 30px; height: 28px; font-size: 12px; }
+            .radio-group label { width: 18px; height: 18px; font-size: 8px; border-width: 1.5px; }
             .main-header h1 { font-size: 18px; }
-            .table-wrapper table { min-width: 850px; }
+            .table-wrapper table { min-width: 900px; }
             .session-tab { padding: 6px 12px; font-size: 11px; }
             .modal-box .modal-body .specs { grid-template-columns: 1fr; }
-            .table-wrapper th { font-size: 10px; padding: 4px 2px; }
+            .table-wrapper th { font-size: 9px; padding: 3px 1px; }
             .table-wrapper th .sub { font-size: 8px; }
             .likert-scale .item { font-size: 11px; }
             .likert-scale .item .num { width: 22px; height: 22px; font-size: 10px; }
@@ -620,9 +755,11 @@
             .guide-toggle .guide-title h3 { font-size: 13px; }
             .guide-toggle .guide-title .guide-sub { font-size: 10px; }
             nav .brand { font-size: 0.9rem; }
-            nav .nav-links a { font-size: 0.55rem; padding: 2px 4px; }
+            nav .nav-links a { font-size: 0.5rem; padding: 2px 3px; }
             nav .nav-links a i { display: none; }
             .nav-buttons button { padding: 8px 16px; font-size: 12px; }
+            .table-wrapper th:nth-child(2), .table-wrapper td:nth-child(2) { min-width: 110px; right: 40px; }
+            .table-wrapper th:nth-child(1), .table-wrapper td:nth-child(1) { min-width: 40px; }
         }
     </style>
 </head>
@@ -664,7 +801,7 @@
         <div style="position: relative; z-index: 1;">
             <div class="badge"><i class="fas fa-globe"></i> الاستبيان الثالث</div>
             <h1>تقييم العوامل السياقية المبتكرة<br><span class="highlight">Cf · Af · Ip</span></h1>
-            <p>مقياس ليكرت الخماسي • 1 = ضعيف جداً • 5 = ممتاز جداً</p>
+            <p>مقياس ليكرت الخماسي • اضغط على الدائرة المناسبة (1 = ضعيف جداً • 5 = ممتاز جداً)</p>
         </div>
     </div>
 
@@ -826,11 +963,11 @@
         </div>
     </div>
 
-    <div class="session-notice" style="background: #ffffff; border: 3px solid #8b1a1a; border-radius: 12px; padding: 14px 20px; margin-bottom: 16px; text-align: center;">
+    <div class="session-notice">
         <p><i class="fas fa-info-circle"></i> <strong>تم تقسيم التقييم إلى 5 جلسات</strong> حسب المجموعات الوظيفية — لتجنب الملل وتحسين جودة التقييم</p>
     </div>
 
-    <div class="info-notice" style="background: #ffffff; border: 3px solid #1a3a5a; border-radius: 12px; padding: 14px 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px;">
+    <div class="info-notice">
         <i class="fas fa-info-circle"></i>
         <p><span class="arrow">👇</span> <strong>كل تكنولوجيا لها بطاقة معلومات</strong> <span class="arrow">👆</span> اضغط على <strong>السهم</strong> جنب اسم التكنولوجيا لعرض البطاقة</p>
     </div>
@@ -853,7 +990,7 @@
                 <thead>
                     <tr>
                         <th rowspan="2" style="min-width:50px;text-align:center;">الكود</th>
-                        <th rowspan="2" style="min-width:130px;text-align:right;">التكنولوجيا</th>
+                        <th rowspan="2" style="min-width:180px;text-align:right;">التكنولوجيا</th>
                         <th colspan="5" class="group-cf">CF <span class="label-main" style="color:#000000;">(التكيف المحلي)</span></th>
                         <th colspan="5" class="group-af">AF <span class="label-main" style="color:#cc0000;">(التضافر التقني)</span></th>
                         <th colspan="5" class="group-ip">IP <span class="label-main" style="color:#0055cc;">(الأولوية المؤسسية)</span></th>
@@ -891,7 +1028,7 @@
                 <thead>
                     <tr>
                         <th rowspan="2" style="min-width:50px;text-align:center;">الكود</th>
-                        <th rowspan="2" style="min-width:130px;text-align:right;">التكنولوجيا</th>
+                        <th rowspan="2" style="min-width:180px;text-align:right;">التكنولوجيا</th>
                         <th colspan="5" class="group-cf">CF <span class="label-main" style="color:#000000;">(التكيف المحلي)</span></th>
                         <th colspan="5" class="group-af">AF <span class="label-main" style="color:#cc0000;">(التضافر التقني)</span></th>
                         <th colspan="5" class="group-ip">IP <span class="label-main" style="color:#0055cc;">(الأولوية المؤسسية)</span></th>
@@ -929,7 +1066,7 @@
                 <thead>
                     <tr>
                         <th rowspan="2" style="min-width:50px;text-align:center;">الكود</th>
-                        <th rowspan="2" style="min-width:130px;text-align:right;">التكنولوجيا</th>
+                        <th rowspan="2" style="min-width:180px;text-align:right;">التكنولوجيا</th>
                         <th colspan="5" class="group-cf">CF <span class="label-main" style="color:#000000;">(التكيف المحلي)</span></th>
                         <th colspan="5" class="group-af">AF <span class="label-main" style="color:#cc0000;">(التضافر التقني)</span></th>
                         <th colspan="5" class="group-ip">IP <span class="label-main" style="color:#0055cc;">(الأولوية المؤسسية)</span></th>
@@ -967,7 +1104,7 @@
                 <thead>
                     <tr>
                         <th rowspan="2" style="min-width:50px;text-align:center;">الكود</th>
-                        <th rowspan="2" style="min-width:130px;text-align:right;">التكنولوجيا</th>
+                        <th rowspan="2" style="min-width:180px;text-align:right;">التكنولوجيا</th>
                         <th colspan="5" class="group-cf">CF <span class="label-main" style="color:#000000;">(التكيف المحلي)</span></th>
                         <th colspan="5" class="group-af">AF <span class="label-main" style="color:#cc0000;">(التضافر التقني)</span></th>
                         <th colspan="5" class="group-ip">IP <span class="label-main" style="color:#0055cc;">(الأولوية المؤسسية)</span></th>
@@ -1005,7 +1142,7 @@
                 <thead>
                     <tr>
                         <th rowspan="2" style="min-width:50px;text-align:center;">الكود</th>
-                        <th rowspan="2" style="min-width:130px;text-align:right;">التكنولوجيا</th>
+                        <th rowspan="2" style="min-width:180px;text-align:right;">التكنولوجيا</th>
                         <th colspan="5" class="group-cf">CF <span class="label-main" style="color:#000000;">(التكيف المحلي)</span></th>
                         <th colspan="5" class="group-af">AF <span class="label-main" style="color:#cc0000;">(التضافر التقني)</span></th>
                         <th colspan="5" class="group-ip">IP <span class="label-main" style="color:#0055cc;">(الأولوية المؤسسية)</span></th>
@@ -1153,7 +1290,7 @@
     };
 
     // ============================================================
-    // توليد الجداول
+    // توليد الجداول (مع دوائر الراديو)
     // ============================================================
     function buildTable(groupKey) {
         const group = groups[groupKey];
@@ -1169,19 +1306,27 @@
 
             let html = `
                 <td><span class="code">${code}</span></td>
-                <td style="text-align:right;font-size:14px;font-weight:800;color:#000000;white-space:nowrap;">
-                    ${tech.name}
-                    <span class="status ${statusClass}">${tech.status}</span>
-                    <button class="arrow-btn" onclick="showInfo('${code}')" title="بطاقة المعلومات">
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
+                <td style="text-align:right;min-width:180px;">
+                    <div class="tech-name">
+                        ${tech.name}
+                        <span class="status ${statusClass}">${tech.status}</span>
+                        <button class="arrow-btn" onclick="showInfo('${code}')" title="بطاقة المعلومات">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
                 </td>
             `;
 
-            // 15 خانة: CF1-5 (0-4), AF1-5 (5-9), IP1-5 (10-14)
+            // 15 معيارًا: CF1-5 (0-4), AF1-5 (5-9), IP1-5 (10-14)
             for (let i = 0; i < 15; i++) {
                 const key = `${code}_${i}`;
-                html += `<td><input class="score-input" type="number" min="1" max="5" placeholder="1-5" data-key="${key}" onchange="updateProgress()"></td>`;
+                html += `<td class="radio-cell" id="cell_${key}">
+                            <div class="radio-group" dir="ltr">`;
+                for (let v = 1; v <= 5; v++) {
+                    html += `<input type="radio" name="${key}" value="${v}" id="${key}_${v}" onchange="updateProgress()">
+                             <label for="${key}_${v}">${v}</label>`;
+                }
+                html += `</div></td>`;
             }
 
             tr.innerHTML = html;
@@ -1235,22 +1380,27 @@
     });
 
     // ============================================================
-    // شريط التقدم
+    // شريط التقدم (يعتمد على الراديو)
     // ============================================================
     function updateProgress() {
-        const inputs = document.querySelectorAll('.score-input');
-        let filled = 0;
+        const allRadios = document.querySelectorAll('input[type="radio"]');
+        const checked = document.querySelectorAll('input[type="radio"]:checked');
 
-        inputs.forEach(input => {
-            const val = parseInt(input.value);
-            if (val >= 1 && val <= 5) filled++;
-        });
+        const totalCells = allRadios.length / 5;
+        const checkedNames = new Set();
+        checked.forEach(r => checkedNames.add(r.name));
+        const filledCells = checkedNames.size;
 
-        const total = inputs.length;
-        const percent = total > 0 ? Math.round((filled / total) * 100) : 0;
+        const percent = totalCells > 0 ? Math.round((filledCells / totalCells) * 100) : 0;
 
         document.getElementById('progressFill').style.width = percent + '%';
         document.getElementById('progressPercent').textContent = percent + '%';
+
+        document.querySelectorAll('.radio-cell').forEach(cell => {
+            const hasChecked = cell.querySelector('input[type="radio"]:checked');
+            if (hasChecked) cell.classList.add('has-value');
+            else cell.classList.remove('has-value');
+        });
 
         saveProgress();
     }
@@ -1259,19 +1409,11 @@
     // الحفظ والاستعادة والتصدير
     // ============================================================
     function saveProgress() {
-        const inputs = document.querySelectorAll('.score-input');
+        const checked = document.querySelectorAll('input[type="radio"]:checked');
         const data = {};
-
-        inputs.forEach(input => {
-            const key = input.dataset.key;
-            if (key) {
-                const val = parseInt(input.value);
-                if (val >= 1 && val <= 5) {
-                    data[key] = val;
-                }
-            }
+        checked.forEach(r => {
+            data[r.name] = parseInt(r.value);
         });
-
         localStorage.setItem('ce_mcdm_contextual', JSON.stringify(data));
     }
 
@@ -1281,15 +1423,12 @@
 
         try {
             const data = JSON.parse(saved);
-            const inputs = document.querySelectorAll('.score-input');
-
-            inputs.forEach(input => {
-                const key = input.dataset.key;
-                if (key && data[key]) {
-                    input.value = data[key];
+            for (const [key, val] of Object.entries(data)) {
+                const radio = document.getElementById(`${key}_${val}`);
+                if (radio) {
+                    radio.checked = true;
                 }
-            });
-
+            }
             updateProgress();
         } catch(e) {}
     }
@@ -1332,19 +1471,11 @@
     }
 
     function collectAllData() {
-        const inputs = document.querySelectorAll('.score-input');
+        const checked = document.querySelectorAll('input[type="radio"]:checked');
         const data = {};
-
-        inputs.forEach(input => {
-            const key = input.dataset.key;
-            if (key) {
-                const val = parseInt(input.value);
-                if (val >= 1 && val <= 5) {
-                    data[key] = val;
-                }
-            }
+        checked.forEach(r => {
+            data[r.name] = parseInt(r.value);
         });
-
         return data;
     }
 

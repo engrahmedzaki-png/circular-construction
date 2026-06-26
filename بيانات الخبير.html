@@ -618,37 +618,29 @@
 
             const yearsEl = document.querySelector('input[name="years"]:checked');
             const workEl = document.querySelector('input[name="work"]:checked');
+            const specialty = document.getElementById('specialty').value.trim();
+            const job = document.getElementById('job').value.trim();
 
-            const data = {
-                years: yearsEl ? yearsEl.value : '',
-                specialty: document.getElementById('specialty').value,
-                job: document.getElementById('job').value,
-                work: workEl ? workEl.value : '',
-                workOther: document.getElementById('workOther').value,
-                notes: document.getElementById('notes').value
-            };
-
-            if (!data.years) {
+            // === التحقق من الحقول الإلزامية ===
+            if (!yearsEl) {
                 alert('⚠️ يرجى اختيار سنوات الخبرة.');
                 return;
             }
-            if (!data.specialty.trim()) {
+            if (!specialty) {
                 alert('⚠️ يرجى إدخال التخصص الدقيق.');
                 return;
             }
-            if (!data.job.trim()) {
+            if (!job) {
                 alert('⚠️ يرجى إدخال المسمى الوظيفي.');
                 return;
             }
-            if (!data.work) {
+            if (!workEl) {
                 alert('⚠️ يرجى اختيار جهة العمل الرئيسية.');
                 return;
             }
 
-            let allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
-            allData[expertID] = allData[expertID] || {};
-            allData[expertID]['expert_info'] = data;
-            localStorage.setItem('surveyData', JSON.stringify(allData));
+            // حفظ البيانات قبل الانتقال
+            autoSave();
 
             goToPage('توصيف الخبرة المعرفية.html');
         }
