@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقديم الاستبيان</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #eef2f7 0%, #f8fafc 100%);
+            direction: rtl;
+            min-height: 100vh;
+            padding: 30px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 960px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 40px 35px;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.08);
+        }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header .icon {
+            font-size: 56px;
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(20, 184, 166, 0.25);
+        }
+        .header h1 { font-size: 28px; font-weight: 900; color: #0a2a3a; }
+        .header p { font-size: 15px; color: #64748b; margin-top: 4px; }
+
+        .expert-id-box {
+            background: #f1f5f9;
+            border-radius: 14px;
+            padding: 12px 20px;
+            text-align: center;
+            font-weight: 700;
+            color: #0f172a;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 28px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .expert-id-box i { color: #14b8a6; font-size: 20px; }
+        .expert-id-box span { color: #0f172a; font-weight: 800; }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .status-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px 18px;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 6px;
+            height: 100%;
+        }
+        .status-card.complete::before { background: #22c55e; }
+        .status-card.incomplete::before { background: #ef4444; }
+        .status-card.partial::before { background: #f59e0b; }
+
+        .status-card .top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .status-card .info { display: flex; align-items: center; gap: 10px; }
+        .status-card .info .num {
+            width: 32px; height: 32px;
+            background: #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            color: #1e293b;
+            flex-shrink: 0;
+        }
+        .status-card .info .title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #0f172a;
+        }
+        .status-card .info .title small {
+            display: block;
+            font-weight: 400;
+            font-size: 12px;
+            color: #64748b;
+        }
+        .status-card .badge {
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .badge.complete { background: #dcfce7; color: #166534; }
+        .badge.incomplete { background: #fee2e2; color: #991b1b; }
+        .badge.partial { background: #fef3c7; color: #92400e; }
+
+        .status-card .progress-wrap {
+            margin-top: 10px;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .status-card .progress-wrap .fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.6s ease;
+        }
+        .fill.green { background: #22c55e; }
+        .fill.orange { background: #f59e0b; }
+        .fill.red { background: #ef4444; }
+        .status-card .extra-info { font-size: 12px; color: #64748b; margin-top: 6px; text-align: left; font-weight: 500; }
+
+        .send-section {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 24px;
+            border: 2px solid #e2e8f0;
+            margin-bottom: 10px;
+        }
+        .send-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+        .send-row select {
+            padding: 16px 24px;
+            border-radius: 16px;
+            border: 2px solid #cbd5e1;
+            background: #ffffff;
+            font-family: 'Cairo', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            cursor: pointer;
+            min-width: 220px;
+            flex: 1;
+            outline: none;
+            transition: 0.3s;
+        }
+        .send-row select:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+        }
+
+        .btn-send {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #ffffff;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 16px;
+            font-size: 26px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Cairo', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
+            flex: 2;
+            min-width: 200px;
+            letter-spacing: 0.5px;
+        }
+        .btn-send:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 50px rgba(16, 185, 129, 0.45);
+            background: linear-gradient(135deg, #047857, #059669);
+        }
+        .btn-send i { font-size: 30px; }
+
+        .status-msg {
+            padding: 14px 18px;
+            border-radius: 14px;
+            font-weight: 700;
+            display: none;
+            text-align: center;
+            font-size: 15px;
+            margin-top: 14px;
+        }
+        .status-msg.success { background: #dcfce7; color: #166534; border: 1px solid #22c55e; display: block; }
+        .status-msg.error { background: #fee2e2; color: #991b1b; border: 1px solid #ef4444; display: block; }
+        .status-msg.warning { background: #fef3c7; color: #92400e; border: 1px solid #f59e0b; display: block; }
+        .status-msg.info { background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6; display: block; }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #0f172a;
+            border: 2px solid #e2e8f0;
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Cairo', sans-serif;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .btn-secondary:hover { background: #e2e8f0; transform: translateY(-2px); }
+
+        .data-box {
+            background: #f8fafc;
+            border: 2px dashed #94a3b8;
+            border-radius: 16px;
+            padding: 18px;
+            max-height: 350px;
+            overflow: auto;
+            display: none;
+            direction: ltr;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #0f172a;
+            margin-top: 10px;
+        }
+        .data-box pre { white-space: pre-wrap; word-wrap: break-word; font-family: 'Cairo', sans-serif; margin: 0; }
+
+        .data-explanation {
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            border: 1px solid #e2e8f0;
+        }
+        .data-explanation h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .data-explanation h3 i { color: #14b8a6; }
+        .data-explanation .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .data-explanation .item {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .data-explanation .item .label { font-weight: 700; color: #0f172a; font-size: 14px; }
+        .data-explanation .item .desc { font-size: 13px; color: #475569; margin-top: 4px; line-height: 1.6; }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .nav-buttons button {
+            padding: 10px 28px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-buttons .btn-prev { background: #e2e8f0; color: #1e293b; }
+        .nav-buttons .btn-prev:hover { background: #cbd5e1; }
+        .nav-buttons .btn-next { background: #14b8a6; color: #fff; box-shadow: 0 4px 16px rgba(20,184,166,0.25); }
+        .nav-buttons .btn-next:hover { background: #0d9488; }
+        .nav-buttons .page-indicator { font-size: 14px; font-weight: 600; color: #64748b; }
+        .nav-buttons .page-indicator span { color: #14b8a6; font-weight: 800; }
+
+        @media (max-width: 768px) {
+            .container { padding: 24px 16px; }
+            .status-grid { grid-template-columns: 1fr; }
+            .data-explanation .grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 24px; }
+            .send-row { flex-direction: column; }
+            .send-row select { width: 100%; font-size: 16px; padding: 14px; }
+            .btn-send { width: 100%; font-size: 20px; padding: 16px; }
+        }
+        @media (max-width: 480px) {
+            .header .icon { width: 70px; height: 70px; font-size: 48px; }
+            .btn-send { font-size: 18px; padding: 14px; }
+            .btn-send i { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+        <div class="icon"><i class="fas fa-check-double"></i></div>
+        <h1>تقديم بيانات الاستبيان</h1>
+        <p>راجع حالة الأجزاء، اختر نمط الإرسال، ثم أرسل بياناتك</p>
+    </div>
+
+    <div class="expert-id-box">
+        <i class="fas fa-id-card"></i>
+        معرف الخبير: <span id="expertIDDisplay">...</span>
+    </div>
+
+    <div class="status-grid" id="statusGrid"></div>
+
+    <div class="send-section">
+        <div class="send-row">
+            <select id="sendMode">
+                <option value="full">✅ إرسال كامل (موصى به - بيانات كاملة)</option>
+                <option value="partial">⚠️ إرسال جزئي (تجاوز النقص - للخبراء)</option>
+                <option value="force">🚨 إرسال إجباري (تجاهل كل التحذيرات)</option>
+            </select>
+            <button class="btn-send" onclick="sendData()">
+                <i class="fas fa-paper-plane"></i>
+                إرسال إلى جوجل شيت
+            </button>
+        </div>
+        <div id="statusMsg" class="status-msg"></div>
+    </div>
+
+    <button class="btn-secondary" onclick="prepareAndShow()">
+        <i class="fas fa-file-alt"></i> عرض البيانات يدوياً (نسخ احتياطي)
+    </button>
+    <div class="data-box" id="dataBox">
+        <pre id="dataContent"></pre>
+    </div>
+
+    <div class="data-explanation">
+        <h3><i class="fas fa-info-circle"></i> ماذا ترسل هذه البيانات؟</h3>
+        <div class="grid">
+            <div class="item"><div class="label">👤 بيانات الخبير</div><div class="desc">سنوات الخبرة، التخصص، المسمى، جهة العمل.</div></div>
+            <div class="item"><div class="label">🧠 توصيف الخبرة (K1–K17)</div><div class="desc">درجات المعرفة (1–5) — لفلترة المؤهلين.</div></div>
+            <div class="item"><div class="label">⚖️ الاستبيان الأول (AHP)</div><div class="desc">6 مقارنات زوجية — للأوزان ونسبة الاتساق.</div></div>
+            <div class="item"><div class="label">📊 الاستبيان الثاني (عددي)</div><div class="desc">39 تكنولوجيا × 20 معيار (1–5) — مصفوفة الأداء.</div></div>
+            <div class="item"><div class="label">🌍 الاستبيان الثالث (سياقي)</div><div class="desc">39 تكنولوجيا × 15 معيار (1–5) — Cf, Af, Ip.</div></div>
+            <div class="item"><div class="label">🏗️ الاستبيان الرابع (قطاعي)</div><div class="desc">6 قطاعات × 4 أبعاد — الأوزان القطاعية.</div></div>
+        </div>
+        <p style="font-size: 13px; color: #64748b; margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 12px;">
+            <i class="fas fa-database" style="color: #14b8a6;"></i>
+            جميع البيانات تُرسل بصيغة JSON طويلة (Long Format) جاهزة للتحليل الإحصائي المباشر.
+        </p>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="btn-prev" onclick="goToPage('الاستبيان الرابع.html')"><i class="fas fa-arrow-right"></i> السابق</button>
+        <span class="page-indicator">الجزء <span>10</span> من <span>10</span></span>
+        <button class="btn-next" onclick="goToPage('صفحة البداية.html')">الرئيسية <i class="fas fa-arrow-left"></i></button>
+    </div>
+
+</div>
+
+<script>
+    // ================================================================
+    // ✅ الرابط الجديد بتاعك (حطيتوه)
+    // ================================================================
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF0jboT5itIhVxXPzOdiQaBrubn7LmCof1nvqaSnrfHekyOBE936K1vtRvNmEJeiT7Vg/exec';
+
+    function goToPage(page) { window.location.href = page; }
+    function getExpertID() { return localStorage.getItem('expertID') || 'غير معروف'; }
+
+    function safeParse(key, def = {}) {
+        try { const d = localStorage.getItem(key); return d ? JSON.parse(d) : def; } catch(e) { return def; }
+    }
+
+    // ================================================================
+    // تحويل البيانات إلى تنسيق طويل (Long Format)
+    // ================================================================
+    function convertToLongFormat() {
+        const expertID = getExpertID();
+        const allData = safeParse('surveyData', {});
+        const expertData = allData[expertID] || {};
+        const ahpData = safeParse('ahp_pairwise', {});
+        const numData = safeParse('ce_mcdm_scores', {});
+        const ctxData = safeParse('ce_mcdm_contextual', {});
+
+        const result = {
+            expert_info: expertData['expert_info'] || {},
+            knowledge: expertData['knowledge'] || {},
+            ahp_comparisons: [],
+            numerical_scores: [],
+            contextual_scores: [],
+            sector_weights: []
+        };
+
+        // --- 1. AHP ---
+        const pairs = [
+            { id: 'ec-vs-en', left: 'EN', right: 'EC' },
+            { id: 'ec-vs-so', left: 'SO', right: 'EC' },
+            { id: 'ec-vs-tc', left: 'TC', right: 'EC' },
+            { id: 'en-vs-tc', left: 'TC', right: 'EN' },
+            { id: 'en-vs-so', left: 'SO', right: 'EN' },
+            { id: 'so-vs-tc', left: 'TC', right: 'SO' }
+        ];
+        pairs.forEach(p => {
+            const val = ahpData[p.id];
+            if (val !== undefined && val !== null && val !== '') {
+                let value = parseInt(val);
+                let displayVal, direction;
+                if (value === 0) { displayVal = 1; direction = 'equal'; }
+                else if (value < 0) { displayVal = Math.abs(value) + 1; direction = 'left'; }
+                else { displayVal = value + 1; direction = 'right'; }
+                result.ahp_comparisons.push({
+                    expertID: expertID,
+                    comparison_id: p.id,
+                    left_criterion: p.left,
+                    right_criterion: p.right,
+                    raw_value: val,
+                    display_value: displayVal,
+                    direction: direction
+                });
+            }
+        });
+
+        // --- 2. Numerical scores (استبيان 2) ---
+        const criteriaNum = ['EC1','EC2','EC3','EC4','EC5',
+                            'TC1','TC2','TC3','TC4','TC5',
+                            'EN1','EN2','EN3','EN4','EN5',
+                            'SO1','SO2','SO3','SO4','SO5'];
+        for (const [key, score] of Object.entries(numData)) {
+            const parts = key.split('_');
+            if (parts.length === 2) {
+                const tech = parts[0];
+                const idx = parseInt(parts[1]);
+                if (!isNaN(idx) && idx >= 0 && idx < criteriaNum.length) {
+                    result.numerical_scores.push({
+                        expertID: expertID,
+                        technology: tech,
+                        criteria: criteriaNum[idx],
+                        score: score
+                    });
+                }
+            }
+        }
+
+        // --- 3. Contextual scores (استبيان 3) ---
+        const criteriaCtx = ['CF1','CF2','CF3','CF4','CF5',
+                            'AF1','AF2','AF3','AF4','AF5',
+                            'IP1','IP2','IP3','IP4','IP5'];
+        for (const [key, score] of Object.entries(ctxData)) {
+            const parts = key.split('_');
+            if (parts.length === 2) {
+                const tech = parts[0];
+                const idx = parseInt(parts[1]);
+                if (!isNaN(idx) && idx >= 0 && idx < criteriaCtx.length) {
+                    result.contextual_scores.push({
+                        expertID: expertID,
+                        technology: tech,
+                        criteria: criteriaCtx[idx],
+                        score: score
+                    });
+                }
+            }
+        }
+
+        // --- 4. Sector weights (استبيان 4) ---
+        const sectorNames = {
+            1: 'المباني السكنية (الإسكان الاجتماعي والمتوسط)',
+            2: 'المباني الصحية (المستشفيات والمنشآت الطبية)',
+            3: 'المباني التعليمية (المدارس والجامعات)',
+            4: 'المباني التجارية والإدارية',
+            5: 'مشروعات البنية التحتية والمرافق العامة',
+            6: 'المشروعات القومية الكبرى'
+        };
+        const sectorData = expertData['sector'] || {};
+        for (let i = 1; i <= 6; i++) {
+            const s = sectorData[`sector_${i}`] || {};
+            if (s.EC !== undefined && s.TC !== undefined && s.EN !== undefined && s.SO !== undefined) {
+                result.sector_weights.push({
+                    expertID: expertID,
+                    sector_id: i,
+                    sector_name: sectorNames[i],
+                    EC: parseInt(s.EC) || 0,
+                    TC: parseInt(s.TC) || 0,
+                    EN: parseInt(s.EN) || 0,
+                    SO: parseInt(s.SO) || 0
+                });
+            }
+        }
+
+        return result;
+    }
+
+    // ================================================================
+    // حساب الاكتمال
+    // ================================================================
+    function getCompletionStatus() {
+        const expertID = getExpertID();
+        const allData = safeParse('surveyData', {});
+        const expertData = allData[expertID] || {};
+
+        const info = expertData['expert_info'] || {};
+        const expertComplete = !!(info.years && info.specialty && info.job && info.work);
+
+        const knowledge = expertData['knowledge'] || {};
+        let knowledgeFilled = 0;
+        for (let i = 1; i <= 17; i++) {
+            if (knowledge[`K${i}`] && knowledge[`K${i}`] >= 1) knowledgeFilled++;
+        }
+        const knowledgeComplete = (knowledgeFilled === 17);
+
+        const ahpData = safeParse('ahp_pairwise', {});
+        const ahpKeys = ['ec-vs-en', 'ec-vs-so', 'ec-vs-tc', 'en-vs-tc', 'en-vs-so', 'so-vs-tc'];
+        let ahpFilled = 0;
+        ahpKeys.forEach(key => {
+            if (ahpData[key] !== undefined && ahpData[key] !== null && ahpData[key] !== '') ahpFilled++;
+        });
+        const ahpComplete = (ahpFilled === 6);
+
+        const numData = safeParse('ce_mcdm_scores', {});
+        const numFilled = Object.keys(numData).length;
+        const numComplete = (numFilled >= 780 * 0.8);
+
+        const ctxData = safeParse('ce_mcdm_contextual', {});
+        const ctxFilled = Object.keys(ctxData).length;
+        const ctxComplete = (ctxFilled >= 585 * 0.8);
+
+        const sectorData = expertData['sector'] || {};
+        let sectorFilled = 0;
+        for (let i = 1; i <= 6; i++) {
+            const s = sectorData[`sector_${i}`] || {};
+            if (s.EC && s.TC && s.EN && s.SO) sectorFilled++;
+        }
+        const sectorComplete = (sectorFilled === 6);
+
+        return {
+            expert: expertComplete,
+            knowledge: knowledgeComplete,
+            ahp: ahpComplete,
+            numerical: numComplete,
+            contextual: ctxComplete,
+            sector: sectorComplete,
+            details: {
+                knowledge: { filled: knowledgeFilled, total: 17 },
+                ahp: { filled: ahpFilled, total: 6 },
+                numerical: { filled: numFilled, total: 780 },
+                contextual: { filled: ctxFilled, total: 585 },
+                sector: { filled: sectorFilled, total: 6 }
+            }
+        };
+    }
+
+    // ================================================================
+    // عرض بطاقات الحالة
+    // ================================================================
+    function renderStatus() {
+        const status = getCompletionStatus();
+        const grid = document.getElementById('statusGrid');
+        const parts = [
+            { key: 'expert', label: 'بيانات الخبير', sub: 'التعريف المهني', icon: '👤', mandatory: true },
+            { key: 'knowledge', label: 'توصيف الخبرة', sub: 'المفاهيم المعرفية K1–K17', icon: '🧠', mandatory: true },
+            { key: 'ahp', label: 'الاستبيان الأول', sub: 'AHP · المقارنات الزوجية', icon: '⚖️', mandatory: true },
+            { key: 'numerical', label: 'الاستبيان الثاني', sub: 'التقييم العددي (780 خانة)', icon: '📊', mandatory: false, requiredPct: 80 },
+            { key: 'contextual', label: 'الاستبيان الثالث', sub: 'العوامل السياقية (585 خانة)', icon: '🌍', mandatory: false, requiredPct: 80 },
+            { key: 'sector', label: 'الاستبيان الرابع', sub: 'الأوزان القطاعية (6 قطاعات)', icon: '🏗️', mandatory: true }
+        ];
+
+        let html = '';
+        parts.forEach((p, idx) => {
+            const isComplete = status[p.key];
+            const details = status.details[p.key];
+            let pct = 0;
+            let filledText = '';
+
+            if (p.key === 'expert' || p.key === 'sector') {
+                pct = isComplete ? 100 : 0;
+                filledText = isComplete ? '✅ مكتمل' : '❌ غير مكتمل';
+            } else if (p.key === 'knowledge' || p.key === 'ahp') {
+                if (details) {
+                    pct = Math.round((details.filled / details.total) * 100);
+                    filledText = `${details.filled} / ${details.total}`;
+                }
+            } else if (p.key === 'numerical' || p.key === 'contextual') {
+                if (details) {
+                    pct = Math.round((details.filled / details.total) * 100);
+                    filledText = `${details.filled} / ${details.total} (${pct}%)`;
+                }
+            }
+
+            let cardClass = 'incomplete';
+            let badgeClass = 'incomplete';
+            let badgeText = '❌ غير مكتمل';
+            let fillColor = 'red';
+
+            if (p.mandatory) {
+                if (isComplete) {
+                    cardClass = 'complete';
+                    badgeClass = 'complete';
+                    badgeText = '✅ مكتمل 100%';
+                    fillColor = 'green';
+                } else {
+                    cardClass = 'incomplete';
+                    badgeClass = 'incomplete';
+                    badgeText = `❌ ${pct}%`;
+                    fillColor = 'red';
+                }
+            } else {
+                if (isComplete) {
+                    cardClass = 'complete';
+                    badgeClass = 'complete';
+                    badgeText = `✅ مكتمل ${pct}%`;
+                    fillColor = 'green';
+                } else if (pct > 0) {
+                    cardClass = 'partial';
+                    badgeClass = 'partial';
+                    badgeText = `⚠️ ${pct}% (يحتاج ${p.requiredPct}%)`;
+                    fillColor = 'orange';
+                } else {
+                    cardClass = 'incomplete';
+                    badgeClass = 'incomplete';
+                    badgeText = `❌ 0%`;
+                    fillColor = 'red';
+                }
+            }
+
+            html += `
+                <div class="status-card ${cardClass}">
+                    <div class="top-row">
+                        <div class="info">
+                            <span class="num">${idx + 1}</span>
+                            <div class="title">
+                                ${p.icon} ${p.label}
+                                <small>${p.sub}</small>
+                            </div>
+                        </div>
+                        <span class="badge ${badgeClass}">${badgeText}</span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="fill ${fillColor}" style="width: ${pct}%;"></div>
+                    </div>
+                    <div class="extra-info">${filledText}</div>
+                </div>
+            `;
+        });
+
+        grid.innerHTML = html;
+    }
+
+    // ================================================================
+    // الإرسال (مع التنسيق الطويل)
+    // ================================================================
+    async function sendData() {
+        const status = getCompletionStatus();
+        const mode = document.getElementById('sendMode').value;
+        const statusMsg = document.getElementById('statusMsg');
+        statusMsg.className = 'status-msg';
+        statusMsg.style.display = 'none';
+
+        const mandatoryReady = status.expert && status.knowledge && status.ahp && status.sector;
+        const optionalReady = status.numerical && status.contextual;
+        const allReady = mandatoryReady && optionalReady;
+
+        if (mode === 'full' && !allReady) {
+            let missing = [];
+            if (!status.expert) missing.push('بيانات الخبير');
+            if (!status.knowledge) missing.push('توصيف الخبرة');
+            if (!status.ahp) missing.push('الاستبيان الأول (AHP)');
+            if (!status.numerical) missing.push('الاستبيان الثاني (80%)');
+            if (!status.contextual) missing.push('الاستبيان الثالث (80%)');
+            if (!status.sector) missing.push('الاستبيان الرابع (قطاعي)');
+            statusMsg.className = 'status-msg warning';
+            statusMsg.style.display = 'block';
+            statusMsg.innerHTML = `⚠️ البيانات غير كاملة للإرسال الكامل. الأجزاء الناقصة: <strong>${missing.join('، ')}</strong>. اختر "إرسال جزئي" أو "إرسال إجباري" لتجاوز هذا التحذير.`;
+            return;
+        }
+
+        if (mode === 'partial' && !mandatoryReady) {
+            let missing = [];
+            if (!status.expert) missing.push('بيانات الخبير');
+            if (!status.knowledge) missing.push('توصيف الخبرة');
+            if (!status.ahp) missing.push('الاستبيان الأول (AHP)');
+            if (!status.sector) missing.push('الاستبيان الرابع (قطاعي)');
+            statusMsg.className = 'status-msg error';
+            statusMsg.style.display = 'block';
+            statusMsg.innerHTML = `❌ الأجزاء الإلزامية (100%) غير مكتملة: <strong>${missing.join('، ')}</strong>. لا يمكن الإرسال الجزئي إلا بعد إكمالها. استخدم "إرسال إجباري" لتجاوز هذا المنع.`;
+            return;
+        }
+
+        // ---- تجميع البيانات بالتنسيق الطويل ----
+        const longData = convertToLongFormat();
+        const payload = {
+            expertID: getExpertID(),
+            timestamp: new Date().toISOString(),
+            data_format: 'long',
+            send_mode: mode,
+            is_complete: allReady,
+            ...longData
+        };
+
+        statusMsg.className = 'status-msg info';
+        statusMsg.style.display = 'block';
+        statusMsg.innerHTML = `⏳ جاري الإرسال (النمط: ${mode === 'full' ? 'كامل' : mode === 'partial' ? 'جزئي' : 'إجباري'})...`;
+
+        try {
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            statusMsg.className = 'status-msg success';
+            statusMsg.innerHTML = `✅ تم الإرسال بنجاح إلى جوجل شيت! (النمط: ${mode}) سيتم تحميل نسخة احتياطية.`;
+            downloadJSON(payload);
+
+        } catch (error) {
+            statusMsg.className = 'status-msg error';
+            statusMsg.innerHTML = '❌ فشل الإرسال التلقائي. استخدم زر "عرض البيانات يدوياً".';
+            prepareAndShow();
+        }
+    }
+
+    // ================================================================
+    // عرض البيانات يدوياً (بالتنسيق الطويل)
+    // ================================================================
+    function prepareAndShow() {
+        const longData = convertToLongFormat();
+        const payload = {
+            expertID: getExpertID(),
+            timestamp: new Date().toISOString(),
+            data_format: 'long',
+            ...longData
+        };
+        document.getElementById('dataContent').textContent = JSON.stringify(payload, null, 2);
+        document.getElementById('dataBox').style.display = 'block';
+        document.getElementById('dataBox').scrollIntoView({ behavior: 'smooth' });
+        downloadJSON(payload);
+    }
+
+    function downloadJSON(data) {
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `survey_${data.expertID}_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // ================================================================
+    // تشغيل الصفحة
+    // ================================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('expertIDDisplay').textContent = getExpertID();
+        renderStatus();
+        setInterval(renderStatus, 5000);
+    });
+</script>
+
+</body>
+</html>

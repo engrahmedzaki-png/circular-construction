@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المفاهيم الأساسية - إطار مرجعي لتوحيد الرؤى والمصطلحات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container { max-width: 1100px; width: 100%; margin: 0 auto; }
+
+        /* ===== شريط التنقل ===== */
+        nav {
+            background: #123050;
+            padding: 14px 30px;
+            border-bottom: 4px solid #14b8a6;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(20, 184, 166, 0.08);
+        }
+        nav .brand {
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        nav .brand i { color: #14b8a6; margin-left: 8px; }
+        nav .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            align-items: center;
+        }
+        nav .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            color: #ffffff;
+        }
+        nav .nav-links a:hover {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.08);
+        }
+        nav .nav-links .active {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.12);
+            border: 1px solid rgba(20,184,166,0.15);
+        }
+        nav .nav-links .sep {
+            color: rgba(255,255,255,0.1);
+            font-weight: 300;
+        }
+        nav .nav-links .hint {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.1);
+            margin-right: 6px;
+        }
+
+        /* ===== الهيدر ===== */
+        .hero {
+            background: linear-gradient(160deg, #0a1620, #0f2847, #0a1620);
+            background-size: 300% 300%;
+            animation: gradientMove 12s ease-in-out infinite;
+            padding: 50px 30px 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #c0392b;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .hero .icon-badge {
+            width: 80px;
+            height: 80px;
+            background: rgba(253,203,110,0.12);
+            border: 3px solid rgba(253,203,110,0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 36px;
+            color: #fdcb6e;
+        }
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 900;
+            color: #fdcb6e;
+        }
+        .hero .sub {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
+        }
+
+        /* ===== الأقسام ===== */
+        .section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px 35px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            border: 1px solid #e8edf2;
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0a2a3a;
+            border-bottom: 3px solid #fdcb6e;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section h2 i { color: #2a9d8f; }
+        .section p {
+            font-size: 16px;
+            color: #1a2a3a;
+            line-height: 2;
+        }
+
+        /* ===== الانفوجرافيكات ===== */
+        .infographic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin: 25px 0 20px;
+        }
+        .info-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: 0.4s;
+            border-bottom: 4px solid #2a9d8f;
+            border: 1px solid #e8edf2;
+        }
+        .info-card:hover { transform: translateY(-6px); box-shadow: 0 8px 35px rgba(0,0,0,0.1); }
+        .info-card .icon { font-size: 40px; display: block; margin-bottom: 4px; }
+        .info-card h4 { font-size: 16px; font-weight: 800; color: #0a2a3a; }
+        .info-card p { font-size: 13px; color: #5a6a7a; line-height: 1.6; }
+        .info-card .tag {
+            display: inline-block;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+        .tag-green { background: #e0f5f0; color: #2a9d8f; }
+        .tag-red { background: #fde8e8; color: #e74c3c; }
+        .tag-gold { background: #fef8e0; color: #b7950b; }
+        .tag-blue { background: #e8f0fe; color: #1a5a8c; }
+        .info-card.circular { border-bottom-color: #2a9d8f; }
+        .info-card.linear { border-bottom-color: #e74c3c; }
+        .info-card.resources { border-bottom-color: #fdcb6e; }
+        .info-card.impact { border-bottom-color: #1a5a8c; }
+
+        /* ===== المفاهيم القابلة للطي ===== */
+        .concept-item {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            border-right: 4px solid #2a9d8f;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #e8edf2;
+        }
+        .concept-item:hover { background: #f1f5f9; }
+        .concept-item .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .concept-item .header-row .left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .concept-item .header-row .left .arrow {
+            font-size: 18px;
+            color: #2a9d8f;
+            transition: 0.3s;
+        }
+        .concept-item .header-row .left .arrow.open { transform: rotate(90deg); }
+        .concept-item .header-row h4 {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0a2a3a;
+            margin: 0;
+        }
+        .concept-item .header-row .hint {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        .concept-item .concept-detail {
+            display: none;
+            padding-top: 10px;
+            margin-top: 10px;
+            border-top: 1px solid #e8edf2;
+            font-size: 14px;
+            color: #3a4a5a;
+            line-height: 1.9;
+        }
+        .concept-item .concept-detail.open { display: block; }
+        .concept-item .concept-detail strong { color: #0a2a3a; }
+        .concept-item .concept-detail ul {
+            padding-right: 20px;
+            margin: 4px 0;
+        }
+
+        /* ===== بطاقات التكنولوجيا ===== */
+        .tech-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+        .tech-card {
+            border-radius: 12px;
+            padding: 18px 14px;
+            text-align: center;
+            border: 1px solid #d0e8e0;
+            transition: 0.3s;
+            background: #f8fafc;
+        }
+        .tech-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+        .tech-card .icon { font-size: 36px; margin-bottom: 4px; }
+        .tech-card .title { font-weight: 900; font-size: 17px; color: #0a2a3a; }
+        .tech-card .sub { font-size: 14px; color: #3a5a6a; font-weight: 600; }
+        .tech-card.c1 { background: #f0f8f6; border-color: #d0e8e0; }
+        .tech-card.c2 { background: #f0f4fa; border-color: #d0dce8; }
+        .tech-card.c3 { background: #f4f0fa; border-color: #e0d4ec; }
+        .tech-card.c4 { background: #f8f4ee; border-color: #e8dccc; }
+        .tech-card.c5 { background: #faf2f0; border-color: #ecd4d0; }
+
+        /* ===== الجدول المرجعي ===== */
+        .tech-table-wrapper {
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid #e9edf2;
+        }
+        .tech-table-wrapper table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 400px;
+        }
+        .tech-table-wrapper th {
+            background: #f1f5f9;
+            padding: 12px 14px;
+            text-align: center;
+            font-weight: 800;
+            color: #0f2a3f;
+            border-bottom: 2px solid #dce2e8;
+        }
+        .tech-table-wrapper td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #eef2f6;
+            text-align: center;
+        }
+        .tech-table-wrapper td:first-child { font-weight: 700; color: #0f2a3f; }
+        .status-baseline {
+            color: #1a5a3a;
+            background: #e6f2ea;
+            padding: 2px 14px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        .status-candidate {
+            color: #a16207;
+            background: #fef3c7;
+            padding: 2px 14px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        /* ===== التنبيهات ===== */
+        .alert-box {
+            background: #fef8e0;
+            border-right: 4px solid #e67e22;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+        .alert-box .note-icon {
+            font-weight: 700;
+            font-size: 15px;
+            color: #b7950b;
+            margin-bottom: 6px;
+        }
+        .alert-box .warning-text {
+            font-weight: 700;
+            font-size: 14px;
+            color: #c0392b;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .alert-box .warning-text i {
+            font-size: 18px;
+            margin-top: 2px;
+            color: #e67e22;
+        }
+
+        /* ===== الجلسات ===== */
+        .sessions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .session-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 14px 12px;
+            text-align: center;
+            border: 1px solid #e8edf2;
+            transition: 0.3s;
+        }
+        .session-box:hover { background: #e8f5f0; border-color: #2a9d8f; }
+        .session-box .num {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: #2a9d8f;
+            color: white;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 13px;
+            line-height: 28px;
+        }
+        .session-box h5 { font-size: 14px; margin: 4px 0; }
+
+        /* ===== الموسوعة ===== */
+        .encyclopedia-section {
+            background: linear-gradient(135deg, #0d2b3e, #1a4a5a);
+            border-radius: 18px;
+            padding: 30px 35px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .encyclopedia-section .main-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            color: #fdcb6e;
+            font-size: 22px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: 0.3s;
+            padding: 10px 28px;
+            border: 2px solid rgba(253, 203, 110, 0.2);
+            border-radius: 60px;
+        }
+        .encyclopedia-section .main-link:hover {
+            background: rgba(253, 203, 110, 0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .encyclopedia-section .main-link i { font-size: 28px; }
+        .encyclopedia-section .credit {
+            color: rgba(255,255,255,0.5);
+            font-size: 15px;
+            margin-top: 14px;
+            line-height: 2;
+        }
+        .encyclopedia-section .credit strong {
+            color: rgba(253,203,110,0.7);
+            font-weight: 700;
+        }
+
+        /* ===== أزرار التنقل ===== */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 2px solid #e8edf2;
+        }
+        .nav-buttons button {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-buttons .btn-prev {
+            background: #e8edf2;
+            color: #3a5a6a;
+        }
+        .nav-buttons .btn-prev:hover {
+            background: #d8dce0;
+            transform: translateX(-3px);
+        }
+        .nav-buttons .btn-next {
+            background: #14b8a6;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(20,184,166,0.25);
+        }
+        .nav-buttons .btn-next:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(20,184,166,0.35);
+        }
+        .nav-buttons .page-indicator {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5a6a7a;
+        }
+        .nav-buttons .page-indicator span {
+            color: #14b8a6;
+            font-weight: 800;
+        }
+
+        /* ===== التجاوب ===== */
+        @media (max-width: 992px) {
+            nav .nav-links a { font-size: 0.7rem; padding: 4px 8px; }
+            nav .nav-links { gap: 4px 8px; }
+        }
+        @media (max-width: 768px) {
+            nav { flex-direction: column; align-items: stretch; padding: 12px 16px; }
+            nav .nav-links { justify-content: center; }
+            nav .nav-links a { font-size: 0.65rem; padding: 4px 6px; }
+            nav .nav-links .sep { display: none; }
+            .section { padding: 20px; }
+            .hero h1 { font-size: 28px; }
+            .hero .icon-badge { width: 60px; height: 60px; font-size: 28px; }
+            .infographic-grid { grid-template-columns: 1fr 1fr; }
+            .tech-cards { grid-template-columns: 1fr 1fr; }
+            .nav-buttons { flex-wrap: wrap; justify-content: center; }
+            .nav-buttons button { padding: 10px 20px; font-size: 14px; }
+            .encyclopedia-section .main-link { font-size: 16px; padding: 8px 16px; }
+            .encyclopedia-section .main-link i { font-size: 20px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 22px; }
+            .hero .icon-badge { width: 50px; height: 50px; font-size: 22px; }
+            nav .brand { font-size: 0.9rem; }
+            nav .nav-links a { font-size: 0.55rem; padding: 2px 4px; }
+            nav .nav-links a i { display: none; }
+            .infographic-grid { grid-template-columns: 1fr; }
+            .tech-cards { grid-template-columns: 1fr; }
+            .section { padding: 16px; }
+            .concept-item { padding: 10px 14px; }
+            .concept-item .header-row h4 { font-size: 14px; }
+            .tech-table-wrapper table { font-size: 12px; min-width: 300px; }
+            .encyclopedia-section { padding: 20px; }
+            .encyclopedia-section .main-link { font-size: 14px; padding: 6px 12px; }
+            .encyclopedia-section .credit { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== شريط التنقل ===== -->
+        <nav>
+            <div class="brand"><i class="fas fa-infinity"></i> استطلاع رأي الخبراء</div>
+            <div class="nav-links">
+                <a href="كلمة الي المشارك.html"><i class="fas fa-flag"></i> المشارك</a>
+                <span class="sep">|</span>
+                <a href="بيانات الخبير.html"><i class="fas fa-user-graduate"></i> بيانات الخبير</a>
+                <span class="sep">|</span>
+                <a href="توصيف الخبرة المعرفية.html"><i class="fas fa-brain"></i> توصيف الخبرة</a>
+                <span class="sep">|</span>
+                <a href="#" class="active"><i class="fas fa-book-open"></i> المفاهيم الأساسية</a>
+                <span class="sep">|</span>
+                <a href="مبررات تطوير أداة التقييم.html"><i class="fas fa-rocket"></i> المبررات</a>
+                <span class="sep">|</span>
+                <a href="دليل بطاقات المعلومات الموحدة.html"><i class="fas fa-id-card"></i> البطاقات</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الأول.html"><i class="fas fa-balance-scale"></i> است1</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثاني.html"><i class="fas fa-table"></i> است2</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثالث.html"><i class="fas fa-globe"></i> است3</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الرابع.html"><i class="fas fa-weight-scale"></i> است4</a>
+                <span class="sep">|</span>
+                <a href="صفحة التقديم.html"><i class="fas fa-check-circle"></i> تقديم</a>
+                <span class="hint"><i class="fas fa-sync-alt"></i> حفظ تلقائي</span>
+            </div>
+        </nav>
+
+        <!-- ===== الهيدر ===== -->
+        <div class="hero">
+            <div class="hero-content">
+                <div class="icon-badge"><i class="fas fa-book-open"></i></div>
+                <h1>المفاهيم الأساسية</h1>
+                <div class="sub">الجزء الثالث من رحلة التقييم</div>
+            </div>
+        </div>
+
+        <!-- ===== الانفوجرافيكات ===== -->
+        <div class="section">
+            <div class="infographic-grid">
+                <div class="info-card circular">
+                    <span class="icon">🔄</span>
+                    <h4>الاقتصاد الدائري</h4>
+                    <p>نظام يُبقي المواد في دورة استخدام مستمرة، يقضي على النفايات ويجدد الطبيعة</p>
+                    <span class="tag tag-green">♻️ دائرية</span>
+                </div>
+                <div class="info-card linear">
+                    <span class="icon">➡️</span>
+                    <h4>الاقتصاد الخطي</h4>
+                    <p>استخراج ← تصنيع ← استخدام ← تخلص .. نموذج يستنزف الموارد</p>
+                    <span class="tag tag-red">⚠️ استنزاف</span>
+                </div>
+                <div class="info-card resources">
+                    <span class="icon">🌍</span>
+                    <h4>الموارد الطبيعية</h4>
+                    <p>مواد خام، طاقة، مياه، أراضي .. تتناقص بسبب البناء التقليدي</p>
+                    <span class="tag tag-gold">📉 تناقص</span>
+                </div>
+                <div class="info-card impact">
+                    <span class="icon">🏗️</span>
+                    <h4>قطاع البناء في مصر</h4>
+                    <p>يستهلك أكثر من 40% من الموارد الوطنية، ويُنتج ~30 مليون طن مخلفات</p>
+                    <span class="tag tag-blue">📊 تحدٍ وطني</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== المفاهيم الأساسية ===== -->
+        <div class="section">
+            <h2><i class="fas fa-lightbulb"></i> المفاهيم الأساسية</h2>
+
+            <div class="concept-item" onclick="toggleConcept(this)">
+                <div class="header-row">
+                    <div class="left">
+                        <span class="arrow">▶</span>
+                        <h4>الاقتصاد الدائري</h4>
+                    </div>
+                    <span class="hint">اضغط للشرح</span>
+                </div>
+                <div class="concept-detail">
+                    <p><strong>التعريف:</strong> نظام اقتصادي يهدف إلى إعادة تشكيل أنماط الإنتاج والاستهلاك بما يحقق الاستخدام الأمثل للموارد ويحد من استنزافها. يقوم على الانتقال من الاقتصاد الخطي التقليدي إلى منظومة اقتصادية تسعى إلى إبقاء المواد والمنتجات والمكونات في دورة استخدام مستمرة لأطول فترة ممكنة.</p>
+                    <p><strong>المبادئ الأساسية:</strong></p>
+                    <ul>
+                        <li><strong>القضاء على النفايات والتلوث</strong> من خلال التصميم</li>
+                        <li><strong>إطالة عمر المنتجات والمواد</strong> وتعظيم الاستفادة منها</li>
+                        <li><strong>تجديد النظم البيئية والطبيعية</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="concept-item" onclick="toggleConcept(this)">
+                <div class="header-row">
+                    <div class="left">
+                        <span class="arrow">▶</span>
+                        <h4>الاقتصاد الخطي</h4>
+                    </div>
+                    <span class="hint">اضغط للشرح</span>
+                </div>
+                <div class="concept-detail">
+                    <p><strong>التعريف:</strong> النموذج الاقتصادي التقليدي القائم على مبدأ "استخراج–تصنيع–استخدام–تخلص" (Take-Make-Dispose). يعتمد على استنزاف الموارد الطبيعية لتصنيع منتجات تُستخدم لفترة محدودة ثم تُتخلص منها كنفايات.</p>
+                    <p><strong>الآثار السلبية:</strong></p>
+                    <ul>
+                        <li>استنزاف الموارد الطبيعية</li>
+                        <li>زيادة النفايات والتلوث</li>
+                        <li>ارتفاع الانبعاثات الكربونية</li>
+                        <li>فقدان القيمة الاقتصادية للمواد</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="concept-item" onclick="toggleConcept(this)">
+                <div class="header-row">
+                    <div class="left">
+                        <span class="arrow">▶</span>
+                        <h4>الموارد الطبيعية</h4>
+                    </div>
+                    <span class="hint">اضغط للشرح</span>
+                </div>
+                <div class="concept-detail">
+                    <p><strong>التعريف:</strong> الموارد الطبيعية هي كل ما توفره الطبيعة للإنسان من مواد وطاقة يمكن استخدامها في مختلف الأنشطة البشرية.</p>
+                    <p><strong>الموارد الأساسية في قطاع البناء:</strong></p>
+                    <ul>
+                        <li><strong>⛽ الطاقة:</strong> تستخدم في تشغيل معدات البناء وتصنيع المواد</li>
+                        <li><strong>💧 المياه:</strong> تستخدم في خلط الخرسانة والمعالجة</li>
+                        <li><strong>🌳 الأراضي:</strong> تستخدم للمشاريع الإنشائية</li>
+                        <li><strong>🪨 المواد الخام:</strong> كالأسمنت والحديد والزلط والرمل</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="concept-item" onclick="toggleConcept(this)">
+                <div class="header-row">
+                    <div class="left">
+                        <span class="arrow">▶</span>
+                        <h4>قطاع البناء في مصر</h4>
+                    </div>
+                    <span class="hint">اضغط للشرح</span>
+                </div>
+                <div class="concept-detail">
+                    <p><strong>التعريف:</strong> قطاع التشييد والبناء في مصر هو أحد الركائز الأساسية للاقتصاد الوطني، ويمثل قاطرة للنمو الاقتصادي والتوسع العمراني.</p>
+                    <p><strong>إحصائيات القطاع:</strong></p>
+                    <ul>
+                        <li><strong>يستهلك أكثر من 40%</strong> من الموارد الوطنية</li>
+                        <li><strong>يُنتج ~30 مليون طن</strong> من مخلفات الهدم والبناء سنوياً</li>
+                        <li><strong>يساهم بنسبة كبيرة</strong> من الانبعاثات الكربونية</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== التكنولوجيا كممكن تنفيذي ===== -->
+        <div class="section">
+            <h2><i class="fas fa-microchip"></i> التكنولوجيا كممكن تنفيذي للاقتصاد الدائري</h2>
+            <p style="font-size: 17px; line-height: 2; color: #1a2a3a;">
+                لا تُعد التكنولوجيات في هذه المنصة مجرد أدوات بناء، بل تمثل <strong>المُمكنات التنفيذية</strong> التي تحول مبادئ الاقتصاد الدائري إلى تطبيقات عملية داخل مشروعات التشييد. فمن خلالها يمكن تقليل الهدر، وتحسين كفاءة استخدام الموارد، وإطالة العمر التشغيلي للمباني، وتعزيز إعادة الاستخدام والتدوير.
+            </p>
+            <p style="font-size: 17px; line-height: 2; color: #1a2a3a; margin-top: 8px;">
+                ولتحليل دور هذه التكنولوجيات بصورة منهجية، تعتمد المنصة تصنيفًا وظيفيًا قائمًا على <strong>السؤال الذي تجيب عنه كل تكنولوجيا</strong> داخل دورة حياة المشروع:
+            </p>
+            <div class="tech-cards">
+                <div class="tech-card c1"><div class="icon">🏗️</div><div class="title">كيف نبني؟</div><div class="sub">التكنولوجيات الإنشائية</div></div>
+                <div class="tech-card c2"><div class="icon">🧱</div><div class="title">بماذا نبني؟</div><div class="sub">تكنولوجيات المواد</div></div>
+                <div class="tech-card c3"><div class="icon">💻</div><div class="title">كيف تُدار المعلومات؟</div><div class="sub">التكنولوجيات الرقمية</div></div>
+                <div class="tech-card c4"><div class="icon">⚡</div><div class="title">كيف يعمل المبنى؟</div><div class="sub">تكنولوجيات البيئة والطاقة</div></div>
+                <div class="tech-card c5"><div class="icon">🔄</div><div class="title">كيف تُدار القيمة؟</div><div class="sub">نماذج الأعمال وسلاسل التوريد</div></div>
+            </div>
+            <div class="highlight-box" style="margin-top: 18px; background: #e8f5f0; padding: 14px 18px; border-radius: 12px; border-right: 5px solid #2a9d8f;">
+                <strong>💡 الفكرة الرئيسية:</strong> يركز التصنيف على <strong>الوظيفة التي تؤديها التكنولوجيا</strong> في دعم الاقتصاد الدائري، وليس على طبيعتها التقنية فقط.
+            </div>
+        </div>
+
+        <!-- ===== القائمة المرجعية للتكنولوجيات ===== -->
+        <div class="section">
+            <div class="concept-item" onclick="toggleConcept(this)" style="border-right-color: #fdcb6e;">
+                <div class="header-row">
+                    <div class="left">
+                        <span class="arrow">▶</span>
+                        <h4 style="color: #b7950b;">📋 القائمة المرجعية للتكنولوجيات</h4>
+                    </div>
+                    <span class="hint">اضغط لعرض القائمة الكاملة</span>
+                </div>
+                <div class="concept-detail">
+                    <p style="font-size: 14px; color: #475569; margin-bottom: 12px;">تُستخدم هذه القائمة كمرجع سريع أثناء تقييم التكنولوجيات في الاستبيانات.</p>
+                    <div class="tech-table-wrapper">
+                        <table>
+                            <thead><tr><th>الرمز</th><th>التكنولوجيا</th><th>الحالة</th></tr></thead>
+                            <tbody>
+                                <tr><td>S0</td><td>الخرسانة المسلحة المصبوبة في الموقع</td><td><span class="status-baseline">خط أساس</span></td></tr>
+                                <tr><td>S1</td><td>الخرسانة مسبقة الصب</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>S2</td><td>هياكل الصلب الخفيف</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>S3</td><td>الوصلات الميكانيكية الجافة</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>S4</td><td>الطباعة الخرسانية ثلاثية الأبعاد</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>S5</td><td>الأنظمة الهجينة (فولاذ - خرسانة - خشب)</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>S6</td><td>البناء بالتربة المضغوطة</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>S7</td><td>الإنشاء النمطي الحجمي</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>S8</td><td>إعادة استخدام الهياكل الإنشائية الموجودة</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>S9</td><td>العقود والقباب الطينية النوبية</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>M0</td><td>حائط طوب أحمر + خرسانة تقليدية</td><td><span class="status-baseline">خط أساس</span></td></tr>
+                                <tr><td>M1</td><td>الألواح والمنتجات الخشبية الهندسية</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>M2</td><td>الركام المستخلص من مخلفات الهدم والبناء</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>M3</td><td>المواد الذكية ذاتية الالتئام</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>M4</td><td>خرسانة الجيوبوليمر</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>M5</td><td>إضافات النانو والمواد فائقة التطور</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>M6</td><td>الخرسانة المسلحة بالألياف المتطورة</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>M7</td><td>مواد العزل الحراري والصوتي الحيوية</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>M8</td><td>الطوب الأسمنتي المعزول مسبقاً</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>M9</td><td>الطوب الطيني المضغوط الميكانيكي (CSEB)</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>D0</td><td>الإدارة التقليدية والورقيات وملفات الكاد</td><td><span class="status-baseline">خط أساس</span></td></tr>
+                                <tr><td>D1</td><td>نمذجة معلومات البناء (BIM)</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>D2</td><td>تقنيات سلاسل الكتل</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>D3</td><td>جواز سفر المواد الرقمي</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>D4</td><td>أنظمة القياس والعدادات الذكية</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>D5</td><td>الذكاء الاصطناعي لتحسين استهلاك الموارد</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>E0</td><td>الربط الشبكي التقليدي للمبنى دون تدوير</td><td><span class="status-baseline">خط أساس</span></td></tr>
+                                <tr><td>E1</td><td>توربينات الرياح المدمجة للمباني</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>E2</td><td>محطات معالجة وإعادة استخدام المياه الرمادية</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>E3</td><td>أنظمة التهوية الطبيعية والتكييف الذكية</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>E4</td><td>الخلايا الشمسية الكهروضوئية المدمجة (BIPV)</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>E5</td><td>تكنولوجيا فرز ومعالجة مخلفات البناء في الموقع</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>E6</td><td>الأسطح الخضراء وأنظمة الجدران النباتية</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>B0</td><td>التوريد الخطي والتعاقدات التقليدية</td><td><span class="status-baseline">خط أساس</span></td></tr>
+                                <tr><td>B1</td><td>التأجير التمويلي للمكونات الهندسية</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>B2</td><td>المنصات الرقمية للتشارك في الموارد</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>B3</td><td>مفهوم التشييد كخدمة (CaaS)</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>B4</td><td>لوجستيات إدارة سلاسل الإمداد العكسية</td><td><span class="status-candidate">مرشح</span></td></tr>
+                                <tr><td>B5</td><td>التكافل الصناعي بين البناء والقطاعات المجاورة</td><td><span class="status-candidate">مرشح</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== لماذا هذا الاستبيان؟ ===== -->
+        <div class="section">
+            <h2><i class="fas fa-question-circle"></i> لماذا هذا الاستبيان؟</h2>
+            <p>تهدف هذه المنصة إلى تطوير إطار علمي متكامل لتقييم تكنولوجيات البناء الدائري في السياق المصري، من خلال جمع رؤى الخبراء المتخصصين وتحويلها إلى أوزان كمية باستخدام منهجية التحليل الهرمي (AHP).</p>
+            <div class="highlight-box" style="margin-top: 12px; background: #e8f5f0; padding: 14px 18px; border-radius: 12px; border-right: 5px solid #2a9d8f;">
+                <strong>🎯 الهدف النهائي:</strong> أداة محلية متكاملة لدعم صناع القرار في قطاع التشييد المصري.
+            </div>
+        </div>
+
+        <!-- ===== التنبيهات ===== -->
+        <div class="alert-box">
+            <div class="note-icon"><i class="fas fa-info-circle"></i> كل استبيان له بطاقة معلومات موحدة</div>
+            <div class="warning-text">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>بطاقات المعلومات ليست اختبار معلومات، ولا مقياساً لمستوى خبرتكم. هي أداة توحيد مرجعي.</span>
+            </div>
+        </div>
+
+        <!-- ===== رحلة الخبير ===== -->
+        <div class="section">
+            <h2><i class="fas fa-road"></i> رحلة الخبير</h2>
+            <div class="sessions-grid">
+                <div class="session-box"><span class="num">١</span><h5>بيانات الخبير</h5></div>
+                <div class="session-box"><span class="num">٢</span><h5>توصيف الخبرة</h5></div>
+                <div class="session-box"><span class="num">٣</span><h5>المفاهيم الأساسية</h5></div>
+                <div class="session-box"><span class="num">٤</span><h5>مبررات التطوير</h5></div>
+                <div class="session-box"><span class="num">٥</span><h5>بطاقات المعلومات</h5></div>
+                <div class="session-box"><span class="num">٦</span><h5>الاستبيان الأول</h5></div>
+                <div class="session-box"><span class="num">٧</span><h5>الاستبيان الثاني</h5></div>
+                <div class="session-box"><span class="num">٨</span><h5>الاستبيان الثالث</h5></div>
+                <div class="session-box"><span class="num">٩</span><h5>الاستبيان الرابع</h5></div>
+                <div class="session-box"><span class="num">١٠</span><h5>صفحة التقديم</h5></div>
+            </div>
+            <p style="font-size: 14px; color: #6a7a8a; text-align: center; margin-top: 8px;">يُنصح بتوزيع الإجابة على عدة جلسات مع حفظ تلقائي</p>
+        </div>
+
+        <!-- ===== الموسوعة ===== -->
+        <div class="encyclopedia-section">
+            <a href="https://circular-encyclopedia.pages.dev/" target="_blank" class="main-link">
+                <i class="fas fa-infinity"></i> استكشف موسوعة الاقتصاد الدائري في البناء
+            </a>
+            <div class="credit">
+                تم تطوير هذه الموسوعة بواسطة الباحث <strong>م. أحمد زكي عبد العظيم</strong>
+                <br>
+                تحت إشراف <strong>الأستاذ الدكتور / محمد سعيد مصيلحي</strong>
+                <br>
+                و <strong>الأستاذ الدكتور / ماجد أبو العلا محمد</strong>
+                <br>
+                <span style="color: rgba(255,255,255,0.2); font-size: 14px;">كلية الهندسة – جامعة الفيوم – جمهورية مصر العربية</span>
+            </div>
+        </div>
+
+        <!-- ===== أزرار التنقل ===== -->
+        <div class="nav-buttons">
+            <button class="btn-prev" onclick="goToPage('توصيف الخبرة المعرفية.html')">
+                <i class="fas fa-arrow-right"></i> السابق
+            </button>
+            <span class="page-indicator">الجزء <span>3</span> من <span>10</span></span>
+            <button class="btn-next" onclick="goToPage('مبررات تطوير أداة التقييم.html')">
+                التالي <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleConcept(el) {
+            const detail = el.querySelector('.concept-detail');
+            const arrow = el.querySelector('.arrow');
+            if (detail.classList.contains('open')) {
+                detail.classList.remove('open');
+                arrow.classList.remove('open');
+                arrow.textContent = '▶';
+            } else {
+                detail.classList.add('open');
+                arrow.classList.add('open');
+                arrow.textContent = '▼';
+            }
+        }
+
+        function saveScrollPosition() {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) return;
+            const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            allData[expertID] = allData[expertID] || {};
+            allData[expertID]['concepts_scroll'] = window.scrollY;
+            localStorage.setItem('surveyData', JSON.stringify(allData));
+        }
+
+        function loadScrollPosition() {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) return;
+            const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            const expertData = allData[expertID] || {};
+            const scrollPos = expertData['concepts_scroll'] || 0;
+            if (scrollPos > 0) {
+                window.scrollTo(0, scrollPos);
+            }
+        }
+
+        function goToPage(page) {
+            saveScrollPosition();
+            window.location.href = page;
+        }
+
+        window.addEventListener('load', function() {
+            loadScrollPosition();
+            setInterval(saveScrollPosition, 3000);
+        });
+
+        window.addEventListener('beforeunload', saveScrollPosition);
+    </script>
+
+</body>
+</html>

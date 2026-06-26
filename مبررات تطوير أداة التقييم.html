@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مبررات تطوير أداة التقييم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container { max-width: 1100px; width: 100%; margin: 0 auto; }
+
+        nav {
+            background: #123050;
+            padding: 14px 30px;
+            border-bottom: 4px solid #14b8a6;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(20, 184, 166, 0.08);
+        }
+        nav .brand {
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        nav .brand i { color: #14b8a6; margin-left: 8px; }
+        nav .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            align-items: center;
+        }
+        nav .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            color: #ffffff;
+        }
+        nav .nav-links a:hover {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.08);
+        }
+        nav .nav-links .active {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.12);
+            border: 1px solid rgba(20,184,166,0.15);
+        }
+        nav .nav-links .sep {
+            color: rgba(255,255,255,0.1);
+            font-weight: 300;
+        }
+        nav .nav-links .hint {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.1);
+            margin-right: 6px;
+        }
+
+        .hero {
+            background: linear-gradient(160deg, #0a1620, #0f2847, #0a1620);
+            background-size: 300% 300%;
+            animation: gradientMove 12s ease-in-out infinite;
+            padding: 50px 30px 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #c0392b;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .hero .icon-badge {
+            width: 80px;
+            height: 80px;
+            background: rgba(253,203,110,0.12);
+            border: 3px solid rgba(253,203,110,0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 36px;
+            color: #fdcb6e;
+        }
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 900;
+            color: #fdcb6e;
+        }
+        .hero .sub {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
+        }
+
+        .section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px 35px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            border: 1px solid #e8edf2;
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0a2a3a;
+            border-bottom: 3px solid #fdcb6e;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section h2 i { color: #2a9d8f; }
+        .section p {
+            font-size: 16px;
+            color: #1a2a3a;
+            line-height: 2;
+        }
+
+        .card-premium {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 26px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid #e8edf2;
+        }
+        .card-premium:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+        }
+        .card-premium .icon-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 8px;
+            transition: 0.3s;
+        }
+        .card-premium:hover .icon-circle { transform: scale(1.1) rotate(5deg); }
+        .icon-circle.green { background: linear-gradient(135deg, #2a9d8f, #00b894); color: white; }
+        .icon-circle.gold { background: linear-gradient(135deg, #fdcb6e, #f6b83d); color: #0a2a3a; }
+        .icon-circle.blue { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; }
+        .icon-circle.red { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; }
+
+        .arrow-flow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            color: #2a9d8f;
+            margin-top: 8px;
+        }
+        .arrow-flow i { animation: arrowMove 1.2s ease-in-out infinite; }
+        @keyframes arrowMove {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(6px); }
+        }
+
+        .highlight-box {
+            background: #e8f5f0;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-top: 12px;
+            border-right: 5px solid #2a9d8f;
+            font-size: 16px;
+        }
+
+        .sessions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .session-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 14px 12px;
+            text-align: center;
+            border: 1px solid #e8edf2;
+            transition: 0.3s;
+        }
+        .session-box:hover { background: #e8f5f0; border-color: #2a9d8f; }
+        .session-box .num {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: #2a9d8f;
+            color: white;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 13px;
+            line-height: 28px;
+        }
+        .session-box h5 { font-size: 14px; margin: 4px 0; }
+        .session-box p { font-size: 12px; color: #6a7a8a; margin: 0; }
+
+        .btn-start {
+            background: linear-gradient(135deg, #2a9d8f, #1a7a6e);
+            color: white;
+            border: none;
+            padding: 14px 50px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(42,157,143,0.25);
+        }
+        .btn-start:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(42,157,143,0.35); }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 2px solid #e8edf2;
+        }
+        .nav-buttons button {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-buttons .btn-prev {
+            background: #e8edf2;
+            color: #3a5a6a;
+        }
+        .nav-buttons .btn-prev:hover {
+            background: #d8dce0;
+            transform: translateX(-3px);
+        }
+        .nav-buttons .btn-next {
+            background: #14b8a6;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(20,184,166,0.25);
+        }
+        .nav-buttons .btn-next:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(20,184,166,0.35);
+        }
+        .nav-buttons .btn-next:disabled {
+            background: #b8c0c8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .nav-buttons .page-indicator {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5a6a7a;
+        }
+        .nav-buttons .page-indicator span {
+            color: #14b8a6;
+            font-weight: 800;
+        }
+
+        @media (max-width: 992px) {
+            nav .nav-links a { font-size: 0.7rem; padding: 4px 8px; }
+            nav .nav-links { gap: 4px 8px; }
+        }
+        @media (max-width: 768px) {
+            nav { flex-direction: column; align-items: stretch; padding: 12px 16px; }
+            nav .nav-links { justify-content: center; }
+            nav .nav-links a { font-size: 0.65rem; padding: 4px 6px; }
+            nav .nav-links .sep { display: none; }
+            .section { padding: 20px; }
+            .hero h1 { font-size: 28px; }
+            .hero .icon-badge { width: 60px; height: 60px; font-size: 28px; }
+            .sessions-grid { grid-template-columns: 1fr 1fr; }
+            .nav-buttons { flex-wrap: wrap; justify-content: center; }
+            .nav-buttons button { padding: 10px 20px; font-size: 14px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 22px; }
+            .hero .icon-badge { width: 50px; height: 50px; font-size: 22px; }
+            nav .brand { font-size: 0.9rem; }
+            nav .nav-links a { font-size: 0.55rem; padding: 2px 4px; }
+            nav .nav-links a i { display: none; }
+            .section { padding: 16px; }
+            .card-premium { padding: 16px; }
+            .sessions-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <nav>
+            <div class="brand"><i class="fas fa-infinity"></i> استطلاع رأي الخبراء</div>
+            <div class="nav-links">
+                <a href="كلمة الي المشارك.html"><i class="fas fa-flag"></i> المشارك</a>
+                <span class="sep">|</span>
+                <a href="بيانات الخبير.html"><i class="fas fa-user-graduate"></i> بيانات الخبير</a>
+                <span class="sep">|</span>
+                <a href="توصيف الخبرة المعرفية.html"><i class="fas fa-brain"></i> توصيف الخبرة</a>
+                <span class="sep">|</span>
+                <a href="المفاهيم الأساسية - إطار مرجعي لتوحيد الرؤى والمصطلحات.html"><i class="fas fa-book-open"></i> المفاهيم</a>
+                <span class="sep">|</span>
+                <a href="#" class="active"><i class="fas fa-rocket"></i> المبررات</a>
+                <span class="sep">|</span>
+                <a href="دليل بطاقات المعلومات الموحدة.html"><i class="fas fa-id-card"></i> البطاقات</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الأول.html"><i class="fas fa-balance-scale"></i> است1</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثاني.html"><i class="fas fa-table"></i> است2</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثالث.html"><i class="fas fa-globe"></i> است3</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الرابع.html"><i class="fas fa-weight-scale"></i> است4</a>
+                <span class="sep">|</span>
+                <a href="صفحة التقديم.html"><i class="fas fa-check-circle"></i> تقديم</a>
+                <span class="hint"><i class="fas fa-sync-alt"></i> حفظ تلقائي</span>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="hero-content">
+                <div class="icon-badge"><i class="fas fa-rocket"></i></div>
+                <h1>مبررات تطوير أداة التقييم</h1>
+                <div class="sub">الجزء الرابع من رحلة التقييم</div>
+            </div>
+        </div>
+
+        <div class="section" style="background: linear-gradient(135deg, #f8fafc, #e8f5f0, #f0fdf4); border-right: 6px solid #fdcb6e;">
+            
+            <h2 style="font-size: 28px; font-weight: 900; color: #0a2a3a; border-bottom: none; display: flex; align-items: center; gap: 16px;">
+                <span style="background: linear-gradient(135deg, #2a9d8f, #fdcb6e); width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px; box-shadow: 0 4px 20px rgba(42,157,143,0.3);">
+                    <i class="fas fa-rocket"></i>
+                </span>
+                مبررات تطوير أداة تقييم رقمية متعددة المعايير
+            </h2>
+            
+            <div style="display: flex; align-items: center; gap: 12px; margin: 16px 0 20px;">
+                <span style="flex: 1; height: 2px; background: linear-gradient(90deg, #2a9d8f, transparent);"></span>
+                <span style="width: 10px; height: 10px; background: #2a9d8f; transform: rotate(45deg); flex-shrink: 0;"></span>
+                <span style="flex: 1; height: 2px; background: linear-gradient(90deg, #2a9d8f, transparent);"></span>
+            </div>
+            
+            <p style="font-size: 18px; line-height: 2.2; color: #1a2a3a;">
+                على الرغم من تزايد الاهتمام العالمي بتطبيقات الاقتصاد الدائري في قطاع البناء، لا تزال الحاجة قائمة إلى إطار منهجي يساعد متخذي القرار على تقييم واختيار تكنولوجيات البناء وفق مجموعة متكاملة من المعايير الفنية والبيئية والاقتصادية والاجتماعية، مع مراعاة خصوصية السياق المصري ومتطلبات السوق المحلية.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+                <div class="card-premium" style="border-top: 4px solid #2a9d8f;">
+                    <div class="icon-circle green">🌍</div>
+                    <h4 style="font-size: 20px; font-weight: 800; color: #0a2a3a;">السياق العالمي</h4>
+                    <p style="font-size: 16px; color: #3a5a6a; line-height: 1.9;">على الرغم من تزايد الاهتمام العالمي بتطبيقات الاقتصاد الدائري في قطاع البناء، لا تزال الحاجة قائمة إلى إطار منهجي.</p>
+                    <div class="arrow-flow"><span>اقرأ المزيد</span> <i class="fas fa-arrow-left"></i></div>
+                </div>
+                
+                <div class="card-premium" style="border-top: 4px solid #fdcb6e;">
+                    <div class="icon-circle gold">🎯</div>
+                    <h4 style="font-size: 20px; font-weight: 800; color: #0a2a3a;">الهدف</h4>
+                    <p style="font-size: 16px; color: #3a5a6a; line-height: 1.9;">تطوير إطار تقييم متعدد المعايير يدعم اختيار تكنولوجيات البناء الأكثر توافقاً مع مبادئ الاقتصاد الدائري في مصر.</p>
+                    <div class="arrow-flow"><span>اقرأ المزيد</span> <i class="fas fa-arrow-left"></i></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+                    <span style="font-size: 32px; background: rgba(42,157,143,0.1); padding: 8px 14px; border-radius: 12px;">🔍</span>
+                    <span style="font-size: 22px; font-weight: 800; color: #0a2a3a;">الفراغات البحثية الثلاثة الجوهرية</span>
+                    <span style="flex: 1; height: 2px; background: linear-gradient(90deg, #2a9d8f, transparent);"></span>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
+                    <div class="card-premium" style="border-right: 5px solid #2a9d8f;">
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
+                            <span style="background: linear-gradient(135deg, #2a9d8f, #00b894); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; box-shadow: 0 4px 15px rgba(42,157,143,0.2);">١</span>
+                            <span style="font-weight: 800; font-size: 18px; color: #0a2a3a;">غياب الإطار</span>
+                        </div>
+                        <p style="font-size: 15px; color: #3a5a6a; line-height: 1.9; padding-right: 50px;">غياب إطار تقييم متعدد المعايير (MCDM) مصمم خصيصاً لتقييم تكنولوجيات البناء في ضوء مبادئ الاقتصاد الدائري في سياقات دول الجنوب العالمي.</p>
+                        <div style="margin-top: 10px; padding-right: 50px;">
+                            <span style="background: #2a9d8f; color: white; padding: 2px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">→ تحدي رئيسي</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-premium" style="border-right: 5px solid #fdcb6e;">
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
+                            <span style="background: linear-gradient(135deg, #fdcb6e, #f6b83d); color: #0a2a3a; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; box-shadow: 0 4px 15px rgba(253,203,110,0.2);">٢</span>
+                            <span style="font-weight: 800; font-size: 18px; color: #0a2a3a;">ضعف التكامل</span>
+                        </div>
+                        <p style="font-size: 15px; color: #3a5a6a; line-height: 1.9; padding-right: 50px;">ضعف التكامل المنهجي بين الأبعاد التقنية والبيئية والاقتصادية والاجتماعية في منظومة اتخاذ القرار بقطاع التشييد المصري.</p>
+                        <div style="margin-top: 10px; padding-right: 50px;">
+                            <span style="background: #fdcb6e; color: #0a2a3a; padding: 2px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">→ فجوة منهجية</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-premium" style="border-right: 5px solid #e74c3c;">
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px;">
+                            <span style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; box-shadow: 0 4px 15px rgba(231,76,60,0.2);">٣</span>
+                            <span style="font-weight: 800; font-size: 18px; color: #0a2a3a;">محدودية الدراسات</span>
+                        </div>
+                        <p style="font-size: 15px; color: #3a5a6a; line-height: 1.9; padding-right: 50px;">محدودية الدراسات التي توظف حكم الخبراء المتخصصين — عبر منهجيات AHP المعززة بعوامل السياق المحلي.</p>
+                        <div style="margin-top: 10px; padding-right: 50px;">
+                            <span style="background: #e74c3c; color: white; padding: 2px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">→ ندرة بحثية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="background: linear-gradient(135deg, #f8fafc, #f0f4fa); border-right: 6px solid #3b82f6;">
+            <h2 style="font-size: 28px; font-weight: 900; color: #0a2a3a; border-bottom: none; display: flex; align-items: center; gap: 16px;">
+                <span style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px; box-shadow: 0 4px 20px rgba(59,130,246,0.3);">
+                    <i class="fas fa-sitemap"></i>
+                </span>
+                بنية أداة الاستطلاع
+            </h2>
+            
+            <div style="display: flex; align-items: center; gap: 12px; margin: 16px 0 20px;">
+                <span style="flex: 1; height: 2px; background: linear-gradient(90deg, #3b82f6, transparent);"></span>
+                <span style="width: 10px; height: 10px; background: #3b82f6; transform: rotate(45deg); flex-shrink: 0;"></span>
+                <span style="flex: 1; height: 2px; background: linear-gradient(90deg, #3b82f6, transparent);"></span>
+            </div>
+            
+            <p style="font-size: 18px; line-height: 2.2; color: #1a2a3a;">
+                صُمِّمت هذه الأداة وفق منهجية الاستطلاع متعدد المراحل، وتتكوّن من خمسة أجزاء متكاملة يُوصى بتناولها بالتسلسل.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 20px;">
+                <div class="card-premium" style="text-align: center; border-top: 4px solid #2a9d8f;">
+                    <div style="font-size: 36px;">📋</div>
+                    <div style="font-weight: 800; font-size: 17px; color: #0a2a3a; margin-top: 4px;">الجزء الأول</div>
+                    <div style="font-size: 14px; color: #2a9d8f; font-weight: 600;">توصيف الخبير</div>
+                    <div style="font-size: 13px; color: #6a7a8a; margin-top: 2px;">البيانات المهنية</div>
+                </div>
+                
+                <div class="card-premium" style="text-align: center; border-top: 4px solid #fdcb6e;">
+                    <div style="font-size: 36px;">⚖️</div>
+                    <div style="font-weight: 800; font-size: 17px; color: #0a2a3a; margin-top: 4px;">الجزء الثاني</div>
+                    <div style="font-size: 14px; color: #fdcb6e; font-weight: 600;">AHP Weights</div>
+                    <div style="font-size: 13px; color: #6a7a8a; margin-top: 2px;">المقارنات الزوجية</div>
+                </div>
+                
+                <div class="card-premium" style="text-align: center; border-top: 4px solid #3b82f6;">
+                    <div style="font-size: 36px;">📊</div>
+                    <div style="font-weight: 800; font-size: 17px; color: #0a2a3a; margin-top: 4px;">الجزء الثالث</div>
+                    <div style="font-size: 14px; color: #3b82f6; font-weight: 600;">Likert Scoring</div>
+                    <div style="font-size: 13px; color: #6a7a8a; margin-top: 2px;">تقييم 39 تكنولوجيا</div>
+                </div>
+                
+                <div class="card-premium" style="text-align: center; border-top: 4px solid #8b5cf6;">
+                    <div style="font-size: 36px;">🔗</div>
+                    <div style="font-weight: 800; font-size: 17px; color: #0a2a3a; margin-top: 4px;">الجزء الرابع</div>
+                    <div style="font-size: 14px; color: #8b5cf6; font-weight: 600;">عوامل السياق</div>
+                    <div style="font-size: 13px; color: #6a7a8a; margin-top: 2px;">Cf + Af + Ip</div>
+                </div>
+                
+                <div class="card-premium" style="text-align: center; border-top: 4px solid #e74c3c;">
+                    <div style="font-size: 36px;">🏗️</div>
+                    <div style="font-weight: 800; font-size: 17px; color: #0a2a3a; margin-top: 4px;">الجزء الخامس</div>
+                    <div style="font-size: 14px; color: #e74c3c; font-weight: 600;">الأوزان القطاعية</div>
+                    <div style="font-size: 13px; color: #6a7a8a; margin-top: 2px;">6 قطاعات</div>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 18px; background: #f0f4fa; border-right-color: #3b82f6;">
+                <strong>💡 ملاحظة:</strong> نظراً لعمق هذه الأداة، يُنصح الخبير بتوزيع الاستجابة على أربع إلى خمس جلسات مع حفظ تلقائي.
+            </div>
+        </div>
+
+        <div class="section" style="background: linear-gradient(135deg, #f8fafc, #fef8e0); border-right: 6px solid #fdcb6e;">
+            <h2 style="font-size: 28px; font-weight: 900; color: #0a2a3a; border-bottom: none; display: flex; align-items: center; gap: 16px;">
+                <span style="background: linear-gradient(135deg, #fdcb6e, #f6b83d); width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0a2a3a; font-size: 26px; box-shadow: 0 4px 20px rgba(253,203,110,0.3);">
+                    <i class="fas fa-check-double"></i>
+                </span>
+                ضمان جودة البيانات والاتساق المنطقي
+            </h2>
+            
+            <div style="display: flex; align-items: center; gap: 12px; margin: 16px 0 20px;">
+                <span style="flex: 1; height: 2px; background: linear-gradient(90deg, #fdcb6e, transparent);"></span>
+                <span style="width: 10px; height: 10px; background: #fdcb6e; transform: rotate(45deg); flex-shrink: 0;"></span>
+                <span style="flex: 1; height: 2px; background: linear-gradient(90deg, #fdcb6e, transparent);"></span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 14px;">
+                <div class="card-premium" style="border-right: 5px solid #2a9d8f;">
+                    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
+                        <span style="background: linear-gradient(135deg, #2a9d8f, #00b894); color: white; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 4px 15px rgba(42,157,143,0.2);">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <span style="font-weight: 800; font-size: 18px; color: #0a2a3a;">معيار المعرفة</span>
+                    </div>
+                    <p style="font-size: 15px; color: #3a5a6a; line-height: 1.9; padding-right: 52px;">
+                        <span style="background: #2a9d8f; color: white; padding: 2px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;">→ K1–K6 ≥ 3</span>
+                        <span style="display: block; margin-top: 6px;">تُستبعَد الاستجابات التي يقل متوسط درجات المعرفة في المحور الأول عن 3.</span>
+                    </p>
+                </div>
+                
+                <div class="card-premium" style="border-right: 5px solid #fdcb6e;">
+                    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
+                        <span style="background: linear-gradient(135deg, #fdcb6e, #f6b83d); color: #0a2a3a; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 4px 15px rgba(253,203,110,0.2);">
+                            <i class="fas fa-balance-scale"></i>
+                        </span>
+                        <span style="font-weight: 800; font-size: 18px; color: #0a2a3a;">نسبة الاتساق (CR)</span>
+                    </div>
+                    <p style="font-size: 15px; color: #3a5a6a; line-height: 1.9; padding-right: 52px;">
+                        <span style="background: #fdcb6e; color: #0a2a3a; padding: 2px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;">→ CR ≤ 0.10</span>
+                        <span style="display: block; margin-top: 6px;">تُقبَل الاستجابة وفق معيار Saaty (1980)، وتُطلَب إعادة التقييم في حال تجاوزها.</span>
+                    </p>
+                </div>
+                
+                <div class="card-premium" style="border-right: 5px solid #3b82f6;">
+                    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 8px;">
+                        <span style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 4px 15px rgba(59,130,246,0.2);">
+                            <i class="fas fa-id-card"></i>
+                        </span>
+                        <span style="font-weight: 800; font-size: 18px; color: #0a2a3a;">بطاقات المعلومات</span>
+                    </div>
+                    <p style="font-size: 15px; color: #3a5a6a; line-height: 1.9; padding-right: 52px;">
+                        <span style="background: #3b82f6; color: white; padding: 2px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;">→ مرجع موحد</span>
+                        <span style="display: block; margin-top: 6px;">تُزوَّد كل تكنولوجيا ببطاقة مرجعية موحّدة لتوحيد قاعدة المعرفة بين الخبراء.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="btn-prev" onclick="goToPage('المفاهيم الأساسية - إطار مرجعي لتوحيد الرؤى والمصطلحات.html')">
+                <i class="fas fa-arrow-right"></i> السابق
+            </button>
+            <span class="page-indicator">الجزء <span>4</span> من <span>10</span></span>
+            <button class="btn-next" onclick="goToPage('دليل بطاقات المعلومات الموحدة.html')">
+                التالي <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        function saveScrollPosition() {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) return;
+            const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            allData[expertID] = allData[expertID] || {};
+            allData[expertID]['justification_scroll'] = window.scrollY;
+            localStorage.setItem('surveyData', JSON.stringify(allData));
+        }
+
+        function loadScrollPosition() {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) return;
+            const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            const expertData = allData[expertID] || {};
+            const scrollPos = expertData['justification_scroll'] || 0;
+            if (scrollPos > 0) {
+                window.scrollTo(0, scrollPos);
+            }
+        }
+
+        function goToPage(page) {
+            saveScrollPosition();
+            window.location.href = page;
+        }
+
+        window.addEventListener('load', function() {
+            loadScrollPosition();
+            setInterval(saveScrollPosition, 3000);
+        });
+
+        window.addEventListener('beforeunload', saveScrollPosition);
+    </script>
+
+</body>
+</html>

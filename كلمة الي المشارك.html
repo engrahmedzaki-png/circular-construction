@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>كلمة إلى المشارك · أداة بحثية متخصصة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Amiri:wght@700;900&display=swap" rel="stylesheet" />
+    <style>
+        /* نفس الستايل القديم */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0b1120;
+            color: #e8edf5;
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .hero {
+            background: linear-gradient(160deg, #0a1620, #0f2847, #0a1620);
+            background-size: 300% 300%;
+            animation: gradientMove 12s ease-in-out infinite;
+            padding: 28px 30px 22px;
+            text-align: center;
+            border-bottom: 4px solid #c0392b;
+            border-radius: 16px 16px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes gradientMove {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-bg-icons {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; overflow: hidden; opacity: 0.04;
+        }
+        .hero-bg-icons i {
+            position: absolute; font-size: 120px; color: #14b8a6;
+            animation: floatIcon 25s linear infinite;
+        }
+        .hero-bg-icons i:nth-child(1) { top: 10%; left: 5%;  animation-duration: 28s; }
+        .hero-bg-icons i:nth-child(2) { top: 60%; left: 80%; animation-duration: 32s; animation-delay: 4s; }
+        .hero-bg-icons i:nth-child(3) { top: 30%; left: 50%; animation-duration: 22s; animation-delay: 8s; font-size: 180px; }
+        @keyframes floatIcon {
+            0%   { transform: translate(0,0) rotate(0deg) scale(1); }
+            33%  { transform: translate(30px,-40px) rotate(120deg) scale(1.1); }
+            66%  { transform: translate(-20px,20px) rotate(240deg) scale(0.9); }
+            100% { transform: translate(0,0) rotate(360deg) scale(1); }
+        }
+        .hero-content { position: relative; z-index: 5; }
+        .survey-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(20,184,166,0.1);
+            border: 1px solid rgba(20,184,166,0.25);
+            border-radius: 30px; padding: 6px 20px;
+            margin-bottom: 20px; font-size: 0.82em;
+            color: #14b8a6; letter-spacing: 1px;
+        }
+        .survey-badge .dot {
+            width: 7px; height: 7px; background: #14b8a6;
+            border-radius: 50%; animation: dotpulse 2s ease-in-out infinite;
+        }
+        @keyframes dotpulse {
+            0%,100% { opacity:1; transform:scale(1); }
+            50%      { opacity:0.4; transform:scale(0.7); }
+        }
+        .hero h1 {
+            font-size: 52px; font-weight: 900; color: #fff;
+            font-family: 'Amiri', serif; line-height: 1.3; margin-bottom: 8px;
+        }
+        .hero h1 .highlight {
+            color: #14b8a6; position: relative;
+        }
+        .hero h1 .highlight::after {
+            content: ''; position: absolute; bottom: 2px; right: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, #14b8a6, #0d9488);
+            border-radius: 4px;
+        }
+        .hero .subtitle { display: none; }
+        .hero .bilingual { display: none; }
+        .section {
+            background: rgba(30,41,59,0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 20px; padding: 32px 38px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 22px;
+            transition: 0.3s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .section:hover {
+            border-color: rgba(20,184,166,0.15);
+            box-shadow: 0 8px 35px rgba(0,0,0,0.25);
+        }
+        .section p {
+            font-size: 17px; color: #e8edf5;
+            line-height: 2.3; text-align: justify; margin-bottom: 8px;
+        }
+        .section p strong { color: #fff; font-weight: 700; }
+        .section p:last-child { margin-bottom: 0; }
+        .salute {
+            font-size: 1.2em;
+            color: #d4a017;
+            margin-bottom: 18px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+        .thesis-block {
+            background: rgba(20,184,166,0.06);
+            border-right: 4px solid #14b8a6;
+            border-radius: 0 14px 14px 0;
+            padding: 16px 22px; margin: 18px 0;
+            font-size: 16px; color: rgba(255,255,255,0.65);
+            line-height: 2; font-style: italic;
+        }
+        .thesis-block strong { color: #14b8a6; font-style: normal; font-weight: 700; }
+        .vision-block {
+            background: rgba(192,57,43,0.06);
+            border-right: 4px solid #c0392b;
+            border-radius: 0 14px 14px 0;
+            padding: 16px 22px; margin: 18px 0;
+            font-size: 17px; color: rgba(255,255,255,0.75);
+            line-height: 2.2;
+        }
+        .vision-block strong { color: #e74c3c; font-weight: 700; }
+        .journey-section {
+            background: rgba(30,41,59,0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 20px; padding: 32px 38px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 22px;
+        }
+        .journey-section h2 {
+            font-size: 26px; font-weight: 900; color: #d4a017;
+            border-bottom: 2px solid rgba(212,160,23,0.12);
+            padding-bottom: 12px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .journey-section h2 i { color: #14b8a6; font-size: 28px; }
+        .journey-flow {
+            display: flex; flex-wrap: wrap;
+            justify-content: center; align-items: center;
+            gap: 8px 18px; padding: 20px 14px;
+            background: rgba(255,255,255,0.01);
+            border-radius: 16px; border: 1px solid rgba(255,255,255,0.03);
+        }
+        .journey-step {
+            display: flex; flex-direction: column; align-items: center;
+            background: rgba(255,255,255,0.04);
+            padding: 18px 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.06);
+            min-width: 90px;
+            transition: 0.4s;
+            cursor: default;
+        }
+        .journey-step:hover {
+            border-color: #d4a017;
+            transform: translateY(-6px) scale(1.02);
+            background: rgba(212,160,23,0.04);
+            box-shadow: 0 8px 30px rgba(212,160,23,0.05);
+        }
+        .journey-step .num {
+            background: #d4a017; color: #0b1120;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 15px;
+            margin-bottom: 4px;
+        }
+        .journey-step .icon { font-size: 26px; margin-bottom: 2px; }
+        .journey-step .label {
+            font-size: 13px; font-weight: 700;
+            color: #e8edf5; text-align: center; line-height: 1.4;
+        }
+        .journey-arrow { font-size: 22px; color: #d4a017; opacity: 0.3; }
+        .btn-start {
+            display: inline-block; padding: 18px 56px;
+            background: linear-gradient(135deg, #d4a017, #b8950a);
+            color: #0b1120; border: none; border-radius: 14px;
+            font-size: 22px; font-weight: 800;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer; transition: 0.3s;
+            box-shadow: 0 8px 30px rgba(212,160,23,0.2);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+        .btn-start:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 45px rgba(212,160,23,0.35);
+            background: linear-gradient(135deg, #b8950a, #a07d08);
+        }
+        .btn-start i { margin-left: 12px; }
+        .encyclopedia-link {
+            background: rgba(20,184,166,0.02);
+            border: 1px solid rgba(20,184,166,0.06);
+            border-radius: 20px; padding: 24px 34px;
+            text-align: center; margin-top: 10px;
+        }
+        .encyclopedia-link p { font-size: 18px; color: #e8edf5; }
+        .encyclopedia-link a {
+            color: #d4a017; font-weight: 800;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(212,160,23,0.2);
+            transition: 0.3s; font-size: 20px;
+        }
+        .encyclopedia-link a:hover { color: #14b8a6; border-bottom-color: #14b8a6; }
+        .encyclopedia-link i { color: #14b8a6; margin-left: 10px; }
+        .footer-section {
+            text-align: center; padding: 18px 0 8px;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            margin-top: 8px;
+        }
+        .footer-section p { font-size: 14px; color: rgba(255,255,255,0.15); }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 34px; }
+            .hero .subtitle { font-size: 0.9em; }
+            .section { padding: 22px; }
+            .journey-section { padding: 22px; }
+            .journey-step { padding: 12px 16px; min-width: 70px; }
+            .journey-step .label { font-size: 11px; }
+            .journey-step .icon { font-size: 22px; }
+            .journey-arrow { font-size: 16px; }
+            .btn-start { padding: 14px 36px; font-size: 18px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 26px; }
+            .section { padding: 16px; }
+            .journey-section { padding: 16px; }
+            .journey-flow { gap: 6px 10px; }
+            .journey-step { padding: 10px 12px; min-width: 55px; }
+            .journey-step .num { width: 28px; height: 28px; font-size: 12px; }
+            .journey-step .label { font-size: 10px; }
+            .journey-step .icon { font-size: 18px; }
+            .btn-start { padding: 12px 28px; font-size: 16px; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="hero">
+        <div class="hero-bg-icons">
+            <i class="fas fa-sync-alt"></i>
+            <i class="fas fa-recycle"></i>
+            <i class="fas fa-infinity"></i>
+            <i class="fas fa-leaf"></i>
+        </div>
+        <div class="hero-content">
+            <div class="survey-badge">
+                <div class="dot"></div>
+                أداة بحثية متخصصة · Expert Survey Tool
+            </div>
+            <h1>كلمة إلى <span class="highlight">المشارك</span></h1>
+            <p class="subtitle">رسالة دكتوراه · كلية الهندسة، جامعة الفيوم</p>
+            <p class="bilingual">Circular Economy in Egyptian Construction · PhD Research · 2026</p>
+        </div>
+    </div>
+
+    <div class="section" style="margin-top: 22px;">
+        <div class="salute">عزيزي المشارك المحترم،</div>
+        <p>
+            ما بين يديك ليس استبياناً يُملأ ويُنسى. هو دعوة حقيقية للمشاركة في بناء شيء لم يُبنَ من قبل في السياق المصري —
+            <strong>نموذج علمي متكامل لتقييم تقنيات البناء الدائري</strong>، يخرج من رحم الخبرة الميدانية لا من أروقة المكتبات.
+        </p>
+        <div class="thesis-block">
+            <strong>إطار الرسالة:</strong> "منهج لتكامل مبادئ الاقتصاد الدائري مع تكنولوجيا البناء لتحسين كفاءة استخدام الموارد في قطاع البناء المصري" — غير أن الهدف أعمق من شهادة تُنال، أو بحث يُودَع في رفوف المكتبات.
+        </div>
+        <p>
+            الهدف أن <strong>تتحول خبرتك الميدانية إلى معيار علمي قابل للتطبيق</strong>، يُستخدم مرجعاً للمهندسين وصناع القرار في مصر والعالم العربي. لأن السياق المصري لا يُفهم من بعيد — هو يُعاش في المواقع، ويُختبر في المشروعات، ولا يملكه إلا من قضى سنوات فعلية في هذا القطاع.
+        </p>
+        <div class="vision-block">
+            والرؤية أبعد من ذلك. هذا العمل هو اللبنة الأولى في <strong>موسوعة علمية متخصصة</strong> تسعى لأن تكون المرجع العربي في الاقتصاد الدائري للبناء — منصة لا تكتفي بنشر المعرفة، بل <strong>تصنعها</strong> بمشاركة خبراء من أمثالك، برأيهم ومشورتهم ورؤيتهم للواقع. مشاركتك اليوم ليست إجابة على أسئلة، بل إسهام في تأسيس هذا الصرح من أولى لبناته.
+        </div>
+        <p>نطلب منك شيئاً واحداً: أن تقرأ <strong>بعين الخبير</strong>، وتجيب <strong>بصدق الممارس</strong>. هذا وحده كافٍ لأن يُحدث فرقاً حقيقياً.</p>
+    </div>
+
+    <div class="journey-section">
+        <h2><i class="fas fa-route"></i> رحلة الخبير في 10 خطوات</h2>
+        <div class="journey-flow">
+            <div class="journey-step"><span class="num">1</span><span class="icon">📋</span><span class="label">بيانات الخبير</span></div>
+            <span class="journey-arrow"><i class="fas fa-chevron-left"></i></span>
+            <div class="journey-step"><span class="num">2</span><span class="icon">🧠</span><span class="label">توصيف الخبرة</span></div>
+            <span class="journey-arrow"><i class="fas fa-chevron-left"></i></span>
+            <div class="journey-step"><span class="num">3</span><span class="icon">📖</span><span class="label">المفاهيم الأساسية</span></div>
+            <span class="journey-arrow"><i class="fas fa-chevron-left"></i></span>
+            <div class="journey-step"><span class="num">4</span><span class="icon">🚀</span><span class="label">مبررات التطوير</span></div>
+            <span class="journey-arrow"><i class="fas fa-chevron-left"></i></span>
+            <div class="journey-step"><span class="num">5</span><span class="icon">🪪</span><span class="label">بطاقات المعلومات</span></div>
+            <span class="journey-arrow"><i class="fas fa-chevron-left"></i></span>
+            <div class="journey-step"><span class="num">6</span><span class="icon">⚖️</span><span class="label">الاستبيان الأول</span></div>
+            <span class="journey-arrow"><i class="fas fa-chevron-left"></i></span>
+            <div class="journey-step"><span class="num">7</span><span class="icon">📊</span><span class="label">الاستبيان الثاني</span></div>
+            <span class="journey-arrow"><i class="fas fa-chevron-left"></i></span>
+            <div class="journey-step"><span class="num">8</span><span class="icon">🌍</span><span class="label">الاستبيان الثالث</span></div>
+            <span class="journey-arrow"><i class="fas fa-chevron-left"></i></span>
+            <div class="journey-step"><span class="num">9</span><span class="icon">🏗️</span><span class="label">الاستبيان الرابع</span></div>
+            <span class="journey-arrow"><i class="fas fa-chevron-left"></i></span>
+            <div class="journey-step"><span class="num">10</span><span class="icon">✅</span><span class="label">صفحة التقديم</span></div>
+        </div>
+        <p style="font-size: 14px; color: #94a3b8; text-align: center; margin-top: 12px;">
+            <i class="fas fa-sync-alt" style="color: #14b8a6;"></i>
+            حفظ تلقائي — يمكن التوقف والاستئناف في أي وقت
+        </p>
+    </div>
+
+    <!-- ===== الزر بيودي على بيانات الخبير ===== -->
+    <div style="text-align: center; padding: 12px 0 18px;">
+        <a href="بيانات الخبير.html" class="btn-start">
+            <i class="fas fa-arrow-left"></i> ابدأ الرحلة
+        </a>
+    </div>
+
+    <div class="encyclopedia-link">
+        <p>
+            <i class="fas fa-book"></i>
+            للاطلاع على اللبنات الأولى للموسوعة:
+            <a href="https://circular-encyclopedia.pages.dev" target="_blank">
+                circular-encyclopedia.pages.dev
+                <i class="fas fa-external-link-alt" style="font-size: 14px; margin-left: 6px;"></i>
+            </a>
+        </p>
+    </div>
+
+    <div class="footer-section">
+        <p>استطلاع رأي الخبراء · كلية الهندسة — جامعة الفيوم · All Rights Reserved © 2026</p>
+    </div>
+
+</div>
+</body>
+</html>

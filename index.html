@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أداة استطلاع الخبراء - البناء الدائري</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0b1a2a;
+            color: #ffffff;
+            direction: rtl;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #0b1a2a 0%, #162a40 30%, #0b1a2a 60%, #1a2a3a 100%);
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .bg-animation .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            animation: floatOrb 25s ease-in-out infinite alternate;
+        }
+        
+        .bg-animation .orb:nth-child(1) {
+            width: 500px;
+            height: 500px;
+            background: #fbbf24;
+            top: -10%;
+            right: -5%;
+            animation-duration: 22s;
+        }
+        
+        .bg-animation .orb:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            background: #2a9d8f;
+            bottom: -15%;
+            left: -5%;
+            animation-duration: 28s;
+            animation-delay: 3s;
+        }
+        
+        .bg-animation .orb:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            background: #4a7a9c;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 20s;
+            animation-delay: 5s;
+        }
+        
+        .bg-animation .orb:nth-child(4) {
+            width: 200px;
+            height: 200px;
+            background: #e76f51;
+            top: 20%;
+            right: 30%;
+            animation-duration: 18s;
+            animation-delay: 2s;
+        }
+        
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(80px, -50px) scale(1.15); }
+            50% { transform: translate(-40px, 70px) scale(0.85); }
+            75% { transform: translate(50px, 40px) scale(1.1); }
+            100% { transform: translate(-70px, -60px) scale(0.95); }
+        }
+        
+        .hero {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            width: 100%;
+            padding: 30px 25px;
+            text-align: center;
+            animation: heroIn 1s ease forwards;
+        }
+        
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .hero .welcome {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fbbf24;
+            margin-bottom: 10px;
+            animation: welcomePulse 2.5s ease-in-out infinite;
+        }
+        
+        @keyframes welcomePulse {
+            0%, 100% { opacity: 0.85; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        
+        .hero .welcome-text {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 12px;
+            padding: 0 10px;
+        }
+        
+        .hero .welcome-text strong {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+        
+        .hero .top-line {
+            font-size: 14px;
+            color: rgba(255,255,255,0.35);
+            font-weight: 500;
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
+        }
+        
+        .hero .top-line .dot {
+            color: rgba(255,255,255,0.15);
+            margin: 0 4px;
+        }
+        
+        .hero .phd {
+            font-size: 14px;
+            color: rgba(255,255,255,0.25);
+            font-weight: 600;
+            margin-bottom: 2px;
+            letter-spacing: 1px;
+        }
+        
+        .hero .thesis-title {
+            font-size: clamp(16px, 2.2vw, 26px);
+            font-weight: 900;
+            line-height: 1.35;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+        
+        .hero .thesis-sub {
+            font-size: clamp(12px, 1.2vw, 16px);
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .hero .researcher {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 2px;
+        }
+        
+        .hero .researcher span {
+            color: rgba(255,255,255,0.3);
+            font-weight: 400;
+        }
+        
+        .hero .supervisors {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+        
+        .hero .supervisors strong {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+        
+        .hero .gold-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 8px auto 10px;
+            width: 40%;
+            max-width: 180px;
+        }
+        
+        .hero .gold-divider .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(251,191,36,0.1), transparent);
+        }
+        
+        .hero .gold-divider .diamond {
+            width: 5px;
+            height: 5px;
+            background: rgba(251,191,36,0.12);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+        
+        .hero .tool-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 900;
+            color: #fbbf24;
+            line-height: 1.15;
+            margin-bottom: 2px;
+        }
+        
+        .hero .tool-sub {
+            font-size: clamp(16px, 1.8vw, 20px);
+            color: rgba(255,255,255,0.4);
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        
+        .hero .tool-sub .gold {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+        
+        .hero .tool-en {
+            font-size: 12px;
+            color: rgba(255,255,255,0.06);
+            font-weight: 300;
+            margin-bottom: 18px;
+        }
+        
+        .hero .btn-start {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 48px;
+            background: #fbbf24;
+            color: #0b1a2a;
+            font-size: 18px;
+            font-weight: 800;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Cairo', sans-serif;
+            animation: btnGlow 3s ease-in-out infinite;
+            text-decoration: none;
+        }
+        
+        @keyframes btnGlow {
+            0%, 100% { box-shadow: 0 4px 25px rgba(251,191,36,0.06); }
+            50% { box-shadow: 0 4px 40px rgba(251,191,36,0.12); }
+        }
+        
+        .hero .btn-start:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(251,191,36,0.2);
+            background: #fcd34d;
+        }
+        
+        .hero .btn-start i {
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+        
+        .hero .btn-start:hover i {
+            transform: translateX(-5px);
+        }
+        
+        .hero .footer-info {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.06);
+        }
+        
+        .hero .footer-info span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .hero .footer-info i {
+            font-size: 12px;
+            color: rgba(251,191,36,0.1);
+        }
+
+        .hero .footer-info .time-hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .hero { padding: 20px 14px; }
+            .hero .welcome { font-size: 20px; }
+            .hero .welcome-text { font-size: 14px; }
+            .hero .top-line { font-size: 12px; }
+            .hero .thesis-title { font-size: 17px; }
+            .hero .tool-title { font-size: 24px; }
+            .hero .tool-sub { font-size: 15px; }
+            .hero .supervisors { font-size: 14px; }
+            .hero .btn-start { padding: 12px 30px; font-size: 15px; }
+        }
+        
+        @media (max-width: 480px) {
+            .hero { padding: 20px 14px; }
+            .hero .welcome { font-size: 17px; }
+            .hero .welcome-text { font-size: 12px; }
+            .hero .top-line { font-size: 10px; }
+            .hero .thesis-title { font-size: 15px; }
+            .hero .tool-title { font-size: 20px; }
+            .hero .tool-sub { font-size: 13px; }
+            .hero .btn-start { padding: 10px 20px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <div class="hero">
+
+        <div class="top-line">
+            جمهورية مصر العربية <span class="dot">•</span> جامعة الفيوم <span class="dot">•</span> كلية الهندسة <span class="dot">•</span> قسم الهندسة المعمارية
+        </div>
+
+        <div class="welcome">مرحباً بكم في منصة تقييم تكنولوجيات البناء الدائري</div>
+
+        <div class="welcome-text">
+            تم تطوير هذه المنصة البحثية لدعم جمع وتحليل آراء الخبراء والمتخصصين حول تكنولوجيات البناء الدائري.
+            <br>
+            وتُعد مشاركتكم <strong>عنصراً أساسياً</strong> في تعزيز الموثوقية العلمية للدراسة
+            والمساهمة في تطوير <span style="color: #fbbf24;">إطار تقييم متعدد المعايير</span> لقطاع البناء المصري.
+        </div>
+
+        <div class="phd">دراسة دكتوراه</div>
+
+        <div class="thesis-title">
+            منهج لتكامل مبادئ الاقتصاد الدائري<br>
+            مع تكنولوجيا البناء
+        </div>
+        <div class="thesis-sub">لتحسين كفاءة استخدام الموارد في قطاع البناء المصري</div>
+
+        <div class="researcher"><span>الباحث /</span> م. أحمد زكي عبد العظيم</div>
+
+        <div class="supervisors">
+            <div><strong>المشرف الرئيسي:</strong> أ.د. محمد سعيد مصيلحي</div>
+            <div><strong>المشرف المشارك:</strong> أ.د. ماجد أبو العلا محمد</div>
+        </div>
+
+        <div class="gold-divider">
+            <span class="line"></span>
+            <span class="diamond"></span>
+            <span class="line"></span>
+        </div>
+
+        <div class="tool-title">أداة استطلاع رأي الخبراء</div>
+        <div class="tool-sub">إطار تقييم <span class="gold">متعدد المعايير</span> لاختيار تكنولوجيات البناء الدائري في مصر</div>
+        <div class="tool-en">(AHP–MCDM Expert Elicitation Instrument)</div>
+
+        <!-- زر ابدأ الاستبيان -->
+        <button class="btn-start" onclick="goToNext()">
+            <i class="fas fa-rocket"></i> ابدأ الاستبيان
+        </button>
+
+        <div class="footer-info">
+            <span><i class="fas fa-cloud"></i> حفظ تلقائي</span>
+            <span><i class="fas fa-lock"></i> بيانات سرية</span>
+            <span class="time-hidden"><i class="far fa-clock"></i> 2.5 – 3.5 ساعة</span>
+            <span><i class="fas fa-users"></i> لجنة علمية</span>
+        </div>
+
+    </div>
+
+    <script>
+        // دالة التوجيه إلى بيانات الخبير
+        function goToNext() {
+            let id = localStorage.getItem('expertID');
+            if (!id) {
+                id = 'EXP-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+                localStorage.setItem('expertID', id);
+            }
+            window.location.href = 'كلمة الي المشارك.html';
+        }
+    </script>
+
+</body>
+</html>

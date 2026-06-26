@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقييم العوامل السياقية المبتكرة - Cf, Af, Ip</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f5f0eb;
+            color: #000000;
+            direction: rtl;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+
+        /* ===== شريط التنقل ===== */
+        nav {
+            background: #123050;
+            padding: 14px 30px;
+            border-bottom: 4px solid #14b8a6;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(20, 184, 166, 0.08);
+        }
+        nav .brand {
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        nav .brand i { color: #14b8a6; margin-left: 8px; }
+        nav .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            align-items: center;
+        }
+        nav .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            color: #ffffff;
+        }
+        nav .nav-links a:hover {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.08);
+        }
+        nav .nav-links .active {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.12);
+            border: 1px solid rgba(20,184,166,0.15);
+        }
+        nav .nav-links .sep {
+            color: rgba(255,255,255,0.1);
+            font-weight: 300;
+        }
+        nav .nav-links .hint {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.1);
+            margin-right: 6px;
+        }
+
+        /* ===== الهيدر ===== */
+        .main-header {
+            background: linear-gradient(145deg, #0d2b3e, #1a4a5a);
+            border-radius: 20px;
+            padding: 35px 40px;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(42, 157, 143, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .main-header .badge {
+            display: inline-block;
+            background: #fdcb6e;
+            color: #0d2b3e;
+            padding: 4px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        .main-header h1 {
+            font-size: 28px;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+        .main-header h1 .highlight { color: #fdcb6e; }
+        .main-header p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 6px;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .importance-msg {
+            background: #e8f5e9;
+            border-right: 4px solid #1a5a3a;
+            padding: 14px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .importance-msg i { font-size: 22px; color: #1a5a3a; }
+        .importance-msg p { font-size: 16px; font-weight: 600; color: #000000; margin: 0; }
+        .importance-msg p strong { color: #000000; font-weight: 800; }
+
+        .likert-scale {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            background: #ffffff;
+            padding: 16px 24px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            border: 1px solid #d8d0c8;
+        }
+        .likert-scale .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #000000;
+        }
+        .likert-scale .item .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 14px;
+            border: 2px solid #1a3a5a;
+        }
+        .likert-scale .item:nth-child(1) .num { border-color: #8b1a1a; color: #8b1a1a; }
+        .likert-scale .item:nth-child(2) .num { border-color: #e67e22; color: #e67e22; }
+        .likert-scale .item:nth-child(3) .num { border-color: #1a5a3a; color: #1a5a3a; }
+        .likert-scale .item:nth-child(4) .num { border-color: #1a3a5a; color: #1a3a5a; }
+        .likert-scale .item:nth-child(5) .num { border-color: #1a3a5a; color: #1a3a5a; }
+
+        .progress-wrap {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border: 1px solid #d8d0c8;
+        }
+        .progress-wrap .progress-bar { height: 10px; background: #e8e0d8; border-radius: 10px; overflow: hidden; }
+        .progress-wrap .progress-bar .fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #1a5a3a, #1a3a5a);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        .progress-wrap .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #000000;
+        }
+        .progress-wrap .progress-info .percent { color: #1a3a5a; font-weight: 800; }
+
+        .guide-toggle {
+            background: #ffffff;
+            border: 3px solid #1a3a5a;
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .guide-toggle:hover { background: #f0f4f8; }
+        .guide-toggle .guide-title { display: flex; align-items: center; gap: 12px; }
+        .guide-toggle .guide-title i { font-size: 24px; color: #1a3a5a; }
+        .guide-toggle .guide-title h3 { font-size: 18px; font-weight: 800; color: #000000; margin: 0; }
+        .guide-toggle .guide-title .guide-sub { font-size: 13px; font-weight: 400; color: #3a4a5a; }
+        .guide-toggle .guide-icon { font-size: 24px; color: #1a3a5a; transition: transform 0.3s; }
+        .guide-toggle .guide-icon.open { transform: rotate(180deg); }
+
+        .guide-content {
+            display: none;
+            background: #ffffff;
+            border: 1px solid #d8d0c8;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            animation: fadeIn 0.4s ease;
+        }
+        .guide-content.open { display: block; }
+        .guide-content .section { margin-bottom: 24px; }
+        .guide-content .section:last-child { margin-bottom: 0; }
+        .guide-content .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #000000;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .guide-content .section-title .color-badge { display: inline-block; width: 14px; height: 14px; border-radius: 4px; }
+        .guide-content .section-title .color-badge.cf { background: #000000; }
+        .guide-content .section-title .color-badge.af { background: #cc0000; }
+        .guide-content .section-title .color-badge.ip { background: #0055cc; }
+        .guide-content .section-desc {
+            font-size: 15px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            background: #f8f4f0;
+            border-radius: 8px;
+            border-right: 4px solid #1a3a5a;
+        }
+        .guide-content table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .guide-content table th {
+            background: #f8f4f0;
+            padding: 8px 10px;
+            border: 1px solid #d8d0c8;
+            font-weight: 800;
+            color: #000000;
+            text-align: center;
+        }
+        .guide-content table td {
+            padding: 8px 10px;
+            border: 1px solid #d8d0c8;
+            color: #000000;
+            vertical-align: top;
+            font-weight: 500;
+        }
+        .guide-content table td .q-list { list-style: none; padding: 0; margin: 0; }
+        .guide-content table td .q-list li { padding: 2px 0; font-size: 12px; color: #000000; font-weight: 500; }
+        .guide-content table td .q-list li::before { content: "• "; color: #1a3a5a; font-weight: 700; }
+        .guide-content .note-box {
+            background: #e8f5e9;
+            border-right: 4px solid #1a5a3a;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+        }
+        .guide-content .note-box p { font-size: 15px; font-weight: 700; color: #000000; margin: 0 0 8px 0; }
+        .guide-content .note-box p i { color: #1a5a3a; margin-left: 8px; }
+        .guide-content .note-box ul { list-style: none; padding: 0; margin: 0; }
+        .guide-content .note-box ul li { font-size: 14px; font-weight: 500; color: #000000; padding: 2px 0; line-height: 1.6; }
+        .guide-content .note-box ul li::before { content: "• "; color: #1a5a3a; font-weight: 700; }
+
+        .session-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .session-tab {
+            padding: 14px 28px;
+            border-radius: 14px;
+            border: 2px solid #d8d0c8;
+            background: #ffffff;
+            color: #000000;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .session-tab:hover { border-color: #1a3a5a; color: #000000; }
+        .session-tab.active { border-color: #1a3a5a; background: #e8f0f8; color: #000000; }
+        .session-tab .icon { margin-left: 6px; }
+        .session-tab .count { font-size: 13px; opacity: 0.5; margin-right: 4px; }
+
+        .session-content { display: none; animation: fadeIn 0.4s ease; }
+        .session-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .session-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #000000;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 2px solid #d8d0c8;
+            padding-bottom: 10px;
+        }
+        .session-title .color-badge { display: inline-block; width: 16px; height: 16px; border-radius: 4px; }
+        .session-title .color-badge.s { background: #1a5a3a; }
+        .session-title .color-badge.m { background: #1a3a5a; }
+        .session-title .color-badge.d { background: #5a3a7a; }
+        .session-title .color-badge.e { background: #e67e22; }
+        .session-title .color-badge.b { background: #8b1a1a; }
+        .session-title .tech-count { font-size: 16px; font-weight: 400; color: #000000; }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid #d8d0c8;
+            background: #ffffff;
+        }
+        .table-wrapper table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 1300px;
+        }
+        .table-wrapper th {
+            padding: 10px 6px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 13px;
+            border-bottom: 2px solid #d8d0c8;
+            color: #000000;
+            background: #f8f4f0;
+            white-space: normal;
+            vertical-align: middle;
+            min-width: 45px;
+        }
+        .table-wrapper th .sub {
+            display: block;
+            font-weight: 700;
+            font-size: 10px;
+            line-height: 1.3;
+            margin-top: 2px;
+        }
+        .table-wrapper th .sub.cf-color { color: #000000; font-weight: 800; }
+        .table-wrapper th .sub.af-color { color: #cc0000; font-weight: 800; }
+        .table-wrapper th .sub.ip-color { color: #0055cc; font-weight: 800; }
+        .table-wrapper th .label-main { font-size: 12px; font-weight: 800; color: #000000; }
+        .table-wrapper th.group-cf { background: #f8f4f0; border-top: 3px solid #000000; }
+        .table-wrapper th.group-af { background: #f8f4f0; border-top: 3px solid #cc0000; }
+        .table-wrapper th.group-ip { background: #f8f4f0; border-top: 3px solid #0055cc; }
+
+        .table-wrapper td {
+            padding: 6px 4px;
+            text-align: center;
+            border-bottom: 1px solid #f0ece8;
+        }
+        .table-wrapper td .code { font-weight: 900; color: #000000; font-size: 16px; }
+        .table-wrapper td .tech-name {
+            font-size: 14px;
+            font-weight: 800;
+            color: #000000;
+            text-align: right;
+            white-space: nowrap;
+        }
+        .table-wrapper td .status {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 12px;
+            margin-right: 6px;
+        }
+        .table-wrapper td .status.baseline { color: #1a5a3a; background: #e8f5e9; }
+        .table-wrapper td .status.candidate { color: #e67e22; background: #fef5e7; }
+
+        .arrow-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #1a3a5a;
+            transition: all 0.3s;
+            padding: 4px 8px;
+            margin-right: 6px;
+        }
+        .arrow-btn:hover { color: #8b1a1a; transform: scale(1.15); }
+
+        .score-input {
+            width: 42px;
+            height: 36px;
+            text-align: center;
+            border: 2px solid #1a3a5a;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #000000;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.2s;
+        }
+        .score-input:focus {
+            border-color: #1a3a5a;
+            outline: none;
+            background: #f0f4f8;
+            box-shadow: 0 0 0 4px rgba(26,58,90,0.08);
+        }
+        .score-input::placeholder { color: #b8b0a8; font-size: 11px; font-weight: 400; }
+        .score-input:hover { border-color: #1a3a5a; }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: #ffffff;
+            border-radius: 24px;
+            max-width: 650px;
+            width: 100%;
+            padding: 35px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            animation: modalIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.96) translateY(15px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .modal-box .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #d8d0c8;
+        }
+        .modal-box .modal-header .title { display: flex; align-items: center; gap: 12px; }
+        .modal-box .modal-header .title .code { font-size: 26px; font-weight: 900; color: #000000; }
+        .modal-box .modal-header .title .name { font-size: 20px; font-weight: 700; color: #000000; }
+        .modal-box .modal-header .close-btn {
+            background: #f0ece8;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .modal-box .modal-header .close-btn:hover { background: #d8d0c8; }
+        .modal-box .modal-body .icon-row { text-align: center; font-size: 50px; margin-bottom: 12px; }
+        .modal-box .modal-body .desc {
+            font-size: 17px;
+            font-weight: 500;
+            color: #000000;
+            line-height: 2;
+            margin-bottom: 18px;
+            padding: 14px 18px;
+            background: #f8f4f0;
+            border-radius: 12px;
+            border-right: 4px solid #1a3a5a;
+        }
+        .modal-box .modal-body .specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .modal-box .modal-body .specs .item {
+            background: #f8f4f0;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #d8d0c8;
+        }
+        .modal-box .modal-body .specs .item .label { font-size: 12px; font-weight: 600; color: #000000; }
+        .modal-box .modal-body .specs .item .value { font-size: 16px; font-weight: 700; color: #000000; margin-top: 4px; }
+        .modal-box .modal-body .specs .item .value.green { color: #1a5a3a; }
+        .modal-box .modal-body .specs .item .value.blue { color: #1a3a5a; }
+        .modal-box .modal-body .specs .item .value.gold { color: #e67e22; }
+        .modal-box .modal-body .specs .item .value.purple { color: #5a3a7a; }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+        .actions button {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #ffffff;
+        }
+        .actions .save-btn { background: #1a3a5a; }
+        .actions .save-btn:hover { background: #2a4a6a; transform: translateY(-2px); }
+        .actions .export-btn { background: #1a5a3a; }
+        .actions .export-btn:hover { background: #2a6a4a; transform: translateY(-2px); }
+        .actions .reset-btn { background: #8b1a1a; color: #ffffff; }
+        .actions .reset-btn:hover { background: #7a1a1a; transform: translateY(-2px); }
+
+        .footer-msg {
+            text-align: center;
+            padding: 16px;
+            margin-top: 22px;
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1px solid #d8d0c8;
+        }
+        .footer-msg i { color: #1a3a5a; margin-left: 8px; }
+        .footer-msg p { font-size: 15px; font-weight: 500; color: #000000; margin: 0; }
+        .footer-msg p strong { color: #000000; font-weight: 700; }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 2px solid #e8edf2;
+        }
+        .nav-buttons button {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-buttons .btn-prev { background: #e8edf2; color: #3a5a6a; }
+        .nav-buttons .btn-prev:hover { background: #d8dce0; transform: translateX(-3px); }
+        .nav-buttons .btn-next { background: #14b8a6; color: #ffffff; box-shadow: 0 4px 16px rgba(20,184,166,0.25); }
+        .nav-buttons .btn-next:hover { background: #0d9488; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(20,184,166,0.35); }
+        .nav-buttons .page-indicator { font-size: 14px; font-weight: 600; color: #5a6a7a; }
+        .nav-buttons .page-indicator span { color: #14b8a6; font-weight: 800; }
+
+        @media (max-width: 768px) {
+            .score-input { width: 36px; height: 32px; font-size: 14px; }
+            .table-wrapper table { font-size: 12px; min-width: 1000px; }
+            .main-header h1 { font-size: 22px; }
+            .likert-scale .item { font-size: 13px; }
+            .likert-scale .item .num { width: 26px; height: 26px; font-size: 12px; }
+            .modal-box { padding: 24px; }
+            .session-tab { padding: 10px 18px; font-size: 14px; }
+            .table-wrapper th { font-size: 11px; }
+            .table-wrapper th .sub { font-size: 9px; }
+            .modal-box .modal-header .title .code { font-size: 22px; }
+            .modal-box .modal-header .title .name { font-size: 17px; }
+            .guide-content table { font-size: 11px; }
+            .guide-content table th, .guide-content table td { padding: 4px 6px; }
+            .guide-toggle .guide-title h3 { font-size: 15px; }
+            .guide-toggle .guide-title .guide-sub { font-size: 11px; }
+            .nav-buttons { flex-wrap: wrap; justify-content: center; }
+            .nav-buttons button { padding: 10px 20px; font-size: 14px; }
+            nav { flex-direction: column; align-items: stretch; padding: 12px 16px; }
+            nav .nav-links { justify-content: center; }
+            nav .nav-links a { font-size: 0.65rem; padding: 4px 6px; }
+            nav .nav-links .sep { display: none; }
+        }
+        @media (max-width: 480px) {
+            .score-input { width: 30px; height: 28px; font-size: 12px; }
+            .main-header h1 { font-size: 18px; }
+            .table-wrapper table { min-width: 850px; }
+            .session-tab { padding: 6px 12px; font-size: 11px; }
+            .modal-box .modal-body .specs { grid-template-columns: 1fr; }
+            .table-wrapper th { font-size: 10px; padding: 4px 2px; }
+            .table-wrapper th .sub { font-size: 8px; }
+            .likert-scale .item { font-size: 11px; }
+            .likert-scale .item .num { width: 22px; height: 22px; font-size: 10px; }
+            .guide-content table { font-size: 10px; }
+            .guide-content table th, .guide-content table td { padding: 3px 4px; }
+            .guide-content .section-title { font-size: 16px; }
+            .guide-toggle .guide-title h3 { font-size: 13px; }
+            .guide-toggle .guide-title .guide-sub { font-size: 10px; }
+            nav .brand { font-size: 0.9rem; }
+            nav .nav-links a { font-size: 0.55rem; padding: 2px 4px; }
+            nav .nav-links a i { display: none; }
+            .nav-buttons button { padding: 8px 16px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== شريط التنقل ===== -->
+    <nav>
+        <div class="brand"><i class="fas fa-infinity"></i> استطلاع رأي الخبراء</div>
+        <div class="nav-links">
+            <a href="كلمة الي المشارك.html"><i class="fas fa-flag"></i> المشارك</a>
+            <span class="sep">|</span>
+            <a href="بيانات الخبير.html"><i class="fas fa-user-graduate"></i> بيانات الخبير</a>
+            <span class="sep">|</span>
+            <a href="توصيف الخبرة المعرفية.html"><i class="fas fa-brain"></i> توصيف الخبرة</a>
+            <span class="sep">|</span>
+            <a href="المفاهيم الأساسية - إطار مرجعي لتوحيد الرؤى والمصطلحات.html"><i class="fas fa-book-open"></i> المفاهيم</a>
+            <span class="sep">|</span>
+            <a href="مبررات تطوير أداة التقييم.html"><i class="fas fa-rocket"></i> المبررات</a>
+            <span class="sep">|</span>
+            <a href="دليل بطاقات المعلومات الموحدة.html"><i class="fas fa-id-card"></i> البطاقات</a>
+            <span class="sep">|</span>
+            <a href="الاستبيان الأول.html"><i class="fas fa-balance-scale"></i> است1</a>
+            <span class="sep">|</span>
+            <a href="الاستبيان الثاني.html"><i class="fas fa-table"></i> است2</a>
+            <span class="sep">|</span>
+            <a href="#" class="active"><i class="fas fa-globe"></i> است3</a>
+            <span class="sep">|</span>
+            <a href="الاستبيان الرابع.html"><i class="fas fa-weight-scale"></i> است4</a>
+            <span class="sep">|</span>
+            <a href="صفحة التقديم.html"><i class="fas fa-check-circle"></i> تقديم</a>
+            <span class="hint"><i class="fas fa-sync-alt"></i> حفظ تلقائي</span>
+        </div>
+    </nav>
+
+    <!-- ===== الهيدر ===== -->
+    <div class="main-header">
+        <div style="position: relative; z-index: 1;">
+            <div class="badge"><i class="fas fa-globe"></i> الاستبيان الثالث</div>
+            <h1>تقييم العوامل السياقية المبتكرة<br><span class="highlight">Cf · Af · Ip</span></h1>
+            <p>مقياس ليكرت الخماسي • 1 = ضعيف جداً • 5 = ممتاز جداً</p>
+        </div>
+    </div>
+
+    <div class="importance-msg">
+        <i class="fas fa-star"></i>
+        <p><strong>الملاءمة الواقعية!</strong> تقييم مدى قابلية التكنولوجيا للتطبيق الفعلي في السياق المصري.</p>
+    </div>
+
+    <div class="likert-scale">
+        <div class="item"><span class="num">1</span> ضعيف جداً</div>
+        <div class="item"><span class="num">2</span> ضعيف</div>
+        <div class="item"><span class="num">3</span> متوسط</div>
+        <div class="item"><span class="num">4</span> جيد</div>
+        <div class="item"><span class="num">5</span> ممتاز</div>
+    </div>
+
+    <div class="progress-wrap">
+        <div class="progress-bar"><div class="fill" id="progressFill" style="width: 0%;"></div></div>
+        <div class="progress-info"><span>نسبة الإنجاز</span><span class="percent" id="progressPercent">0%</span></div>
+    </div>
+
+    <div class="guide-toggle" onclick="toggleGuide()">
+        <div class="guide-title">
+            <i class="fas fa-book"></i>
+            <h3>📖 دليل تقييم العوامل السياقية المبتكرة</h3>
+            <span class="guide-sub">(اضغط للعرض)</span>
+        </div>
+        <div class="guide-icon" id="guideIcon"><i class="fas fa-chevron-down"></i></div>
+    </div>
+
+    <div class="guide-content" id="guideContent">
+        <div class="section">
+            <div class="section-title" style="color:#000000;"><span>🎯</span> لماذا العوامل السياقية المبتكرة؟</div>
+            <div class="section-desc" style="color:#000000;font-weight:700;">
+                تم إضافة هذه العوامل لأن تقييم الأداء الفني والبيئي والاقتصادي وحده لا يكفي لاختيار التكنولوجيا الأنسب للتطبيق الفعلي في السياق المصري.
+            </div>
+            <div class="highlight-box" style="background:#fef5e7;border-right:4px solid #e67e22;padding:12px 16px;border-radius:8px;margin-bottom:12px;">
+                <p style="font-size:15px;font-weight:600;color:#000000;margin:0;"><strong>المشكلة الأساسية:</strong> قد تبدو بعض التكنولوجيات مثالية من حيث الأداء النظري، لكنها غير قابلة للتطبيق عملياً بسبب قيود مثل توفر العمالة، الاعتماد على موردين خارجيين، أو عدم توافقها مع كود البناء المحلي.</p>
+            </div>
+            <div class="green-box" style="background:#e8f5e9;border-right:4px solid #1a5a3a;padding:12px 16px;border-radius:8px;margin-bottom:12px;">
+                <p style="font-size:15px;font-weight:600;color:#000000;margin:0;"><strong>الحل:</strong> تعمل العوامل السياقية الثلاثة على قياس مدى «ملاءمة التطبيق الواقعي» للتكنولوجيا، وليس فقط كفاءتها النظرية.</p>
+            </div>
+            <div style="background:#f8f4f0;border-right:4px solid #1a3a5a;padding:12px 16px;border-radius:8px;margin-top:12px;">
+                <p style="font-size:15px;font-weight:700;color:#000000;margin:0;"><strong>الخلاصة:</strong> هذه العوامل تُستخدم كأداة مكملة للتقييم، لضمان اختيار تكنولوجيات قابلة للتطبيق فعلياً في الواقع المحلي، وليس فقط الأفضل على الورق.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title"><span class="color-badge cf"></span> أولاً: معامل التكيف المحلي (Cf — Contextual Fit)</div>
+            <div class="section-desc" style="color:#000000;font-weight:700;">
+                يقيس مدى ملاءمة التكنولوجيا للبيئة المصرية من خلال خمسة مؤشرات فرعية. هذا المعامل يُجيب على السؤال: <strong>«هل التقنية قابلة للتطبيق الفعلي في ظروفنا المحلية؟»</strong>
+            </div>
+            <table>
+                <thead>
+                    <tr><th style="width:80px;">المؤشر</th><th style="width:150px;">التعريف</th><th>أسئلة توجيهية للخبير</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong style="color:#000000;font-weight:900;">Cf1</strong><br><span style="font-size:11px;color:#000000;font-weight:800;">الخبرات والعمالة</span></td>
+                        <td style="font-weight:600;color:#000000;">توافر الخبرات الفنية والعمالة المحلية المؤهلة لتنفيذ وصيانة التقنية.</td>
+                        <td><ul class="q-list"><li>هل يوجد عمالة مصرية مؤهلة لتنفيذ هذه التقنية؟</li><li>هل تحتاج لمهارات نادرة أو متخصصة غير متوفرة محلياً؟</li><li>هل تتطلب تدريباً مكثفاً غير متوفر حالياً؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#000000;font-weight:900;">Cf2</strong><br><span style="font-size:11px;color:#000000;font-weight:800;">سهولة التنفيذ</span></td>
+                        <td style="font-weight:600;color:#000000;">سهولة التنفيذ والتطبيق الميداني في ظروف الموقع المصري.</td>
+                        <td><ul class="q-list"><li>هل يمكن تنفيذها بمعدات وآليات متوفرة في مصر؟</li><li>هل تتأثر بعوامل مناخية (حرارة، رطوبة، غبار)؟</li><li>هل تتطلب بيئة عمل مُحكمة غير شائعة في مواقعنا؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#000000;font-weight:900;">Cf3</strong><br><span style="font-size:11px;color:#000000;font-weight:800;">سلاسل الإمداد</span></td>
+                        <td style="font-weight:600;color:#000000;">توافر الموردين وسلاسل الإمداد المحلية للمواد والمكونات.</td>
+                        <td><ul class="q-list"><li>هل المواد الخام متوفرة محلياً بجودة ثابتة؟</li><li>هل يوجد موردون معتمدون في مصر؟</li><li>هل الاستيراد هو الحل الوحيد (مخاطر العملة)؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#000000;font-weight:900;">Cf4</strong><br><span style="font-size:11px;color:#000000;font-weight:800;">جاهزية السوق</span></td>
+                        <td style="font-weight:600;color:#000000;">جاهزية السوق المحلية لاستقبال التقنية من حيث الطلب والتنافسية.</td>
+                        <td><ul class="q-list"><li>هل يوجد طلب سوقي فعلي على هذه التقنية؟</li><li>هل الأسعار تنافسية مقابل البدائل التقليدية؟</li><li>هل المقاولون والمطورون على استعداد لاعتمادها؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#000000;font-weight:900;">Cf5</strong><br><span style="font-size:11px;color:#000000;font-weight:800;">المواءمة المناخية</span></td>
+                        <td style="font-weight:600;color:#000000;">مواءمة التكنولوجيا للظروف المناخية والبيئية المحلية (حرارة، رطوبة، زلازل، تلوّح).</td>
+                        <td><ul class="q-list"><li>هل تتحمل درجات الحرارة المرتفعة في الصحراء؟</li><li>هل تتحمل الرطوبة العالية في الساحل؟</li><li>هل تتأثر بالتلوّح في المناطق الساحلية؟</li></ul></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title"><span class="color-badge af"></span> ثانياً: معامل التضافر التقني (Af — Technical Affinity)</div>
+            <div class="section-desc" style="color:#000000;font-weight:700;">
+                يقيس مدى قدرة التكنولوجيا على التكامل مع المنظومة البنائية الشاملة. هذا المعامل يُجيب على السؤال: <strong>«هل التقنية تتكامل مع باقي التقنيات في المبنى أم تعزلها؟»</strong>
+            </div>
+            <table>
+                <thead>
+                    <tr><th style="width:80px;">المؤشر</th><th style="width:150px;">التعريف</th><th>أسئلة توجيهية للخبير</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong style="color:#cc0000;font-weight:900;">Af1</strong><br><span style="font-size:11px;color:#cc0000;font-weight:800;">قابلية التكامل</span></td>
+                        <td style="font-weight:600;color:#000000;">قابلية التكامل مع تكنولوجيات أخرى في نفس المشروع.</td>
+                        <td><ul class="q-list"><li>هل يمكن دمجها مع تقنيات إنشائية/مواد/طاقة أخرى؟</li><li>هل تتطلب تعديلات جوهرية في التصميم لاستيعابها؟</li><li>هل تتعارض مع أي تقنية شائعة في مصر؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#cc0000;font-weight:900;">Af2</strong><br><span style="font-size:11px;color:#cc0000;font-weight:800;">سهولة الدمج</span></td>
+                        <td style="font-weight:600;color:#000000;">سهولة الدمج داخل النظام البنائي الإجمالي.</td>
+                        <td><ul class="q-list"><li>هل يمكن إدراجها في أي مشروع دون تغيير الهيكل الأساسي؟</li><li>هل تتطلب تخصيصات إنشائية خاصة (أساسات، أعمدة)؟</li><li>هل تتكيف مع الأنظمة الميكانيكية والكهربائية القياسية؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#cc0000;font-weight:900;">Af3</strong><br><span style="font-size:11px;color:#cc0000;font-weight:800;">دعم الأداء الكلي</span></td>
+                        <td style="font-weight:600;color:#000000;">دعم الأداء الكلي للنظام الإنشائي والمبنى.</td>
+                        <td><ul class="q-list"><li>هل تُحسّن أداء المبنى الإجمالي أم تُضعفه؟</li><li>هل تُساهم في خفض الأحمال على الهيكل؟</li><li>هل تُحسّن الراحة الحرارية أو الصوتية للمستخدمين؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#cc0000;font-weight:900;">Af4</strong><br><span style="font-size:11px;color:#cc0000;font-weight:800;">المرونة التشغيلية</span></td>
+                        <td style="font-weight:600;color:#000000;">المرونة التشغيلية وقابلية التحديث والتطوير المستقبلي.</td>
+                        <td><ul class="q-list"><li>هل يمكن ترقيتها أو تطويرها مستقبلاً دون هدم؟</li><li>هل تسمح بإضافة مكونات جديدة لاحقاً؟</li><li>هل تصميمها يسمح بالتكيف مع متطلبات المستقبل؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#cc0000;font-weight:900;">Af5</strong><br><span style="font-size:11px;color:#cc0000;font-weight:800;">تقليل التعارضات</span></td>
+                        <td style="font-weight:600;color:#000000;">تقليل التعارضات والتباعد التقني بين النظم المختلفة.</td>
+                        <td><ul class="q-list"><li>هل تُقلّل من الصراعات بين الأنظمة (مثلاً: العزل الحراري والتهوية)؟</li><li>هل تُبسّط التنسيق بين المقاولين المتخصصين؟</li><li>هل تُقلّل من الأخطاء الإنشائية الناتجة عن تعقيد التكامل؟</li></ul></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title"><span class="color-badge ip"></span> ثالثاً: مؤشر الأولوية المؤسسية (Ip — Institutional Priority)</div>
+            <div class="section-desc" style="color:#000000;font-weight:700;">
+                يقيس مدى اعتماد التكنولوجيا رسمياً في المنظومة التشريعية والتنظيمية المصرية. هذا المعامل يُجيب على السؤال: <strong>«هل التقنية مدعومة من النظام المؤسسي والتنظيمي أم لا؟»</strong>
+            </div>
+            <table>
+                <thead>
+                    <tr><th style="width:80px;">المؤشر</th><th style="width:150px;">التعريف</th><th>أسئلة توجيهية للخبير</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong style="color:#0055cc;font-weight:900;">Ip1</strong><br><span style="font-size:11px;color:#0055cc;font-weight:800;">الإدراج في الأكواد</span></td>
+                        <td style="font-weight:600;color:#000000;">الإدراج في الأكواد الوطنية للبناء (المرجعية الأساسية).</td>
+                        <td><ul class="q-list"><li>هل التقنية مُدرجة في كود البناء المصري الحالي؟</li><li>هل هناك مواصفات مصرية معتمدة لها؟</li><li>هل يمكن استخدامها دون استثناءات خاصة؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#0055cc;font-weight:900;">Ip2</strong><br><span style="font-size:11px;color:#0055cc;font-weight:800;">الاعتماد الفني</span></td>
+                        <td style="font-weight:600;color:#000000;">الاعتماد الفني الموثق من الجهات الرقابية (الجهاز المركزي، الهيئة المصرية العامة للمواصفات).</td>
+                        <td><ul class="q-list"><li>هل حصلت على اعتماد من الهيئة المصرية للمواصفات؟</li><li>هل هناك شهادات فنية مصرية معتمدة؟</li><li>هل الجهاز المركزي للتعمير يوافق على استخدامها؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#0055cc;font-weight:900;">Ip3</strong><br><span style="font-size:11px;color:#0055cc;font-weight:800;">الامتثال للوائح</span></td>
+                        <td style="font-weight:600;color:#000000;">الامتثال للوائح الفنية الحاكمة لقطاع التشييد (الإسكان، البيئة، التخطيط العمراني).</td>
+                        <td><ul class="q-list"><li>هل تتوافق مع لائحة البناء الجديدة؟</li><li>هل تُلبي اشتراطات وزارة البيئة؟</li><li>هل تتوافق مع معايير التخطيط العمراني؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#0055cc;font-weight:900;">Ip4</strong><br><span style="font-size:11px;color:#0055cc;font-weight:800;">المسؤولية المهنية</span></td>
+                        <td style="font-weight:600;color:#000000;">تحمل المسؤولية المهنية وتوفير الضمانات الفنية المعتمدة (التأمين، الضمانات).</td>
+                        <td><ul class="q-list"><li>هل يمكن تأمين المشروعات التي تستخدمها تأمينياً؟</li><li>هل المقاولون على استعداد لتحمل المسؤولية القانونية؟</li><li>هل يمكن الحصول على ضمانات بنكية/فنية لها؟</li></ul></td>
+                    </tr>
+                    <tr><td><strong style="color:#0055cc;font-weight:900;">Ip5</strong><br><span style="font-size:11px;color:#0055cc;font-weight:800;">الاشتراطات التعاقدية</span></td>
+                        <td style="font-weight:600;color:#000000;">القدرة على تحقيق الاشتراطات التعاقدية للمشروع (الجدول الزمني، الميزانية، الجودة).</td>
+                        <td><ul class="q-list"><li>هل يمكن ضبط الجدول الزمني للمشروع باستخدامها؟</li><li>هل تُلبي متطلبات الجودة في العقود الحكومية؟</li><li>هل تُسهّم في تحقيق شروط الأداء (KPIs) التعاقدية؟</li></ul></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="note-box">
+            <p><i class="fas fa-info-circle"></i> <strong>ملاحظات هامة قبل التقييم:</strong></p>
+            <ul>
+                <li>يُرجى الاستعانة ببطاقات المعلومات الموحدة عند تقييم العوامل المبتكرة، فهي توفر البيانات الأساسية للحكم.</li>
+                <li>العوامل المبتكرة (Cf, Af, Ip) تُقيّم التقنية بشكل مستقل عن مصفوفات الأداء (EC, TC, EN, SO).</li>
+                <li>تقنية قد تحصل على درجات عالية في الأداء الفني/البيئي لكن درجات منخفضة في العوامل المبتكرة — وهذا طبيعي ومتوقع.</li>
+                <li>الهدف من العوامل المبتكرة هو تصفية التقنيات «النظرية الجيدة» عن «العملية القابلة للتطبيق» في مصر.</li>
+                <li>يُنصح بالتركيز على خبرتكم المباشرة في المشاريع المصرية عند تقييم معامل التكيف المحلي (Cf).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="session-notice" style="background: #ffffff; border: 3px solid #8b1a1a; border-radius: 12px; padding: 14px 20px; margin-bottom: 16px; text-align: center;">
+        <p><i class="fas fa-info-circle"></i> <strong>تم تقسيم التقييم إلى 5 جلسات</strong> حسب المجموعات الوظيفية — لتجنب الملل وتحسين جودة التقييم</p>
+    </div>
+
+    <div class="info-notice" style="background: #ffffff; border: 3px solid #1a3a5a; border-radius: 12px; padding: 14px 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px;">
+        <i class="fas fa-info-circle"></i>
+        <p><span class="arrow">👇</span> <strong>كل تكنولوجيا لها بطاقة معلومات</strong> <span class="arrow">👆</span> اضغط على <strong>السهم</strong> جنب اسم التكنولوجيا لعرض البطاقة</p>
+    </div>
+
+    <div class="session-tabs">
+        <button class="session-tab active" onclick="switchSession('s')" id="tab-s"><span class="icon">🏗️</span> الجلسة الأولى: الأنظمة الإنشائية (S) <span class="count">(10)</span></button>
+        <button class="session-tab" onclick="switchSession('m')" id="tab-m"><span class="icon">🧱</span> الجلسة الثانية: المواد (M) <span class="count">(10)</span></button>
+        <button class="session-tab" onclick="switchSession('d')" id="tab-d"><span class="icon">💻</span> الجلسة الثالثة: الرقمية (D) <span class="count">(6)</span></button>
+        <button class="session-tab" onclick="switchSession('e')" id="tab-e"><span class="icon">⚡</span> الجلسة الرابعة: البيئة والطاقة (E) <span class="count">(7)</span></button>
+        <button class="session-tab" onclick="switchSession('b')" id="tab-b"><span class="icon">🔄</span> الجلسة الخامسة: نماذج الأعمال (B) <span class="count">(6)</span></button>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- الجلسة S -->
+    <!-- ========================================================== -->
+    <div class="session-content active" id="session-s">
+        <div class="session-title"><span class="color-badge s"></span> الجلسة الأولى: الأنظمة الإنشائية (S) <span class="tech-count">— 10 تكنولوجيا</span></div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="min-width:50px;text-align:center;">الكود</th>
+                        <th rowspan="2" style="min-width:130px;text-align:right;">التكنولوجيا</th>
+                        <th colspan="5" class="group-cf">CF <span class="label-main" style="color:#000000;">(التكيف المحلي)</span></th>
+                        <th colspan="5" class="group-af">AF <span class="label-main" style="color:#cc0000;">(التضافر التقني)</span></th>
+                        <th colspan="5" class="group-ip">IP <span class="label-main" style="color:#0055cc;">(الأولوية المؤسسية)</span></th>
+                    </tr>
+                    <tr>
+                        <th>CF1<br><span class="sub cf-color">الخبرات<br>والعمالة</span></th>
+                        <th>CF2<br><span class="sub cf-color">سهولة<br>التنفيذ</span></th>
+                        <th>CF3<br><span class="sub cf-color">سلاسل<br>الإمداد</span></th>
+                        <th>CF4<br><span class="sub cf-color">جاهزية<br>السوق</span></th>
+                        <th>CF5<br><span class="sub cf-color">المواءمة<br>المناخية</span></th>
+                        <th>AF1<br><span class="sub af-color">قابلية<br>التكامل</span></th>
+                        <th>AF2<br><span class="sub af-color">سهولة<br>الدمج</span></th>
+                        <th>AF3<br><span class="sub af-color">دعم<br>الأداء</span></th>
+                        <th>AF4<br><span class="sub af-color">المرونة<br>التشغيلية</span></th>
+                        <th>AF5<br><span class="sub af-color">تقليل<br>التعارضات</span></th>
+                        <th>IP1<br><span class="sub ip-color">الإدراج<br>في الأكواد</span></th>
+                        <th>IP2<br><span class="sub ip-color">الاعتماد<br>الفني</span></th>
+                        <th>IP3<br><span class="sub ip-color">الامتثال<br>للوائح</span></th>
+                        <th>IP4<br><span class="sub ip-color">المسؤولية<br>المهنية</span></th>
+                        <th>IP5<br><span class="sub ip-color">الاشتراطات<br>التعاقدية</span></th>
+                    </tr>
+                </thead>
+                <tbody id="s-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- الجلسة M -->
+    <!-- ========================================================== -->
+    <div class="session-content" id="session-m">
+        <div class="session-title"><span class="color-badge m"></span> الجلسة الثانية: المواد (M) <span class="tech-count">— 10 تكنولوجيا</span></div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="min-width:50px;text-align:center;">الكود</th>
+                        <th rowspan="2" style="min-width:130px;text-align:right;">التكنولوجيا</th>
+                        <th colspan="5" class="group-cf">CF <span class="label-main" style="color:#000000;">(التكيف المحلي)</span></th>
+                        <th colspan="5" class="group-af">AF <span class="label-main" style="color:#cc0000;">(التضافر التقني)</span></th>
+                        <th colspan="5" class="group-ip">IP <span class="label-main" style="color:#0055cc;">(الأولوية المؤسسية)</span></th>
+                    </tr>
+                    <tr>
+                        <th>CF1<br><span class="sub cf-color">الخبرات<br>والعمالة</span></th>
+                        <th>CF2<br><span class="sub cf-color">سهولة<br>التنفيذ</span></th>
+                        <th>CF3<br><span class="sub cf-color">سلاسل<br>الإمداد</span></th>
+                        <th>CF4<br><span class="sub cf-color">جاهزية<br>السوق</span></th>
+                        <th>CF5<br><span class="sub cf-color">المواءمة<br>المناخية</span></th>
+                        <th>AF1<br><span class="sub af-color">قابلية<br>التكامل</span></th>
+                        <th>AF2<br><span class="sub af-color">سهولة<br>الدمج</span></th>
+                        <th>AF3<br><span class="sub af-color">دعم<br>الأداء</span></th>
+                        <th>AF4<br><span class="sub af-color">المرونة<br>التشغيلية</span></th>
+                        <th>AF5<br><span class="sub af-color">تقليل<br>التعارضات</span></th>
+                        <th>IP1<br><span class="sub ip-color">الإدراج<br>في الأكواد</span></th>
+                        <th>IP2<br><span class="sub ip-color">الاعتماد<br>الفني</span></th>
+                        <th>IP3<br><span class="sub ip-color">الامتثال<br>للوائح</span></th>
+                        <th>IP4<br><span class="sub ip-color">المسؤولية<br>المهنية</span></th>
+                        <th>IP5<br><span class="sub ip-color">الاشتراطات<br>التعاقدية</span></th>
+                    </tr>
+                </thead>
+                <tbody id="m-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- الجلسة D -->
+    <!-- ========================================================== -->
+    <div class="session-content" id="session-d">
+        <div class="session-title"><span class="color-badge d"></span> الجلسة الثالثة: الرقمية (D) <span class="tech-count">— 6 تكنولوجيا</span></div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="min-width:50px;text-align:center;">الكود</th>
+                        <th rowspan="2" style="min-width:130px;text-align:right;">التكنولوجيا</th>
+                        <th colspan="5" class="group-cf">CF <span class="label-main" style="color:#000000;">(التكيف المحلي)</span></th>
+                        <th colspan="5" class="group-af">AF <span class="label-main" style="color:#cc0000;">(التضافر التقني)</span></th>
+                        <th colspan="5" class="group-ip">IP <span class="label-main" style="color:#0055cc;">(الأولوية المؤسسية)</span></th>
+                    </tr>
+                    <tr>
+                        <th>CF1<br><span class="sub cf-color">الخبرات<br>والعمالة</span></th>
+                        <th>CF2<br><span class="sub cf-color">سهولة<br>التنفيذ</span></th>
+                        <th>CF3<br><span class="sub cf-color">سلاسل<br>الإمداد</span></th>
+                        <th>CF4<br><span class="sub cf-color">جاهزية<br>السوق</span></th>
+                        <th>CF5<br><span class="sub cf-color">المواءمة<br>المناخية</span></th>
+                        <th>AF1<br><span class="sub af-color">قابلية<br>التكامل</span></th>
+                        <th>AF2<br><span class="sub af-color">سهولة<br>الدمج</span></th>
+                        <th>AF3<br><span class="sub af-color">دعم<br>الأداء</span></th>
+                        <th>AF4<br><span class="sub af-color">المرونة<br>التشغيلية</span></th>
+                        <th>AF5<br><span class="sub af-color">تقليل<br>التعارضات</span></th>
+                        <th>IP1<br><span class="sub ip-color">الإدراج<br>في الأكواد</span></th>
+                        <th>IP2<br><span class="sub ip-color">الاعتماد<br>الفني</span></th>
+                        <th>IP3<br><span class="sub ip-color">الامتثال<br>للوائح</span></th>
+                        <th>IP4<br><span class="sub ip-color">المسؤولية<br>المهنية</span></th>
+                        <th>IP5<br><span class="sub ip-color">الاشتراطات<br>التعاقدية</span></th>
+                    </tr>
+                </thead>
+                <tbody id="d-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- الجلسة E -->
+    <!-- ========================================================== -->
+    <div class="session-content" id="session-e">
+        <div class="session-title"><span class="color-badge e"></span> الجلسة الرابعة: البيئة والطاقة (E) <span class="tech-count">— 7 تكنولوجيا</span></div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="min-width:50px;text-align:center;">الكود</th>
+                        <th rowspan="2" style="min-width:130px;text-align:right;">التكنولوجيا</th>
+                        <th colspan="5" class="group-cf">CF <span class="label-main" style="color:#000000;">(التكيف المحلي)</span></th>
+                        <th colspan="5" class="group-af">AF <span class="label-main" style="color:#cc0000;">(التضافر التقني)</span></th>
+                        <th colspan="5" class="group-ip">IP <span class="label-main" style="color:#0055cc;">(الأولوية المؤسسية)</span></th>
+                    </tr>
+                    <tr>
+                        <th>CF1<br><span class="sub cf-color">الخبرات<br>والعمالة</span></th>
+                        <th>CF2<br><span class="sub cf-color">سهولة<br>التنفيذ</span></th>
+                        <th>CF3<br><span class="sub cf-color">سلاسل<br>الإمداد</span></th>
+                        <th>CF4<br><span class="sub cf-color">جاهزية<br>السوق</span></th>
+                        <th>CF5<br><span class="sub cf-color">المواءمة<br>المناخية</span></th>
+                        <th>AF1<br><span class="sub af-color">قابلية<br>التكامل</span></th>
+                        <th>AF2<br><span class="sub af-color">سهولة<br>الدمج</span></th>
+                        <th>AF3<br><span class="sub af-color">دعم<br>الأداء</span></th>
+                        <th>AF4<br><span class="sub af-color">المرونة<br>التشغيلية</span></th>
+                        <th>AF5<br><span class="sub af-color">تقليل<br>التعارضات</span></th>
+                        <th>IP1<br><span class="sub ip-color">الإدراج<br>في الأكواد</span></th>
+                        <th>IP2<br><span class="sub ip-color">الاعتماد<br>الفني</span></th>
+                        <th>IP3<br><span class="sub ip-color">الامتثال<br>للوائح</span></th>
+                        <th>IP4<br><span class="sub ip-color">المسؤولية<br>المهنية</span></th>
+                        <th>IP5<br><span class="sub ip-color">الاشتراطات<br>التعاقدية</span></th>
+                    </tr>
+                </thead>
+                <tbody id="e-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- الجلسة B -->
+    <!-- ========================================================== -->
+    <div class="session-content" id="session-b">
+        <div class="session-title"><span class="color-badge b"></span> الجلسة الخامسة: نماذج الأعمال (B) <span class="tech-count">— 6 تكنولوجيا</span></div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="min-width:50px;text-align:center;">الكود</th>
+                        <th rowspan="2" style="min-width:130px;text-align:right;">التكنولوجيا</th>
+                        <th colspan="5" class="group-cf">CF <span class="label-main" style="color:#000000;">(التكيف المحلي)</span></th>
+                        <th colspan="5" class="group-af">AF <span class="label-main" style="color:#cc0000;">(التضافر التقني)</span></th>
+                        <th colspan="5" class="group-ip">IP <span class="label-main" style="color:#0055cc;">(الأولوية المؤسسية)</span></th>
+                    </tr>
+                    <tr>
+                        <th>CF1<br><span class="sub cf-color">الخبرات<br>والعمالة</span></th>
+                        <th>CF2<br><span class="sub cf-color">سهولة<br>التنفيذ</span></th>
+                        <th>CF3<br><span class="sub cf-color">سلاسل<br>الإمداد</span></th>
+                        <th>CF4<br><span class="sub cf-color">جاهزية<br>السوق</span></th>
+                        <th>CF5<br><span class="sub cf-color">المواءمة<br>المناخية</span></th>
+                        <th>AF1<br><span class="sub af-color">قابلية<br>التكامل</span></th>
+                        <th>AF2<br><span class="sub af-color">سهولة<br>الدمج</span></th>
+                        <th>AF3<br><span class="sub af-color">دعم<br>الأداء</span></th>
+                        <th>AF4<br><span class="sub af-color">المرونة<br>التشغيلية</span></th>
+                        <th>AF5<br><span class="sub af-color">تقليل<br>التعارضات</span></th>
+                        <th>IP1<br><span class="sub ip-color">الإدراج<br>في الأكواد</span></th>
+                        <th>IP2<br><span class="sub ip-color">الاعتماد<br>الفني</span></th>
+                        <th>IP3<br><span class="sub ip-color">الامتثال<br>للوائح</span></th>
+                        <th>IP4<br><span class="sub ip-color">المسؤولية<br>المهنية</span></th>
+                        <th>IP5<br><span class="sub ip-color">الاشتراطات<br>التعاقدية</span></th>
+                    </tr>
+                </thead>
+                <tbody id="b-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="save-btn" onclick="saveAll()"><i class="fas fa-save"></i> حفظ التقدم</button>
+        <button class="export-btn" onclick="exportExcel()"><i class="fas fa-file-excel"></i> تصدير Excel</button>
+        <button class="reset-btn" onclick="resetAll()"><i class="fas fa-trash"></i> مسح جميع التقييمات</button>
+    </div>
+
+    <div class="footer-msg">
+        <p><i class="fas fa-heart"></i> شكراً لتقييمكم الدقيق — هذه العوامل تضمن اختيار تكنولوجيات قابلة للتطبيق فعلياً في مصر</p>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="btn-prev" onclick="goToPage('الاستبيان الثاني.html')"><i class="fas fa-arrow-right"></i> السابق</button>
+        <span class="page-indicator">الجزء <span>8</span> من <span>10</span></span>
+        <button class="btn-next" onclick="goToPage('الاستبيان الرابع.html')">التالي <i class="fas fa-arrow-left"></i></button>
+    </div>
+
+</div>
+
+<!-- ===== مودال ===== -->
+<div class="modal-overlay" id="infoModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <div class="title"><span class="code" id="modalCode">S0</span><span class="name" id="modalName">الخرسانة التقليدية</span></div>
+            <button class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="icon-row" id="modalIcon">🏗️</div>
+            <div class="desc" id="modalDesc">وصف التكنولوجيا</div>
+            <div class="specs">
+                <div class="item"><div class="label">🌍 الأداء البيئي</div><div class="value green" id="modalEnv">—</div></div>
+                <div class="item"><div class="label">⚙️ الأداء الفني</div><div class="value blue" id="modalTech">—</div></div>
+                <div class="item"><div class="label">💰 الأداء الاقتصادي</div><div class="value gold" id="modalEco">—</div></div>
+                <div class="item"><div class="label">📌 الحالة</div><div class="value purple" id="modalStatus">—</div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // التنقل بين الصفحات
+    // ============================================================
+    function goToPage(page) { window.location.href = page; }
+
+    // ============================================================
+    // دليل التقييم (قابل للطي)
+    // ============================================================
+    function toggleGuide() {
+        const content = document.getElementById('guideContent');
+        const icon = document.getElementById('guideIcon');
+        content.classList.toggle('open');
+        icon.classList.toggle('open');
+    }
+
+    // ============================================================
+    // بيانات التكنولوجيات (جميعها)
+    // ============================================================
+    const techData = {
+        // S - الأنظمة الإنشائية
+        'S0': { name: 'الخرسانة التقليدية', icon: '🏗️', env: 'استهلاك عالٍ للموارد والطاقة، هدر كبير', tech: 'مرونة عالية في التنفيذ والتشكيل', eco: 'تكلفة أولية منخفضة، عمالة كثيفة، هدر مرتفع', status: 'خط أساس', desc: 'صب الخرسانة المسلحة في قوالب خشبية بالموقع، النظام التقليدي الأكثر استخداماً في مصر' },
+        'S1': { name: 'مسبقة الصب', icon: '🏗️', env: 'تقليل الهدر بنسبة 30-50%، تحكم أفضل في الجودة', tech: 'سرعة تنفيذ عالية، جودة متحكم فيها', eco: 'توفير وقت، تكلفة نقل مرتفعة', status: 'مرشح', desc: 'تصنيع العناصر الخرسانية في المصنع ثم نقلها وتركيبها بالموقع، مما يقلل الهدر ويزيد الجودة' },
+        'S2': { name: 'صلب خفيف', icon: '🔩', env: '100% قابل للتدوير، انبعاثات منخفضة', tech: 'مقاوم للزلازل، مرونة تصميمية عالية', eco: 'توفير في تكاليف الأساسات، سرعة تنفيذ', status: 'مرشح', desc: 'إطارات فولاذية خفيفة الوزن متصلة بمسامير، قابلة للتفكيك وإعادة الاستخدام بالكامل' },
+        'S3': { name: 'وصلات جافة', icon: '🔧', env: 'فك وإعادة استخدام 100% للمكونات', tech: 'سهولة الصيانة والتعديل، سرعة تنفيذ', eco: 'تقليل تكلفة التجديد، مرونة مستقبلية', status: 'مرشح', desc: 'أنظمة تجميع ميكانيكية باستخدام مسامير وزوايا معدنية، تسمح بالفك وإعادة الاستخدام' },
+        'S4': { name: 'طباعة 3D', icon: '🖨️', env: 'صفر نفايات، تقليل هدر المواد', tech: 'حرية معمارية لانهائية، سرعة تنفيذ', eco: 'خفض تكلفة العمالة بنسبة كبيرة', status: 'مرشح', desc: 'بناء آلي طبقة فوق طبقة بدون قوالب، يتيح حرية معمارية ويقلل النفايات إلى صفر' },
+        'S5': { name: 'أنظمة هجينة', icon: '🔗', env: 'تقليل استهلاك المواد بنسبة 20-30%', tech: 'مرونة تصميمية عالية، أداء هيكلي محسن', eco: 'كفاءة اقتصادية طويلة المدى', status: 'مرشح', desc: 'دمج الخرسانة والصلب والخشب في نظام إنشائي واحد لتحقيق أفضل أداء' },
+        'S6': { name: 'تربة مضغوطة', icon: '🏺', env: 'طاقة صفر، مادة متجددة 100%', tech: 'عزل حراري ممتاز، مقاومة جيدة', eco: 'تكلفة مادة صفر، عمالة محلية', status: 'مرشح', desc: 'إنشاء الجدران من التربة المحلية المضغوطة في قوالب، بدون حرق وبطاقة صفر' },
+        'S7': { name: 'إنشاء نمطي', icon: '📦', env: 'إعادة استخدام الوحدات، تقليل الهدر', tech: 'سرعة وجودة عالية، تنفيذ دقيق', eco: 'توفير 40-60% من هدر المواد', status: 'مرشح', desc: 'وحدات ثلاثية الأبعاد كاملة التشطيب تُصنع في المصنع وتُركب بالموقع بسرعة' },
+        'S8': { name: 'إعادة استخدام', icon: '♻️', env: 'أعلى مستويات الدائرية، صفر هدم', tech: 'يحتاج تقييم هيكلي دقيق', eco: 'توفير هائل في المواد والطاقة', status: 'مرشح', desc: 'الاحتفاظ بالهيكل القائم وتكييفه لوظيفة جديدة بدلاً من الهدم وإعادة البناء' },
+        'S9': { name: 'قباب طينية', icon: '🕌', env: 'مادة متجددة 100%، طاقة صفر', tech: 'مقاومة حرارية ممتازة', eco: 'تكلفة منخفضة جداً، عمالة محلية', status: 'مرشح', desc: 'تقنية تراثية مصرية بالطين بدون قوالب خشبية، مقاومة حرارية ومتجددة' },
+
+        // M - المواد
+        'M0': { name: 'طوب أحمر تقليدي', icon: '🧱', env: 'خط الأساس (انبعاثات عالية من الحرق)', tech: 'توافر عالٍ، سهولة تنفيذ', eco: 'تكلفة منخفضة، متوفر محلياً', status: 'خط أساس', desc: 'بناء تقليدي يعتمد على الطوب المحروق والأسمنت البورتلاندي، الأكثر شيوعاً في مصر' },
+        'M1': { name: 'خشب هندسي', icon: '🪵', env: 'كربون سالب، مصدر متجدد', tech: 'قوة عالية، عزل حراري ممتاز', eco: 'تكلفة عالية نسبياً، توفير طاقة', status: 'مرشح', desc: 'ألواح CLT و GLT المصنعة هندسياً من أخشاب معاد تصنيعها، تخزن الكربون طوال عمر المبنى' },
+        'M2': { name: 'ركام مستخلص', icon: '🔄', env: 'تقليل الردم بنسبة 100%، توفير موارد', tech: 'جودة أقل 10-15%، يحتاج معالجة', eco: 'توفير 20-30% من تكلفة المواد', status: 'مرشح', desc: 'ركام مستخرج من تكسير الخرسانة القديمة، يستخدم كبديل للركام الطبيعي' },
+        'M3': { name: 'ذاتية الالتئام', icon: '🧪', env: 'إطالة العمر الافتراضي بنسبة 50%', tech: 'مقاومة عالية للتآكل، تقليل الصيانة', eco: 'توفير على المدى الطويل', status: 'مرشح', desc: 'مواد تحتوي على بكتيريا أو مواد كيميائية تصلح الشروخ تلقائياً عند حدوثها' },
+        'M4': { name: 'جيوبوليمر', icon: '🧪', env: 'انبعاثات أقل بنسبة 80% من الأسمنت التقليدي', tech: 'مقاومة حرارية عالية، متانة', eco: 'توافر محلي، تكلفة تنافسية', status: 'مرشح', desc: 'بديل منخفض الكربون للأسمنت البورتلاندي باستخدام الرماد المتطاير والخبث' },
+        'M5': { name: 'إضافات نانو', icon: '🔬', env: 'تقليل المواد المستخدمة بنسبة 20%', tech: 'قوة ومتانة أعلى، أداء محسن', eco: 'تكلفة عالية، أداء متميز', status: 'مرشح', desc: 'جسيمات نانوية تُضاف للخرسانة لتحسين القوة والمتانة وتقليل الكميات المستخدمة' },
+        'M6': { name: 'ألياف متطورة', icon: '🧵', env: 'لا صدأ، صيانة أقل، عمر أطول', tech: 'خفيفة الوزن، مقاومة عالية', eco: 'توفير في تكاليف الصيانة', status: 'مرشح', desc: 'ألياف زجاجية أو بوليمرية تُضاف للخرسانة لتعزيز مقاومة التشقق وتقليل الحديد' },
+        'M7': { name: 'عزل حيوي', icon: '🌾', env: 'كربون سالب، مصدر متجدد', tech: 'عزل حراري وصوتي ممتاز', eco: 'تكلفة منخفضة، توفير طاقة', status: 'مرشح', desc: 'مواد عزل طبيعية من ألياف نباتية (قش، صوف، قطن) متجددة ومنخفضة الكربون' },
+        'M8': { name: 'طوب معزول', icon: '🧱', env: 'توفير طاقة بنسبة تصل إلى 40%', tech: 'عزل مدمج، سهولة تركيب', eco: 'توفير في فواتير الطاقة', status: 'مرشح', desc: 'وحدات بناء أسمنتية مع عزل حراري مدمج لتقليل استهلاك الطاقة التشغيلية' },
+        'M9': { name: 'طوب CSEB', icon: '🏺', env: 'لا حرق، طاقة منخفضة، مواد محلية', tech: 'مقاومة ميكانيكية جيدة، عزل حراري', eco: 'عمالة محلية، تكلفة منخفضة', status: 'مرشح', desc: 'طوب من تربة محلية مضغوطة مع 5% أسمنت، بدون حرق وبطاقة منخفضة' },
+
+        // D - الرقمية
+        'D0': { name: 'إدارة ورقية', icon: '📄', env: 'استهلاك ورق، عدم تتبع دقيق للمواد', tech: 'بسيط، محدودية في التكامل', eco: 'تكلفة منخفضة مبدئياً', status: 'خط أساس', desc: 'إدارة تقليدية تعتمد على المستندات الورقية وملفات CAD بدون تكامل رقمي' },
+        'D1': { name: 'BIM', icon: '💻', env: 'منع الهدر من أخطاء الموقع، تتبع المواد', tech: 'كشف التعارضات قبل التنفيذ، تكامل عالي', eco: 'خفض تكلفة المشروع 10-15%', status: 'مرشح', desc: 'توأم رقمي متكامل للمبنى يدير جميع مراحل التصميم والتنفيذ والتشغيل' },
+        'D2': { name: 'Blockchain', icon: '🔗', env: 'تتبع دقيق للمواد، تقليل الفاقد', tech: 'شفافية عالية، أمان معلومات', eco: 'تقليل المخاطر، تحسين التوريد', status: 'مرشح', desc: 'دفتر أستاذ موزع لتوثيق سلاسل التوريد والمواد بشكل شفاف وغير قابل للتلاعب' },
+        'D3': { name: 'جوازات مواد', icon: '🪪', env: 'تسهيل استعادة المواد وإعادة تدويرها', tech: 'تتبع العمر الافتراضي، إدارة دورة الحياة', eco: 'رفع القيمة العقارية، تقليل تكلفة الهدم', status: 'مرشح', desc: 'سجل رقمي لكل مكون من مكونات المبنى يسهل تتبعه واسترداده وإعادة استخدامه' },
+        'D4': { name: 'عدادات ذكية', icon: '📡', env: 'خفض استهلاك الطاقة بنسبة تصل إلى 25%', tech: 'صيانة وقائية، تحسين تشغيلي', eco: 'توفير في فواتير التشغيل', status: 'مرشح', desc: 'حساسات وإنترنت الأشياء لمراقبة استهلاك الطاقة والمياه لحظياً' },
+        'D5': { name: 'ذكاء اصطناعي', icon: '🤖', env: 'تحسين كفاءة الموارد، تقليل الفاقد', tech: 'تحسين مستمر، تكيف ذكي', eco: 'توفير كبير في التشغيل', status: 'مرشح', desc: 'خوارزميات ذكاء اصطناعي لتحسين استهلاك الموارد والطاقة في المباني' },
+
+        // E - البيئة والطاقة
+        'E0': { name: 'ربط تقليدي', icon: '⚡', env: 'استهلاك عالٍ للطاقة، انبعاثات', tech: 'بسيط، لا تكامل مع مصادر متجددة', eco: 'تكلفة تشغيل عالية', status: 'خط أساس', desc: 'الاعتماد الكامل على الشبكة الوطنية للكهرباء بدون توليد أو ترشيد' },
+        'E1': { name: 'توربينات رياح', icon: '🌬️', env: 'صفر انبعاثات، طاقة متجددة', tech: 'كفاءة متوسطة، تكامل معماري', eco: 'عائد استثماري 15 سنة', status: 'مرشح', desc: 'توربينات رياح صغيرة مدمجة في المباني لتوليد الطاقة المتجددة' },
+        'E2': { name: 'مياه رمادية', icon: '💧', env: 'توفير مياه بنسبة تصل إلى 50%', tech: 'جودة مياه مناسبة للري، تقنيات معالجة', eco: 'توفير مياه كبير', status: 'مرشح', desc: 'نظام لمعالجة مياه الصرف الخفيفة وإعادة استخدامها في الري والغسيل' },
+        'E3': { name: 'تهوية ذكية', icon: '🌪️', env: 'توفير طاقة بنسبة تصل إلى 40%', tech: 'راحة حرارية محسنة، أنظمة ذكية', eco: 'توفير في فواتير الطاقة', status: 'مرشح', desc: 'دمج التهوية الطبيعية مع أنظمة تحكم ذكية لتقليل استهلاك الطاقة' },
+        'E4': { name: 'BIPV', icon: '☀️', env: 'طاقة متجددة، صفر انبعاثات', tech: 'حماية للمبنى، تكامل معماري', eco: 'عائد استثماري 12 سنة', status: 'مرشح', desc: 'ألواح شمسية مدمجة في غلاف المبنى (أسطح، واجهات) لتوليد الكهرباء' },
+        'E5': { name: 'فرز مخلفات', icon: '♻️', env: 'تقليل الردم بنسبة تصل إلى 90%', tech: 'جودة ركام متغيرة حسب المصدر', eco: 'توفير مواد، تقليل تكلفة النقل', status: 'مرشح', desc: 'معدات وأنظمة لفرز ومعالجة مخلفات البناء مباشرة في الموقع' },
+        'E6': { name: 'أسطح خضراء', icon: '🌿', env: 'امتصاص كربون، تقليل حرارة', tech: 'عزل حراري ممتاز، جمالية', eco: 'صيانة دورية، توفير طاقة', status: 'مرشح', desc: 'زراعة نباتات على الأسطح والجدران لتوفير عزل حراري وامتصاص مياه الأمطار' },
+
+        // B - نماذج الأعمال
+        'B0': { name: 'توريد خطي', icon: '📋', env: 'لا مسؤولية عن النفايات الناتجة', tech: 'بسيط، محدودية في الابتكار', eco: 'فقدان قيمة المواد في نهاية العمر', status: 'خط أساس', desc: 'نموذج تقليدي قائم على الشراء والاستهلاك والتخلص بدون مسؤولية عن نهاية العمر' },
+        'B1': { name: 'تأجير تمويلي', icon: '🏗️', env: 'إعادة استخدام مضمونة، تقليل النفايات', tech: 'صيانة من المصنع، تحديث دوري', eco: 'تكلفة تشغيلية، توفير رأسمالي', status: 'مرشح', desc: 'استئجار المكونات الهندسية بدلاً من شرائها، مع صيانة وإعادة استخدام مضمونة' },
+        'B2': { name: 'منصات تشارك', icon: '🤝', env: 'تقليل الهدر، تحسين كفاءة الموارد', tech: 'تنوع مصادر المواد، مرونة', eco: 'تكلفة منخفضة، توفير في الشراء', status: 'مرشح', desc: 'منصات رقمية لتبادل المواد والمعدات الفائضة بين المشاريع المختلفة' },
+        'B3': { name: 'التشييد كخدمة', icon: '🔄', env: 'مسؤولية كاملة عن دورة الحياة، تحفيز التصميم طويل العمر', tech: 'جودة مضمونة، تكامل عالي بين المراحل', eco: 'نموذج اشتراك مستمر، تدفق نقدي منتظم', status: 'مرشح', desc: 'نموذج أعمال دائري حيث يُقدم المبنى كخدمة متكاملة تشمل التصميم والتنفيذ والصيانة والتشغيل، بدلاً من تسليمه كمنتج نهائي' },
+        'B4': { name: 'لوجستيات عكسية', icon: '📦', env: 'تقليل الردم، توفير الموارد', tech: 'يحتاج فرز دقيق، لوجستيات متقدمة', eco: 'توفير مواد خام، تقليل تكلفة التخلص', status: 'مرشح', desc: 'نظام لجمع المواد من مشاريع الهدم وإعادتها للتصنيع أو إعادة الاستخدام' },
+        'B5': { name: 'تكافل صناعي', icon: '🔗', env: 'صفر نفايات، كفاءة موارد عالية', tech: 'تكامل صناعي، كفاءة عالية', eco: 'قيمة مضافة، توفير مواد', status: 'مرشح', desc: 'استخدام مخلفات صناعة كمدخلات لصناعة أخرى، لتحقيق صفر نفايات' }
+    };
+
+    // ============================================================
+    // بيانات المجموعات
+    // ============================================================
+    const groups = {
+        s: { codes: ['S0','S1','S2','S3','S4','S5','S6','S7','S8','S9'], bodyId: 's-body' },
+        m: { codes: ['M0','M1','M2','M3','M4','M5','M6','M7','M8','M9'], bodyId: 'm-body' },
+        d: { codes: ['D0','D1','D2','D3','D4','D5'], bodyId: 'd-body' },
+        e: { codes: ['E0','E1','E2','E3','E4','E5','E6'], bodyId: 'e-body' },
+        b: { codes: ['B0','B1','B2','B3','B4','B5'], bodyId: 'b-body' }
+    };
+
+    // ============================================================
+    // توليد الجداول
+    // ============================================================
+    function buildTable(groupKey) {
+        const group = groups[groupKey];
+        const tbody = document.getElementById(group.bodyId);
+        tbody.innerHTML = '';
+
+        group.codes.forEach(code => {
+            const tech = techData[code];
+            if (!tech) return;
+
+            const statusClass = tech.status === 'خط أساس' ? 'baseline' : 'candidate';
+            const tr = document.createElement('tr');
+
+            let html = `
+                <td><span class="code">${code}</span></td>
+                <td style="text-align:right;font-size:14px;font-weight:800;color:#000000;white-space:nowrap;">
+                    ${tech.name}
+                    <span class="status ${statusClass}">${tech.status}</span>
+                    <button class="arrow-btn" onclick="showInfo('${code}')" title="بطاقة المعلومات">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </td>
+            `;
+
+            // 15 خانة: CF1-5 (0-4), AF1-5 (5-9), IP1-5 (10-14)
+            for (let i = 0; i < 15; i++) {
+                const key = `${code}_${i}`;
+                html += `<td><input class="score-input" type="number" min="1" max="5" placeholder="1-5" data-key="${key}" onchange="updateProgress()"></td>`;
+            }
+
+            tr.innerHTML = html;
+            tbody.appendChild(tr);
+        });
+
+        setTimeout(loadSaved, 100);
+    }
+
+    // ============================================================
+    // بناء جميع الجداول
+    // ============================================================
+    Object.keys(groups).forEach(key => buildTable(key));
+
+    // ============================================================
+    // التنقل بين الجلسات
+    // ============================================================
+    function switchSession(group) {
+        document.querySelectorAll('.session-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.session-content').forEach(content => content.classList.remove('active'));
+
+        document.getElementById('tab-' + group).classList.add('active');
+        document.getElementById('session-' + group).classList.add('active');
+    }
+
+    // ============================================================
+    // بطاقة المعلومات
+    // ============================================================
+    function showInfo(code) {
+        const tech = techData[code];
+        if (!tech) return;
+
+        document.getElementById('modalCode').textContent = code;
+        document.getElementById('modalName').textContent = tech.name;
+        document.getElementById('modalIcon').textContent = tech.icon || '🏗️';
+        document.getElementById('modalDesc').textContent = tech.desc || 'لا توجد معلومات';
+        document.getElementById('modalEnv').textContent = tech.env || '—';
+        document.getElementById('modalTech').textContent = tech.tech || '—';
+        document.getElementById('modalEco').textContent = tech.eco || '—';
+        document.getElementById('modalStatus').textContent = tech.status || '—';
+
+        document.getElementById('infoModal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('infoModal').classList.remove('active');
+    }
+
+    document.getElementById('infoModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    // ============================================================
+    // شريط التقدم
+    // ============================================================
+    function updateProgress() {
+        const inputs = document.querySelectorAll('.score-input');
+        let filled = 0;
+
+        inputs.forEach(input => {
+            const val = parseInt(input.value);
+            if (val >= 1 && val <= 5) filled++;
+        });
+
+        const total = inputs.length;
+        const percent = total > 0 ? Math.round((filled / total) * 100) : 0;
+
+        document.getElementById('progressFill').style.width = percent + '%';
+        document.getElementById('progressPercent').textContent = percent + '%';
+
+        saveProgress();
+    }
+
+    // ============================================================
+    // الحفظ والاستعادة والتصدير
+    // ============================================================
+    function saveProgress() {
+        const inputs = document.querySelectorAll('.score-input');
+        const data = {};
+
+        inputs.forEach(input => {
+            const key = input.dataset.key;
+            if (key) {
+                const val = parseInt(input.value);
+                if (val >= 1 && val <= 5) {
+                    data[key] = val;
+                }
+            }
+        });
+
+        localStorage.setItem('ce_mcdm_contextual', JSON.stringify(data));
+    }
+
+    function loadSaved() {
+        const saved = localStorage.getItem('ce_mcdm_contextual');
+        if (!saved) return;
+
+        try {
+            const data = JSON.parse(saved);
+            const inputs = document.querySelectorAll('.score-input');
+
+            inputs.forEach(input => {
+                const key = input.dataset.key;
+                if (key && data[key]) {
+                    input.value = data[key];
+                }
+            });
+
+            updateProgress();
+        } catch(e) {}
+    }
+
+    function saveAll() {
+        saveProgress();
+        alert('✅ تم حفظ جميع التقييمات بنجاح!');
+    }
+
+    function exportExcel() {
+        const data = collectAllData();
+        if (!data || Object.keys(data).length === 0) {
+            alert('⚠️ لا توجد بيانات للتصدير!');
+            return;
+        }
+
+        let csv = 'المعيار,التكنولوجيا,القيمة\n';
+
+        const criteriaNames = [
+            'CF1: الخبرات والعمالة', 'CF2: سهولة التنفيذ', 'CF3: سلاسل الإمداد', 'CF4: جاهزية السوق', 'CF5: المواءمة المناخية',
+            'AF1: قابلية التكامل', 'AF2: سهولة الدمج', 'AF3: دعم الأداء', 'AF4: المرونة التشغيلية', 'AF5: تقليل التعارضات',
+            'IP1: الإدراج في الأكواد', 'IP2: الاعتماد الفني', 'IP3: الامتثال للوائح', 'IP4: المسؤولية المهنية', 'IP5: الاشتراطات التعاقدية'
+        ];
+
+        for (const [key, val] of Object.entries(data)) {
+            const [code, idx] = key.split('_');
+            const tech = techData[code];
+            const criteriaName = criteriaNames[parseInt(idx)] || 'معيار غير معروف';
+            csv += `${criteriaName},${tech ? tech.name : code},${val}\n`;
+        }
+
+        const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `العوامل_السياقية_${new Date().toISOString().slice(0,10)}.csv`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+
+        alert('✅ تم تصدير البيانات بنجاح!');
+    }
+
+    function collectAllData() {
+        const inputs = document.querySelectorAll('.score-input');
+        const data = {};
+
+        inputs.forEach(input => {
+            const key = input.dataset.key;
+            if (key) {
+                const val = parseInt(input.value);
+                if (val >= 1 && val <= 5) {
+                    data[key] = val;
+                }
+            }
+        });
+
+        return data;
+    }
+
+    function resetAll() {
+        if (!confirm('⚠️ هل تريد حذف جميع التقييمات؟ هذا الإجراء لا يمكن التراجع عنه.')) return;
+
+        localStorage.removeItem('ce_mcdm_contextual');
+        location.reload();
+    }
+
+    // ============================================================
+    // تحميل تلقائي
+    // ============================================================
+    window.addEventListener('load', function() {
+        setTimeout(loadSaved, 200);
+    });
+</script>
+
+</body>
+</html>

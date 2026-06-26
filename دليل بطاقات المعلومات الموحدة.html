@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل بطاقات المعلومات الموحدة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container { max-width: 1100px; width: 100%; margin: 0 auto; }
+
+        nav {
+            background: #123050;
+            padding: 14px 30px;
+            border-bottom: 4px solid #14b8a6;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(20, 184, 166, 0.08);
+        }
+        nav .brand {
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        nav .brand i { color: #14b8a6; margin-left: 8px; }
+        nav .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            align-items: center;
+        }
+        nav .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            color: #ffffff;
+        }
+        nav .nav-links a:hover {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.08);
+        }
+        nav .nav-links .active {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.12);
+            border: 1px solid rgba(20,184,166,0.15);
+        }
+        nav .nav-links .sep {
+            color: rgba(255,255,255,0.1);
+            font-weight: 300;
+        }
+        nav .nav-links .hint {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.1);
+            margin-right: 6px;
+        }
+
+        .hero {
+            background: linear-gradient(160deg, #0a1620, #0f2847, #0a1620);
+            background-size: 300% 300%;
+            animation: gradientMove 12s ease-in-out infinite;
+            padding: 50px 30px 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #c0392b;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .hero .icon-badge {
+            width: 80px;
+            height: 80px;
+            background: rgba(253,203,110,0.12);
+            border: 3px solid rgba(253,203,110,0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 36px;
+            color: #fdcb6e;
+        }
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 900;
+            color: #fdcb6e;
+        }
+        .hero .sub {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 2px solid #e8edf2;
+        }
+        .nav-buttons button {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-buttons .btn-prev {
+            background: #e8edf2;
+            color: #3a5a6a;
+        }
+        .nav-buttons .btn-prev:hover {
+            background: #d8dce0;
+            transform: translateX(-3px);
+        }
+        .nav-buttons .btn-next {
+            background: #14b8a6;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(20,184,166,0.25);
+        }
+        .nav-buttons .btn-next:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(20,184,166,0.35);
+        }
+        .nav-buttons .page-indicator {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5a6a7a;
+        }
+        .nav-buttons .page-indicator span {
+            color: #14b8a6;
+            font-weight: 800;
+        }
+
+        .section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px 35px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            border: 1px solid #e8edf2;
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0a2a3a;
+            border-bottom: 3px solid #fdcb6e;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section h2 i { color: #2a9d8f; }
+        .section p {
+            font-size: 16px;
+            color: #1a2a3a;
+            line-height: 2;
+        }
+
+        .highlight-box {
+            background: #e8f5f0;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-top: 12px;
+            border-right: 5px solid #2a9d8f;
+            font-size: 16px;
+        }
+
+        @media (max-width: 992px) {
+            nav .nav-links a { font-size: 0.7rem; padding: 4px 8px; }
+            nav .nav-links { gap: 4px 8px; }
+        }
+        @media (max-width: 768px) {
+            nav { flex-direction: column; align-items: stretch; padding: 12px 16px; }
+            nav .nav-links { justify-content: center; }
+            nav .nav-links a { font-size: 0.65rem; padding: 4px 6px; }
+            nav .nav-links .sep { display: none; }
+            .hero h1 { font-size: 28px; }
+            .hero .icon-badge { width: 60px; height: 60px; font-size: 28px; }
+            .section { padding: 20px; }
+            .nav-buttons { flex-wrap: wrap; justify-content: center; }
+            .nav-buttons button { padding: 10px 20px; font-size: 14px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 22px; }
+            .hero .icon-badge { width: 50px; height: 50px; font-size: 22px; }
+            nav .brand { font-size: 0.9rem; }
+            nav .nav-links a { font-size: 0.55rem; padding: 2px 4px; }
+            nav .nav-links a i { display: none; }
+            .section { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <nav>
+            <div class="brand"><i class="fas fa-infinity"></i> استطلاع رأي الخبراء</div>
+            <div class="nav-links">
+                <a href="كلمة الي المشارك.html"><i class="fas fa-flag"></i> المشارك</a>
+                <span class="sep">|</span>
+                <a href="بيانات الخبير.html"><i class="fas fa-user-graduate"></i> بيانات الخبير</a>
+                <span class="sep">|</span>
+                <a href="توصيف الخبرة المعرفية.html"><i class="fas fa-brain"></i> توصيف الخبرة</a>
+                <span class="sep">|</span>
+                <a href="المفاهيم الأساسية - إطار مرجعي لتوحيد الرؤى والمصطلحات.html"><i class="fas fa-book-open"></i> المفاهيم</a>
+                <span class="sep">|</span>
+                <a href="مبررات تطوير أداة التقييم.html"><i class="fas fa-rocket"></i> المبررات</a>
+                <span class="sep">|</span>
+                <a href="#" class="active"><i class="fas fa-id-card"></i> البطاقات</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الأول.html"><i class="fas fa-balance-scale"></i> است1</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثاني.html"><i class="fas fa-table"></i> است2</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثالث.html"><i class="fas fa-globe"></i> است3</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الرابع.html"><i class="fas fa-weight-scale"></i> است4</a>
+                <span class="sep">|</span>
+                <a href="صفحة التقديم.html"><i class="fas fa-check-circle"></i> تقديم</a>
+                <span class="hint"><i class="fas fa-sync-alt"></i> حفظ تلقائي</span>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="hero-content">
+                <div class="icon-badge"><i class="fas fa-id-card"></i></div>
+                <h1>دليل بطاقات المعلومات الموحدة</h1>
+                <div class="sub">الجزء الخامس من رحلة التقييم</div>
+            </div>
+        </div>
+
+        <div class="section" style="background: linear-gradient(145deg, #f8fafc, #f0f4fa, #e8f0fe); border-right: 6px solid #1a2a3a;">
+            
+            <h2 style="font-size: 28px; font-weight: 900; color: #0a2a3a; border-bottom: none; display: flex; align-items: center; gap: 16px;">
+                <span style="background: linear-gradient(135deg, #1a2a3a, #2d3a4a); width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+                    <i class="fas fa-id-card"></i>
+                </span>
+                دليل بطاقات المعلومات الموحّدة
+            </h2>
+            
+            <div style="display: flex; align-items: center; gap: 12px; margin: 16px 0 20px;">
+                <span style="flex: 1; height: 2px; background: linear-gradient(90deg, #1a2a3a, transparent);"></span>
+                <span style="width: 10px; height: 10px; background: #1a2a3a; transform: rotate(45deg); flex-shrink: 0;"></span>
+                <span style="flex: 1; height: 2px; background: linear-gradient(90deg, #1a2a3a, transparent);"></span>
+            </div>
+
+            <div style="margin-bottom: 35px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                    <span style="font-size: 28px; background: rgba(26,42,58,0.05); padding: 6px 14px; border-radius: 12px;">📍</span>
+                    <h3 style="font-size: 22px; font-weight: 800; color: #0a2a3a; margin: 0;">أين تجد هذه البطاقات؟</h3>
+                    <span style="flex: 1; height: 2px; background: linear-gradient(90deg, #1a2a3a, transparent);"></span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    
+                    <div style="background: #ffffff; border-radius: 16px; padding: 20px 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border-right: 5px solid #0055cc;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                            <span style="background: linear-gradient(135deg, #0055cc, #1a7a9c); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; box-shadow: 0 4px 12px rgba(0,85,204,0.2);">📋</span>
+                            <div>
+                                <div style="font-weight: 900; font-size: 18px; color: #0a2a3a;">بطاقة معلومات التكنولوجيا</div>
+                                <div style="font-size: 13px; color: #0055cc; font-weight: 600;">الاستبيان الثاني · التقييم العددي</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 15px; color: #1a2a3a; line-height: 1.8; margin: 8px 0 0 0; padding-right: 52px; font-weight: 500;">
+                            تظهر أمام <strong>المعايير الفرعية للاقتصاد الدائري</strong> (EC, TC, EN, SO). 
+                            بجانب كل تكنولوجيا في الجدول، ستجد <strong style="color: #0055cc;">زر سهم (▼)</strong> — اضغط عليه لتظهر لك البطاقة المرجعية لهذه التكنولوجيا.
+                        </p>
+                        <div style="margin-top: 12px; padding-right: 52px; display: flex; align-items: center; gap: 10px;">
+                            <span style="background: #e8f0fe; color: #0055cc; padding: 4px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid rgba(0,85,204,0.1);">
+                                <i class="fas fa-chevron-down" style="margin-left: 6px;"></i> انظر إلى السهم
+                            </span>
+                            <span style="font-size: 13px; color: #5a6a7a;">🔍 موجود بجانب كل اسم</span>
+                        </div>
+                    </div>
+
+                    <div style="background: #ffffff; border-radius: 16px; padding: 20px 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border-right: 5px solid #cc0000;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                            <span style="background: linear-gradient(135deg, #cc0000, #8b1a1a); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; box-shadow: 0 4px 12px rgba(204,0,0,0.2);">⚙️</span>
+                            <div>
+                                <div style="font-weight: 900; font-size: 18px; color: #0a2a3a;">بطاقة المعاملات السياقية المبتكرة</div>
+                                <div style="font-size: 13px; color: #cc0000; font-weight: 600;">الاستبيان الثالث · العوامل السياقية</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 15px; color: #1a2a3a; line-height: 1.8; margin: 8px 0 0 0; padding-right: 52px; font-weight: 500;">
+                            تظهر أمام <strong>معاملات التكيف المحلي (Cf)، والتضافر التقني (Af)، والأولوية المؤسسية (Ip)</strong>.
+                            تماماً كما في الاستبيان الثاني، بجانب كل تكنولوجيا ستجد <strong style="color: #cc0000;">زر سهم (▼)</strong> — اضغط عليه للاطلاع على البطاقة السياقية.
+                        </p>
+                        <div style="margin-top: 10px; padding-right: 52px; background: rgba(204,0,0,0.04); border-radius: 8px; padding: 10px 14px; border-right: 3px solid #cc0000;">
+                            <p style="font-size: 14px; color: #1a2a3a; margin: 0; font-weight: 500; line-height: 1.8;">
+                                <i class="fas fa-chevron-down" style="color: #cc0000; margin-left: 6px;"></i>
+                                <strong>تذكير:</strong> ستجد أيضاً <strong>دليل تقييم العوامل السياقية المبتكرة</strong> في <strong>الاستبيان الثالث</strong> نفسه،
+                                وفيه سهم <strong style="color: #cc0000;">(اضغط للعرض)</strong> لتوسيع الدليل والاطلاع على شرح المعاملات (Cf, Af, Ip).
+                            </p>
+                        </div>
+                        <div style="margin-top: 10px; padding-right: 52px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <span style="background: #fde8e8; color: #cc0000; padding: 4px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid rgba(204,0,0,0.1);">
+                                <i class="fas fa-chevron-down" style="margin-left: 6px;"></i> انظر إلى السهم
+                            </span>
+                            <span style="font-size: 13px; color: #5a6a7a;">🔍 موجود بجانب كل اسم</span>
+                            <span style="font-size: 13px; color: #5a6a7a; background: rgba(0,0,0,0.03); padding: 2px 12px; border-radius: 12px;">📖 دليل السياقيات</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="background: linear-gradient(135deg, #fde8e8, #fef5f5); border-radius: 14px; padding: 18px 24px; margin-top: 20px; border-right: 5px solid #cc0000; box-shadow: 0 4px 15px rgba(204,0,0,0.06); display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                    <span style="font-size: 28px;">🔴</span>
+                    <p style="font-size: 18px; color: #8b1a1a; font-weight: 800; margin: 0; line-height: 1.8; flex: 1;">
+                        <i class="fas fa-exclamation-circle" style="color: #cc0000; margin-left: 8px;"></i>
+                        <strong>تذكير مهم:</strong> البطاقات هي <strong style="color: #cc0000;">مرجع مساعد</strong>، وليست اختباراً.
+                        الغرض منها <strong style="color: #cc0000;">توحيد المعلومات</strong> بين الخبراء لضمان <strong style="color: #cc0000;">دقة النتائج</strong>.
+                    </p>
+                    <span style="background: #cc0000; color: white; padding: 4px 20px; border-radius: 30px; font-size: 14px; font-weight: 800; box-shadow: 0 2px 10px rgba(204,0,0,0.2);">
+                        <i class="fas fa-bullhorn" style="margin-left: 6px;"></i> انتبه
+                    </span>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 28px;">
+                <h3 style="font-size: 22px; font-weight: 800; color: #0a2a3a; display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                    <span style="background: linear-gradient(135deg, #1a2a3a, #2d3a4a); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;">
+                        <i class="fas fa-paint-brush"></i>
+                    </span>
+                    فلسفة التصميم وضمان الموضوعية
+                </h3>
+                
+                <div style="background: rgba(26,42,58,0.03); border-radius: 16px; padding: 20px 22px; border-right: 5px solid #1a2a3a;">
+                    
+                    <div style="background: linear-gradient(135deg, rgba(42,157,143,0.08), rgba(42,157,143,0.02)); border-radius: 12px; padding: 18px 20px; border-right: 4px solid #1a7a6e; margin-bottom: 14px;">
+                        <p style="font-size: 19px; line-height: 2.2; color: #0a2a3a; font-weight: 700; margin: 0;">
+                            إدراكاً منّا بأن الاعتماد على الرأي الخبير وحده — دون قاعدة معرفية موحّدة — قد يُفضي إلى تباين في التقديرات يعكس تفاوت مصادر المعلومات لا تفاوت الحكم المهني الحقيقي، فقد صُمِّمت بطاقات المعلومات الموحّدة كأداة منهجية للحدّ من هذا <span style="color: #1a7a6e;">التحيز المعرفي (Cognitive Bias)</span>.
+                        </p>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, rgba(26,90,140,0.08), rgba(26,90,140,0.02)); border-radius: 12px; padding: 18px 20px; border-right: 4px solid #1a4a7a; margin-bottom: 14px;">
+                        <p style="font-size: 19px; color: #0a2a3a; line-height: 2.2; font-weight: 700; margin: 0;">
+                            يقوم هذا التصميم على مبدأ <span style="color: #1a4a7a;">«Evidence-Informed Expert Judgment»</span>؛ أي تحويل دور الخبير من إعطاء انطباع شخصي مجرد إلى إصدار حكم مهني مُستنير مبني على أدلة علمية وفنية واقتصادية موثّقة ومتوازنة.
+                        </p>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, rgba(184,134,11,0.08), rgba(184,134,11,0.02)); border-radius: 12px; padding: 18px 20px; border-right: 4px solid #8a6d0b;">
+                        <p style="font-size: 19px; color: #0a2a3a; line-height: 2.2; font-weight: 700; margin: 0;">
+                            تحتوي كل بطاقة على <span style="color: #8a6d0b;">ثلاثة محاور</span>: الأداء البيئي (بيانات انبعاثات ودورة الحياة)، والأداء الفني (مواصفات ومعايير دولية)، والأداء الاقتصادي (تكاليف دورة الحياة الكاملة).
+                        </p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-top: 16px;">
+                        <div style="background: linear-gradient(135deg, rgba(42,157,143,0.12), rgba(42,157,143,0.04)); border-radius: 14px; padding: 16px 18px; text-align: center; border: 1px solid rgba(42,157,143,0.15);">
+                            <div style="font-size: 36px; margin-bottom: 4px;">🌍</div>
+                            <div style="font-weight: 800; font-size: 16px; color: #0a2a3a;">الأداء البيئي</div>
+                            <div style="font-size: 13px; color: #3a5a6a;">بيانات انبعاثات ودورة الحياة</div>
+                            <div style="margin-top: 6px; background: #1a7a6e; color: white; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; display: inline-block;">← بيئي</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(26,90,140,0.12), rgba(26,90,140,0.04)); border-radius: 14px; padding: 16px 18px; text-align: center; border: 1px solid rgba(26,90,140,0.15);">
+                            <div style="font-size: 36px; margin-bottom: 4px;">⚙️</div>
+                            <div style="font-weight: 800; font-size: 16px; color: #0a2a3a;">الأداء الفني</div>
+                            <div style="font-size: 13px; color: #3a5a6a;">مواصفات ومعايير دولية</div>
+                            <div style="margin-top: 6px; background: #1a4a7a; color: white; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; display: inline-block;">← فني</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(184,134,11,0.12), rgba(184,134,11,0.02)); border-radius: 14px; padding: 16px 18px; text-align: center; border: 1px solid rgba(184,134,11,0.15);">
+                            <div style="font-size: 36px; margin-bottom: 4px;">💰</div>
+                            <div style="font-weight: 800; font-size: 16px; color: #0a2a3a;">الأداء الاقتصادي</div>
+                            <div style="font-size: 13px; color: #3a5a6a;">تكاليف دورة الحياة الكاملة</div>
+                            <div style="margin-top: 6px; background: #8a6d0b; color: white; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; display: inline-block;">← اقتصادي</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(107,76,154,0.12), rgba(107,76,154,0.04)); border-radius: 14px; padding: 16px 18px; text-align: center; border: 1px solid rgba(107,76,154,0.15);">
+                            <div style="font-size: 36px; margin-bottom: 4px;">👥</div>
+                            <div style="font-weight: 800; font-size: 16px; color: #0a2a3a;">الأداء الاجتماعي</div>
+                            <div style="font-size: 13px; color: #3a5a6a;">القبول المجتمعي وفرص العمل</div>
+                            <div style="margin-top: 6px; background: #5a3d7a; color: white; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; display: inline-block;">← اجتماعي</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 24px;">
+                <h3 style="font-size: 22px; font-weight: 800; color: #0a2a3a; display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                    <span style="background: linear-gradient(135deg, #1a2a3a, #2d3a4a); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;">
+                        <i class="fas fa-route"></i>
+                    </span>
+                    كيفية توظيف البطاقات في التقييم
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    
+                    <div style="background: rgba(26,42,58,0.03); border-radius: 14px; padding: 18px 20px; border-right: 5px solid #1a2a3a;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+                            <span style="background: #1a2a3a; color: white; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">١</span>
+                            <span style="font-weight: 800; font-size: 18px; color: #0a2a3a;">القراءة</span>
+                        </div>
+                        <p style="font-size: 15px; color: #1a2a3a; line-height: 1.9; padding-right: 46px; font-weight: 500;">
+                            اقرأ بطاقة التكنولوجيا كاملةً قبل الشروع في تقييمها، مع الاستئناس بخبرتكم التطبيقية في السياق المصري.
+                        </p>
+                        <div style="margin-top: 10px; padding-right: 46px;">
+                            <span style="background: #1a2a3a; color: white; padding: 6px 18px; border-radius: 20px; font-size: 15px; font-weight: 700; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                ← خطوة أساسية
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(26,42,58,0.03); border-radius: 14px; padding: 18px 20px; border-right: 5px solid #1a2a3a;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+                            <span style="background: #1a2a3a; color: white; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">٢</span>
+                            <span style="font-weight: 800; font-size: 18px; color: #0a2a3a;">التقييم المعياري</span>
+                        </div>
+                        <p style="font-size: 15px; color: #1a2a3a; line-height: 1.9; padding-right: 46px; font-weight: 500;">
+                            قيّم أداء التكنولوجيا في كل معيار فرعي مستقل عن سائر المعايير، متجنّباً <span style="font-weight: 700; color: #b7950b;">أثر الهالة (Halo Effect)</span>.
+                        </p>
+                        <div style="margin-top: 10px; padding-right: 46px;">
+                            <span style="background: #1a2a3a; color: white; padding: 6px 18px; border-radius: 20px; font-size: 15px; font-weight: 700; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                ← موضوعية التقييم
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(26,42,58,0.03); border-radius: 14px; padding: 18px 20px; border-right: 5px solid #1a2a3a;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+                            <span style="background: #1a2a3a; color: white; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">٣</span>
+                            <span style="font-weight: 800; font-size: 18px; color: #0a2a3a;">المعايرة السياقية</span>
+                        </div>
+                        <p style="font-size: 15px; color: #1a2a3a; line-height: 1.9; padding-right: 46px; font-weight: 500;">
+                            إذا كانت البطاقة تعكس أداءً في سياق مختلف عن السياق المصري، فاستخدم خبرتكم المحلية لتعديل التقييم بما يلائم الظروف الفعلية.
+                        </p>
+                        <div style="margin-top: 10px; padding-right: 46px;">
+                            <span style="background: #1a2a3a; color: white; padding: 6px 18px; border-radius: 20px; font-size: 15px; font-weight: 700; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                ← التكيف المحلي
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(26,42,58,0.03); border-radius: 14px; padding: 18px 20px; border-right: 5px solid #1a2a3a;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+                            <span style="background: #1a2a3a; color: white; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;">٤</span>
+                            <span style="font-weight: 800; font-size: 18px; color: #0a2a3a;">التوثيق</span>
+                        </div>
+                        <p style="font-size: 15px; color: #1a2a3a; line-height: 1.9; padding-right: 46px; font-weight: 500;">
+                            في حال رغبتم في تبرير تقييم معيّن أو الإشارة إلى استثناء مهم، يمكن إضافة ملاحظة في الخانة المخصصة.
+                        </p>
+                        <div style="margin-top: 10px; padding-right: 46px;">
+                            <span style="background: #1a2a3a; color: white; padding: 6px 18px; border-radius: 20px; font-size: 15px; font-weight: 700; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                ← توثيق الاستثناءات
+                            </span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div style="background: rgba(180,20,20,0.06); border-right: 6px solid #8b0000; padding: 18px 22px; border-radius: 14px; display: flex; align-items: flex-start; gap: 14px; margin-top: 8px;">
+                <span style="font-size: 28px; color: #8b0000;">⚠️</span>
+                <div>
+                    <div style="font-weight: 900; font-size: 19px; color: #8b0000;">تنبيه جوهري</div>
+                    <p style="font-size: 17px; font-weight: 700; color: #8b0000; line-height: 2; margin: 0;">
+                        بطاقات المعلومات <span style="font-weight: 900; color: #8b0000;">ليست اختبار معلومات</span>، ولا مقياساً لمستوى خبرتكم. هي <span style="font-weight: 900; color: #8b0000;">أداة توحيد مرجعي</span> تهدف إلى ضمان أن جميع الخبراء يُصدرون أحكامهم انطلاقاً من قاعدة بيانات متجانسة، مما يُعزّز قابلية مقارنة النتائج وتجميعها إحصائياً.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="nav-buttons">
+            <button class="btn-prev" onclick="goToPage('مبررات تطوير أداة التقييم.html')">
+                <i class="fas fa-arrow-right"></i> السابق
+            </button>
+            <span class="page-indicator">الجزء <span>5</span> من <span>10</span></span>
+            <button class="btn-next" onclick="goToPage('الاستبيان الأول.html')">
+                التالي <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        function saveScrollPosition() {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) return;
+            const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            allData[expertID] = allData[expertID] || {};
+            allData[expertID]['cards_scroll'] = window.scrollY;
+            localStorage.setItem('surveyData', JSON.stringify(allData));
+        }
+
+        function loadScrollPosition() {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) return;
+            const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            const expertData = allData[expertID] || {};
+            const scrollPos = expertData['cards_scroll'] || 0;
+            if (scrollPos > 0) {
+                window.scrollTo(0, scrollPos);
+            }
+        }
+
+        function goToPage(page) {
+            saveScrollPosition();
+            window.location.href = page;
+        }
+
+        window.addEventListener('load', function() {
+            loadScrollPosition();
+            setInterval(saveScrollPosition, 3000);
+        });
+
+        window.addEventListener('beforeunload', saveScrollPosition);
+    </script>
+
+</body>
+</html>

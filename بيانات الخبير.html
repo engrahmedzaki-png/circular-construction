@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بيانات الخبير</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container { max-width: 1100px; width: 100%; margin: 0 auto; }
+
+        nav {
+            background: #123050;
+            padding: 14px 30px;
+            border-bottom: 4px solid #14b8a6;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(20, 184, 166, 0.08);
+        }
+        nav .brand {
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        nav .brand i { color: #14b8a6; margin-left: 8px; }
+        nav .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            align-items: center;
+        }
+        nav .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            color: #ffffff;
+        }
+        nav .nav-links a:hover {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.08);
+        }
+        nav .nav-links .active {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.12);
+            border: 1px solid rgba(20,184,166,0.15);
+        }
+        nav .nav-links .sep {
+            color: rgba(255,255,255,0.1);
+            font-weight: 300;
+        }
+        nav .nav-links .hint {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.1);
+            margin-right: 6px;
+        }
+
+        .hero {
+            background: linear-gradient(160deg, #0a1620, #0f2847, #0a1620);
+            background-size: 300% 300%;
+            animation: gradientMove 12s ease-in-out infinite;
+            padding: 50px 30px 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #c0392b;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .hero .icon-badge {
+            width: 70px;
+            height: 70px;
+            background: rgba(253,203,110,0.12);
+            border: 3px solid rgba(253,203,110,0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 32px;
+            color: #fdcb6e;
+        }
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 900;
+            color: #fdcb6e;
+        }
+        .hero .sub {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 35px 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            border: 1px solid #e8edf2;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0a2a3a;
+            border-bottom: 3px solid #fdcb6e;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .card h2 i { color: #2a9d8f; }
+
+        .welcome-message {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            border: 1px solid #e8edf2;
+            border-right: 6px solid #14b8a6;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .welcome-message .greeting {
+            font-size: 17px;
+            font-weight: 800;
+            color: #0a1a2a;
+            margin-bottom: 6px;
+        }
+        .welcome-message .greeting i {
+            color: #fdcb6e;
+            margin-left: 8px;
+        }
+        .welcome-message p {
+            font-size: 15px;
+            color: #0a1a2a;
+            line-height: 2;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .welcome-message p strong {
+            color: #0a1a2a;
+            font-weight: 800;
+        }
+        .welcome-message .highlight-green {
+            color: #14b8a6;
+            font-weight: 700;
+        }
+        .welcome-message .thesis-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0d2b3e;
+            background: #fef8e0;
+            padding: 12px 18px;
+            border-radius: 10px;
+            border-right: 5px solid #fdcb6e;
+            margin: 8px 0;
+        }
+        .welcome-message .lock-box {
+            font-size: 14px;
+            color: #0a1a2a;
+            background: #f8fafc;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border-right: 4px solid #14b8a6;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+        .welcome-message .lock-box i {
+            color: #14b8a6;
+            margin-left: 8px;
+        }
+
+        .alert-box {
+            background: #fef8e0;
+            border-right: 4px solid #e67e22;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .alert-box .note-icon {
+            font-weight: 700;
+            font-size: 14px;
+            color: #b7950b;
+            margin-bottom: 4px;
+        }
+        .alert-box .warning-text {
+            font-weight: 700;
+            font-size: 13px;
+            color: #7f1d1d;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .alert-box .warning-text i {
+            font-size: 18px;
+            margin-top: 2px;
+            color: #e67e22;
+        }
+
+        .field-group { margin-bottom: 26px; }
+        .field-group label {
+            display: block;
+            font-weight: 800;
+            font-size: 16px;
+            color: #0a2a3a;
+            margin-bottom: 8px;
+        }
+        .field-group label i { color: #2a9d8f; margin-left: 8px; }
+
+        .options-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 24px;
+            padding: 4px 0;
+        }
+        .options-row .opt {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 15px;
+            color: #1a2a3a;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .options-row .opt input[type="radio"] {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #cbd5e1;
+            border-radius: 50%;
+            background: #fff;
+            transition: 0.3s;
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .options-row .opt input[type="radio"]:checked {
+            border-color: #14b8a6;
+            background: rgba(20,184,166,0.1);
+        }
+        .options-row .opt input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: #14b8a6;
+            border-radius: 50%;
+        }
+        .options-row .opt:hover { color: #0a2a3a; }
+
+        .field-group input[type="text"],
+        .field-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 2px solid #d8dce0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Cairo', sans-serif;
+            color: #1a2a3a;
+            transition: 0.3s;
+            outline: none;
+            resize: vertical;
+        }
+        .field-group input[type="text"]:focus,
+        .field-group textarea:focus {
+            border-color: #14b8a6;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(20,184,166,0.08);
+        }
+        .field-group textarea { min-height: 60px; }
+        .field-group input::placeholder,
+        .field-group textarea::placeholder {
+            color: #b8c0c8;
+            font-weight: 400;
+        }
+
+        .expert-id-display {
+            background: #f8fafc;
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 1px solid #e8edf2;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: #14b8a6;
+            font-weight: 700;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 2px solid #e8edf2;
+        }
+        .nav-buttons button {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-buttons .btn-prev {
+            background: #e8edf2;
+            color: #3a5a6a;
+        }
+        .nav-buttons .btn-prev:hover {
+            background: #d8dce0;
+            transform: translateX(-3px);
+        }
+        .nav-buttons .btn-next {
+            background: #14b8a6;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(20,184,166,0.25);
+        }
+        .nav-buttons .btn-next:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(20,184,166,0.35);
+        }
+        .nav-buttons .btn-next:disabled {
+            background: #b8c0c8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .nav-buttons .page-indicator {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5a6a7a;
+        }
+        .nav-buttons .page-indicator span {
+            color: #14b8a6;
+            font-weight: 800;
+        }
+
+        @media (max-width: 992px) {
+            nav .nav-links a { font-size: 0.7rem; padding: 4px 8px; }
+            nav .nav-links { gap: 4px 8px; }
+        }
+        @media (max-width: 768px) {
+            nav { flex-direction: column; align-items: stretch; padding: 12px 16px; }
+            nav .nav-links { justify-content: center; }
+            nav .nav-links a { font-size: 0.65rem; padding: 4px 6px; }
+            nav .nav-links .sep { display: none; }
+            .card { padding: 24px 18px; }
+            .hero h1 { font-size: 28px; }
+            .options-row { gap: 8px 16px; }
+            .options-row .opt { font-size: 14px; }
+            .welcome-message { padding: 18px; }
+            .nav-buttons { flex-wrap: wrap; justify-content: center; }
+            .nav-buttons button { padding: 10px 20px; font-size: 14px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 22px; }
+            .hero .icon-badge { width: 50px; height: 50px; font-size: 24px; }
+            .field-group label { font-size: 14px; }
+            .options-row .opt { font-size: 12px; }
+            .options-row .opt input[type="radio"] { width: 16px; height: 16px; }
+            nav .brand { font-size: 0.9rem; }
+            nav .nav-links a { font-size: 0.55rem; padding: 2px 4px; }
+            nav .nav-links a i { display: none; }
+            .welcome-message { padding: 14px; }
+            .welcome-message .thesis-title { font-size: 14px; padding: 10px 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <nav>
+            <div class="brand"><i class="fas fa-infinity"></i> استطلاع رأي الخبراء</div>
+            <div class="nav-links">
+                <a href="كلمة الي المشارك.html"><i class="fas fa-flag"></i> المشارك</a>
+                <span class="sep">|</span>
+                <a href="#" class="active"><i class="fas fa-user-graduate"></i> بيانات الخبير</a>
+                <span class="sep">|</span>
+                <a href="توصيف الخبرة المعرفية.html"><i class="fas fa-brain"></i> توصيف الخبرة</a>
+                <span class="sep">|</span>
+                <a href="المفاهيم الأساسية - إطار مرجعي لتوحيد الرؤى والمصطلحات.html"><i class="fas fa-book-open"></i> المفاهيم</a>
+                <span class="sep">|</span>
+                <a href="مبررات تطوير أداة التقييم.html"><i class="fas fa-rocket"></i> المبررات</a>
+                <span class="sep">|</span>
+                <a href="دليل بطاقات المعلومات الموحدة.html"><i class="fas fa-id-card"></i> البطاقات</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الأول.html"><i class="fas fa-balance-scale"></i> است1</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثاني.html"><i class="fas fa-table"></i> است2</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثالث.html"><i class="fas fa-globe"></i> است3</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الرابع.html"><i class="fas fa-weight-scale"></i> است4</a>
+                <span class="sep">|</span>
+                <a href="صفحة التقديم.html"><i class="fas fa-check-circle"></i> تقديم</a>
+                <span class="hint"><i class="fas fa-sync-alt"></i> حفظ تلقائي</span>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="hero-content">
+                <div class="icon-badge"><i class="fas fa-user-graduate"></i></div>
+                <h1>بيانات الخبير</h1>
+                <div class="sub">الجزء الأول من رحلة التقييم</div>
+            </div>
+        </div>
+
+        <div class="welcome-message">
+            <div class="greeting">
+                <i class="fas fa-user-tie"></i>
+                السيد الدكتور / المهندس ( ..................... ) المحترم،
+            </div>
+            <p>تحية علمية، وبعد؛</p>
+            <p>
+                يُسعدنا دعوتكم للمشاركة في هذا الاستطلاع العلمي الذي يُشكّل <strong>ركيزةً منهجيةً محورية</strong> في رسالة دكتوراه مُقدَّمة إلى كلية الهندسة بجامعة الفيوم، بعنوان:
+            </p>
+            <div class="thesis-title">
+                "منهج لتكامل مبادئ الاقتصاد الدائري مع تكنولوجيا البناء لتحسين كفاءة استخدام الموارد في قطاع البناء المصري"
+            </div>
+            <p>
+                تهدف الدراسة إلى بناء <strong>إطار عمل متكامل متعدد المعايير (MCDM)</strong> يدعم قرار اختيار أفضل تكنولوجيات البناء المُحقِّقة لمبادئ الاقتصاد الدائري في السياق المصري، مستعيناً بمنهجيتَي <span class="highlight-green">AHP</span> لاستخلاص الأوزان و<span class="highlight-green">مقياس ليكرت الخماسي</span> لتقييم الأداء.
+            </p>
+            <p>
+                <strong>خبرتكم المتخصصة ضرورة لا تعويض عنها</strong> في هذا البحث؛ فمخرجات هذا الاستطلاع ستُغذّي مباشرةً النموذج الرياضي الذي سيُوظَّف لاحقاً في ترتيب التكنولوجيات وترشيحها لمختلف القطاعات البنائية المصرية.
+            </p>
+            <div class="lock-box">
+                <i class="fas fa-lock"></i>
+                تُعامَل جميع البيانات بسريّة تامة، ولا تُستخدم إلا لأغراض التحليل الإحصائي والنمذجة الرياضية.
+            </div>
+        </div>
+
+        <div class="alert-box">
+            <div class="note-icon">
+                <i class="fas fa-info-circle"></i> تعليمات الاستجابة
+            </div>
+            <div class="warning-text">
+                <i class="fas fa-arrow-left" style="font-size:16px;"></i>
+                <span>
+                    <strong>التسلسل:</strong> يُرجى الإجابة على الأجزاء بالتسلسل من الأول إلى الخامس.
+                    <br>
+                    <strong>المقارنات الزوجية (AHP):</strong> استخدم مقياس ساتي (Saaty Scale) من 1 إلى 9.
+                    <br>
+                    <strong>التقييم العددي:</strong> استخدم مقياس ليكرت الخماسي (1: ضعيف جداً — 5: ممتاز).
+                    <br>
+                    <strong>بطاقات المعلومات:</strong> اطّلع على البطاقة المرجعية لكل تكنولوجيا قبل تقييمها.
+                    <br>
+                    <strong>الجلسات:</strong> يمكنكم التوقف والاستئناف بين الأجزاء دون أثر.
+                </span>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <h2><i class="fas fa-edit"></i> البيانات التعريفية</h2>
+
+            <div class="expert-id-display">
+                🆔 معرف الخبير: <span id="expertIDDisplay">جاري التحميل...</span>
+            </div>
+
+            <div class="field-group">
+                <label><i class="fas fa-clock"></i> سنوات الخبرة</label>
+                <div class="options-row">
+                    <label class="opt"><input type="radio" name="years" value="أقل من 5 سنوات" /> أقل من 5 سنوات</label>
+                    <label class="opt"><input type="radio" name="years" value="5–10 سنوات" /> 5–10 سنوات</label>
+                    <label class="opt"><input type="radio" name="years" value="11–20 سنة" /> 11–20 سنة</label>
+                    <label class="opt"><input type="radio" name="years" value="أكثر من 20 سنة" /> أكثر من 20 سنة</label>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label><i class="fas fa-user-tie"></i> التخصص الدقيق</label>
+                <input type="text" id="specialty" placeholder="مثال: هندسة معمارية" />
+            </div>
+
+            <div class="field-group">
+                <label><i class="fas fa-briefcase"></i> المسمى الوظيفي</label>
+                <input type="text" id="job" placeholder="مثال: أستاذ دكتور" />
+            </div>
+
+            <div class="field-group">
+                <label><i class="fas fa-building"></i> جهة العمل الرئيسية</label>
+                <div class="options-row" style="flex-wrap: wrap;">
+                    <label class="opt"><input type="radio" name="work" value="أكاديمية/بحثية" /> أكاديمية/بحثية</label>
+                    <label class="opt"><input type="radio" name="work" value="استشارية/تصميم" /> استشارية/تصميم</label>
+                    <label class="opt"><input type="radio" name="work" value="مقاولات/تطوير عقاري" /> مقاولات/تطوير عقاري</label>
+                    <label class="opt"><input type="radio" name="work" value="حكومية/تشريعية" /> حكومية/تشريعية</label>
+                    <label class="opt"><input type="radio" name="work" value="مؤسسات دولية/غير حكومية" /> مؤسسات دولية/غير حكومية</label>
+                    <label class="opt"><input type="radio" name="work" value="أخرى" /> أخرى</label>
+                    <input type="text" id="workOther" placeholder="حدد جهة العمل..." style="flex:1;min-width:160px;padding:8px 14px;background:#f8fafc;border:2px solid #d8dce0;border-radius:10px;color:#1a2a3a;font-family:'Cairo',sans-serif;font-size:14px;" />
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label><i class="fas fa-pen"></i> ملاحظات إضافية</label>
+                <textarea id="notes" placeholder="أي معلومات إضافية تود مشاركتها..."></textarea>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn-prev" onclick="goToPage('كلمة الي المشارك.html')">
+                    <i class="fas fa-arrow-right"></i> السابق
+                </button>
+                <span class="page-indicator">الجزء <span>1</span> من <span>10</span></span>
+                <button class="btn-next" onclick="saveAndNext()">
+                    التالي <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const id = localStorage.getItem('expertID') || 'غير معروف';
+            document.getElementById('expertIDDisplay').textContent = id;
+            loadSavedData();
+
+            document.querySelectorAll('input, textarea').forEach(el => {
+                el.addEventListener('change', autoSave);
+                el.addEventListener('input', autoSave);
+            });
+        });
+
+        function loadSavedData() {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) return;
+
+            const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            const expertData = allData[expertID] || {};
+            const info = expertData.expert_info || {};
+
+            if (info.years) {
+                document.querySelector(`input[name="years"][value="${info.years}"]`).checked = true;
+            }
+            if (info.specialty) document.getElementById('specialty').value = info.specialty;
+            if (info.job) document.getElementById('job').value = info.job;
+            if (info.work) {
+                const workRadio = document.querySelector(`input[name="work"][value="${info.work}"]`);
+                if (workRadio) {
+                    workRadio.checked = true;
+                } else if (info.workOther) {
+                    document.querySelector(`input[name="work"][value="أخرى"]`).checked = true;
+                    document.getElementById('workOther').value = info.workOther;
+                }
+            }
+            if (info.notes) document.getElementById('notes').value = info.notes;
+        }
+
+        function autoSave() {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) return;
+
+            const yearsEl = document.querySelector('input[name="years"]:checked');
+            const workEl = document.querySelector('input[name="work"]:checked');
+
+            const data = {
+                years: yearsEl ? yearsEl.value : '',
+                specialty: document.getElementById('specialty').value,
+                job: document.getElementById('job').value,
+                work: workEl ? workEl.value : '',
+                workOther: document.getElementById('workOther').value,
+                notes: document.getElementById('notes').value
+            };
+
+            let allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            allData[expertID] = allData[expertID] || {};
+            allData[expertID]['expert_info'] = data;
+            localStorage.setItem('surveyData', JSON.stringify(allData));
+        }
+
+        function saveAndNext() {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) {
+                alert('❌ خطأ: لم يتم التعرف على معرف الخبير.');
+                return;
+            }
+
+            const yearsEl = document.querySelector('input[name="years"]:checked');
+            const workEl = document.querySelector('input[name="work"]:checked');
+
+            const data = {
+                years: yearsEl ? yearsEl.value : '',
+                specialty: document.getElementById('specialty').value,
+                job: document.getElementById('job').value,
+                work: workEl ? workEl.value : '',
+                workOther: document.getElementById('workOther').value,
+                notes: document.getElementById('notes').value
+            };
+
+            if (!data.years) {
+                alert('⚠️ يرجى اختيار سنوات الخبرة.');
+                return;
+            }
+            if (!data.specialty.trim()) {
+                alert('⚠️ يرجى إدخال التخصص الدقيق.');
+                return;
+            }
+            if (!data.job.trim()) {
+                alert('⚠️ يرجى إدخال المسمى الوظيفي.');
+                return;
+            }
+            if (!data.work) {
+                alert('⚠️ يرجى اختيار جهة العمل الرئيسية.');
+                return;
+            }
+
+            let allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            allData[expertID] = allData[expertID] || {};
+            allData[expertID]['expert_info'] = data;
+            localStorage.setItem('surveyData', JSON.stringify(allData));
+
+            goToPage('توصيف الخبرة المعرفية.html');
+        }
+
+        function goToPage(page) {
+            window.location.href = page;
+        }
+    </script>
+
+</body>
+</html>

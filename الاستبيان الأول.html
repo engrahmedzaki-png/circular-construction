@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاستبيان الأول: التحليل الهرمي لترجيح المعايير (AHP)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* نفس الأنماط السابقة مع تعديلات بسيطة في عرض الأرقام الزوجية */
+        /* ... (نحتفظ بنفس الأنماط السابقة) ... */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+            direction: rtl;
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        nav {
+            background: #123050;
+            padding: 14px 30px;
+            border-bottom: 4px solid #14b8a6;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(20, 184, 166, 0.08);
+        }
+        nav .brand {
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        nav .brand i { color: #14b8a6; margin-left: 8px; }
+        nav .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            align-items: center;
+        }
+        nav .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            color: #ffffff;
+        }
+        nav .nav-links a:hover {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.08);
+        }
+        nav .nav-links .active {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.12);
+            border: 1px solid rgba(20,184,166,0.15);
+        }
+        nav .nav-links .sep {
+            color: rgba(255,255,255,0.1);
+            font-weight: 300;
+        }
+        nav .nav-links .hint {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.1);
+            margin-right: 6px;
+        }
+
+        .main-header {
+            background: linear-gradient(145deg, #0d2b3e, #1a4a5a);
+            border-radius: 20px;
+            padding: 35px 40px;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(42, 157, 143, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .main-header .badge {
+            display: inline-block;
+            background: #fdcb6e;
+            color: #0d2b3e;
+            padding: 4px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        .main-header h1 {
+            font-size: 28px;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+        .main-header h1 .highlight { color: #fdcb6e; }
+        .main-header p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 6px;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e8edf2;
+            transition: 0.3s;
+        }
+        .card:hover { box-shadow: 0 8px 35px rgba(0, 0, 0, 0.08); }
+        .card h2 {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0a2a3a;
+            border-bottom: 3px solid #fdcb6e;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .card h2 i { color: #2a9d8f; font-size: 24px; }
+        .card h2 .step-badge {
+            background: #2a9d8f;
+            color: #fff;
+            font-size: 13px;
+            padding: 2px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            margin-right: auto;
+        }
+        .card .subtitle {
+            font-size: 16px;
+            color: #3a5a6a;
+            line-height: 1.9;
+            margin-bottom: 16px;
+            padding: 14px 18px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border-right: 4px solid #2a9d8f;
+        }
+        .card .subtitle strong { color: #0a2a3a; font-weight: 800; }
+
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .dimension-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px 18px;
+            border-right: 4px solid #2a9d8f;
+            transition: 0.3s;
+        }
+        .dimension-box:hover { background: #f0f4f8; transform: translateY(-2px); }
+        .dimension-box .dim-icon { font-size: 28px; display: block; margin-bottom: 4px; }
+        .dimension-box .dim-code { font-weight: 900; font-size: 18px; color: #0a2a3a; }
+        .dimension-box .dim-name { font-weight: 600; font-size: 14px; color: #1a2a3a; }
+        .dimension-box .dim-desc { font-size: 12px; color: #5a6a7a; margin-top: 2px; line-height: 1.6; }
+        .dimension-box.ec { border-right-color: #cc0000; }
+        .dimension-box.tc { border-right-color: #0055cc; }
+        .dimension-box.en { border-right-color: #008800; }
+        .dimension-box.so { border-right-color: #000; }
+
+        .scale-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .scale-table th {
+            background: #f0f4f8;
+            padding: 10px 12px;
+            text-align: center;
+            font-weight: 800;
+            color: #0a2a3a;
+            border: 1px solid #d8dce0;
+        }
+        .scale-table td { padding: 8px 12px; text-align: center; border: 1px solid #d8dce0; }
+        .scale-table .value-col { font-weight: 900; color: #1a3a5a; font-size: 16px; width: 60px; }
+        .scale-table .def-col { font-weight: 700; color: #0a2a3a; text-align: right; }
+        .scale-table .desc-col { color: #3a5a6a; text-align: right; font-weight: 500; }
+
+        .pairwise-container {
+            margin-bottom: 25px;
+            padding: 18px 20px;
+            background: #fafbfc;
+            border-radius: 14px;
+            border: 1px solid #e8edf2;
+            transition: 0.3s;
+        }
+        .pairwise-container:hover { background: #f8fafc; border-color: #d0d8e0; }
+        .pairwise-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: #0a2a3a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .pairwise-title .vs { color: #2a9d8f; font-size: 14px; }
+        .pairwise-title .pair-desc { font-size: 13px; color: #5a6a7a; font-weight: 500; }
+
+        .comparison-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            flex-wrap: nowrap;
+            padding: 8px 0;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #e8edf2;
+            overflow-x: auto;
+        }
+        .comparison-row .c-label-right {
+            font-weight: 800;
+            font-size: 13px;
+            padding: 0 8px;
+            min-width: 40px;
+            text-align: center;
+            flex-shrink: 0;
+            line-height: 1.3;
+            order: 10;
+        }
+        .comparison-row .c-label-right .full-name { display: block; font-size: 10px; font-weight: 600; color: #3a5a6a; }
+        .comparison-row .c-label-right.ec { color: #cc0000; }
+        .comparison-row .c-label-right.en { color: #008800; }
+        .comparison-row .c-label-right.tc { color: #0055cc; }
+        .comparison-row .c-label-right.so { color: #000; }
+        .comparison-row .c-label-left {
+            font-weight: 800;
+            font-size: 13px;
+            padding: 0 8px;
+            min-width: 40px;
+            text-align: center;
+            flex-shrink: 0;
+            line-height: 1.3;
+            order: 0;
+        }
+        .comparison-row .c-label-left .full-name { display: block; font-size: 10px; font-weight: 600; color: #3a5a6a; }
+        .comparison-row .c-label-left.ec { color: #cc0000; }
+        .comparison-row .c-label-left.en { color: #008800; }
+        .comparison-row .c-label-left.tc { color: #0055cc; }
+        .comparison-row .c-label-left.so { color: #000; }
+
+        .comparison-row .c-numbers {
+            display: flex;
+            gap: 2px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            order: 5;
+        }
+        .comparison-row .c-numbers input[type="radio"] { display: none; }
+        .comparison-row .c-numbers label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 36px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #3a5a6a;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+            background: transparent;
+            user-select: none;
+        }
+        .comparison-row .c-numbers label:hover { background: #e8edf2; border-color: #d0d8e0; }
+        .comparison-row .c-numbers input[type="radio"]:checked+label {
+            background: #1a3a5a;
+            color: #fff;
+            border-color: #1a3a5a;
+            box-shadow: 0 2px 8px rgba(26, 58, 90, 0.25);
+            transform: scale(1.05);
+        }
+        .comparison-row .c-numbers input[type="radio"]:checked+label.left-pref { background: #cc0000; border-color: #cc0000; }
+        .comparison-row .c-numbers input[type="radio"]:checked+label.right-pref { background: #0055cc; border-color: #0055cc; }
+        .comparison-row .c-numbers .center-label {
+            font-weight: 900;
+            font-size: 14px;
+            color: #1a3a5a;
+            padding: 0 6px;
+            background: #f0f4f8;
+            border-radius: 4px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+        }
+        .comparison-row .c-result {
+            font-size: 13px;
+            font-weight: 700;
+            padding: 0 12px;
+            min-width: 80px;
+            text-align: center;
+            color: #1a3a5a;
+            flex-shrink: 0;
+            order: 15;
+        }
+
+        /* عرض الأرقام الزوجية بشكل واضح في واجهة المستخدم */
+        .comparison-row .c-numbers label.even-value {
+            background: rgba(0,0,0,0.02);
+            border-color: #e0e4e8;
+            font-weight: 600;
+            color: #2a4a6a;
+        }
+        .comparison-row .c-numbers label.even-value:hover {
+            background: #e0e8f0;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-row { flex-wrap: wrap; justify-content: center; padding: 10px 4px; }
+            .comparison-row .c-numbers label { width: 26px; height: 30px; font-size: 12px; }
+            .comparison-row .c-label-left, .comparison-row .c-label-right { font-size: 11px; min-width: 30px; padding: 0 4px; }
+            .comparison-row .c-label-left .full-name, .comparison-row .c-label-right .full-name { font-size: 8px; }
+            .comparison-row .c-result { min-width: 60px; font-size: 11px; padding: 0 6px; }
+            .comparison-row .c-numbers .center-label { font-size: 12px; height: 30px; min-width: 22px; }
+        }
+        @media (max-width: 480px) {
+            .comparison-row .c-numbers label { width: 22px; height: 26px; font-size: 10px; border-radius: 4px; }
+            .comparison-row .c-label-left, .comparison-row .c-label-right { font-size: 9px; min-width: 24px; }
+            .comparison-row .c-label-left .full-name, .comparison-row .c-label-right .full-name { font-size: 7px; }
+            .comparison-row .c-numbers .center-label { font-size: 10px; height: 26px; min-width: 18px; }
+            .pairwise-container { padding: 12px 8px; }
+            .pairwise-title { font-size: 14px; }
+        }
+
+        .results-container {
+            background: #f0f8f6;
+            border-radius: 14px;
+            padding: 24px 28px;
+            border-right: 5px solid #2a9d8f;
+            margin-top: 20px;
+        }
+        .results-container h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0a2a3a;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        .result-item {
+            background: #fff;
+            border-radius: 10px;
+            padding: 14px 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        .result-item .r-code { font-weight: 900; font-size: 14px; }
+        .result-item .r-code.ec { color: #cc0000; }
+        .result-item .r-code.tc { color: #0055cc; }
+        .result-item .r-code.en { color: #008800; }
+        .result-item .r-code.so { color: #000; }
+        .result-item .r-name { font-size: 12px; color: #5a6a7a; font-weight: 600; }
+        .result-item .r-value { font-size: 24px; font-weight: 900; color: #0a2a3a; margin-top: 4px; }
+        .result-item .r-bar { height: 6px; background: #e8edf2; border-radius: 4px; margin-top: 6px; overflow: hidden; }
+        .result-item .r-bar .r-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #2a9d8f, #fdcb6e);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .result-item .r-bar .r-fill.ec { background: #cc0000; }
+        .result-item .r-bar .r-fill.tc { background: #0055cc; }
+        .result-item .r-bar .r-fill.en { background: #008800; }
+        .result-item .r-bar .r-fill.so { background: #000; }
+
+        .consistency-result {
+            margin-top: 14px;
+            padding: 14px 18px;
+            background: #fff;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .consistency-result .cr-value { font-size: 20px; margin-right: 4px; }
+        .consistency-result .cr-pass { color: #1a5a3a; }
+        .consistency-result .cr-fail { color: #8b1a1a; }
+        .consistency-result .cr-status { padding: 4px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; }
+        .cr-status.pass { background: #e8f5e9; color: #1a5a3a; }
+        .cr-status.fail { background: #fde8e8; color: #8b1a1a; }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .actions button {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .actions .btn-save { background: #1a3a5a; }
+        .actions .btn-save:hover { background: #2a4a6a; transform: translateY(-2px); }
+        .actions .btn-export { background: #1a5a3a; }
+        .actions .btn-export:hover { background: #2a6a4a; transform: translateY(-2px); }
+        .actions .btn-reset { background: #8b1a1a; }
+        .actions .btn-reset:hover { background: #7a1a1a; transform: translateY(-2px); }
+
+        .footer-msg {
+            text-align: center;
+            padding: 16px;
+            margin-top: 25px;
+            background: #fff;
+            border-radius: 14px;
+            border: 1px solid #e8edf2;
+        }
+        .footer-msg i { color: #1a3a5a; margin-left: 8px; }
+        .footer-msg p { font-size: 15px; font-weight: 500; color: #3a5a6a; margin: 0; }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 2px solid #e8edf2;
+        }
+        .nav-buttons button {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-buttons .btn-prev { background: #e8edf2; color: #3a5a6a; }
+        .nav-buttons .btn-prev:hover { background: #d8dce0; transform: translateX(-3px); }
+        .nav-buttons .btn-next { background: #14b8a6; color: #ffffff; box-shadow: 0 4px 16px rgba(20,184,166,0.25); }
+        .nav-buttons .btn-next:hover { background: #0d9488; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(20,184,166,0.35); }
+        .nav-buttons .btn-next:disabled { background: #b8c0c8; cursor: not-allowed; transform: none; box-shadow: none; }
+        .nav-buttons .page-indicator { font-size: 14px; font-weight: 600; color: #5a6a7a; }
+        .nav-buttons .page-indicator span { color: #14b8a6; font-weight: 800; }
+
+        @media (max-width: 768px) {
+            .main-header h1 { font-size: 22px; }
+            .card { padding: 20px; }
+            .nav-buttons { flex-wrap: wrap; justify-content: center; }
+            .nav-buttons button { padding: 10px 20px; font-size: 14px; }
+            nav { flex-direction: column; align-items: stretch; padding: 12px 16px; }
+            nav .nav-links { justify-content: center; }
+            nav .nav-links a { font-size: 0.65rem; padding: 4px 6px; }
+            nav .nav-links .sep { display: none; }
+        }
+        @media (max-width: 480px) {
+            .main-header h1 { font-size: 18px; }
+            .main-header { padding: 20px; }
+            .nav-buttons button { padding: 8px 16px; font-size: 12px; }
+            nav .brand { font-size: 0.9rem; }
+            nav .nav-links a { font-size: 0.55rem; padding: 2px 4px; }
+            nav .nav-links a i { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== شريط التنقل ===== -->
+        <nav>
+            <div class="brand"><i class="fas fa-infinity"></i> استطلاع رأي الخبراء</div>
+            <div class="nav-links">
+                <a href="كلمة الي المشارك.html"><i class="fas fa-flag"></i> المشارك</a>
+                <span class="sep">|</span>
+                <a href="بيانات الخبير.html"><i class="fas fa-user-graduate"></i> بيانات الخبير</a>
+                <span class="sep">|</span>
+                <a href="توصيف الخبرة المعرفية.html"><i class="fas fa-brain"></i> توصيف الخبرة</a>
+                <span class="sep">|</span>
+                <a href="المفاهيم الأساسية - إطار مرجعي لتوحيد الرؤى والمصطلحات.html"><i class="fas fa-book-open"></i> المفاهيم</a>
+                <span class="sep">|</span>
+                <a href="مبررات تطوير أداة التقييم.html"><i class="fas fa-rocket"></i> المبررات</a>
+                <span class="sep">|</span>
+                <a href="دليل بطاقات المعلومات الموحدة.html"><i class="fas fa-id-card"></i> البطاقات</a>
+                <span class="sep">|</span>
+                <a href="#" class="active"><i class="fas fa-balance-scale"></i> است1</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثاني.html"><i class="fas fa-table"></i> است2</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثالث.html"><i class="fas fa-globe"></i> است3</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الرابع.html"><i class="fas fa-weight-scale"></i> است4</a>
+                <span class="sep">|</span>
+                <a href="صفحة التقديم.html"><i class="fas fa-check-circle"></i> تقديم</a>
+                <span class="hint"><i class="fas fa-sync-alt"></i> حفظ تلقائي</span>
+            </div>
+        </nav>
+
+        <!-- ===== المحتوى الأصلي ===== -->
+        <div class="main-header">
+            <div class="badge"><i class="fas fa-scale-balanced"></i> الاستبيان الأول</div>
+            <h1>التحليل الهرمي لترجيح المعايير<br><span class="highlight">(AHP Weights Elicitation)</span></h1>
+            <p>
+                يعد الانتقال نحو <strong>الاقتصاد الدائري</strong> ضرورة استراتيجية لتحقيق الاستدامة، حيث يهدف إلى تعظيم كفاءة الموارد وتقليل الهدر من خلال دورات مغلقة ومستمرة.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-bullseye"></i> الهدف من هذه الجلسة <span class="step-badge">AHP</span></h2>
+            <div class="subtitle">
+                نهدف من خلال هذه المقارنات الزوجية إلى تحديد <strong>الأوزان النسبية (Relative Weights)</strong> لكل بُعد من الأبعاد الأربعة. إن حكمكم المهني سيساعد في تحديد الأولويات الاستراتيجية التي يجب التركيز عليها لضمان نجاح التحول نحو الاقتصاد الدائري.
+            </div>
+            <p style="font-size:15px;color:#3a5a6a;line-height:1.9;">
+                <i class="fas fa-info-circle" style="color:#2a9d8f;margin-left:6px;"></i>
+                نعتمد منهجية <strong>عملية التحليل الهرمي (AHP)</strong> لصاحبها Thomas L. Saaty، حيث يتم مقارنة كل معيارين معاً لتحديد <strong>قوة التفضيل</strong> بينهما بناءً على مقياس (1-9).
+            </p>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-cubes"></i> الأبعاد الأربعة للاستدامة الدائرية <span class="step-badge">المعايير</span></h2>
+            <div class="dimensions-grid">
+                <div class="dimension-box ec">
+                    <span class="dim-icon">💰</span>
+                    <span class="dim-code">EC</span>
+                    <span class="dim-name">الأداء الاقتصادي الدائري</span>
+                    <div class="dim-desc">تعزيز العوائد المالية، تقليل تكاليف التشغيل، وتنمية القيمة الاقتصادية.</div>
+                </div>
+                <div class="dimension-box en">
+                    <span class="dim-icon">🌿</span>
+                    <span class="dim-code">EN</span>
+                    <span class="dim-name">الأداء البيئي الدائري</span>
+                    <div class="dim-desc">تقليل الأثر البيئي، الحفاظ على الموارد، الحد من الانبعاثات والنفايات.</div>
+                </div>
+                <div class="dimension-box tc">
+                    <span class="dim-icon">⚙️</span>
+                    <span class="dim-code">TC</span>
+                    <span class="dim-name">الأداء التقني الدائري</span>
+                    <div class="dim-desc">جاهزية البنية التحتية، الابتكار، قابلية المنتجات لإعادة التدوير.</div>
+                </div>
+                <div class="dimension-box so">
+                    <span class="dim-icon">👥</span>
+                    <span class="dim-code">SO</span>
+                    <span class="dim-name">الأداء الاجتماعي الدائري</span>
+                    <div class="dim-desc">خلق فرص عمل خضراء، تعزيز الصحة العامة، تحسين جودة الحياة.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-ruler"></i> مقياس التفضيل (Saaty Scale) <span class="step-badge">1-9</span></h2>
+            <table class="scale-table">
+                <thead>
+                    <tr><th style="width:50px;">القيمة</th><th style="text-align:right;">التعريف</th><th style="text-align:right;">الشرح</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="value-col">1</td><td class="def-col">متساويان في الأهمية</td><td class="desc-col">كلا المعيارين لهما نفس درجة الأهمية.</td></tr>
+                    <tr><td class="value-col">2</td><td class="def-col">أهمية ضعيفة جداً</td><td class="desc-col">أحد المعيارين أكثر أهمية بقليل جداً.</td></tr>
+                    <tr><td class="value-col">3</td><td class="def-col">أهمية متوسطة</td><td class="desc-col">أحد المعيارين أهم بشكل متوسط من الآخر.</td></tr>
+                    <tr><td class="value-col">4</td><td class="def-col">أهمية متوسطة إلى قوية</td><td class="desc-col">تفضيل بين المتوسط والقوي.</td></tr>
+                    <tr><td class="value-col">5</td><td class="def-col">أهمية قوية</td><td class="desc-col">أحد المعيارين أهم بشكل قوي من الآخر.</td></tr>
+                    <tr><td class="value-col">6</td><td class="def-col">أهمية قوية إلى قوية جداً</td><td class="desc-col">تفضيل بين القوي والقوي جداً.</td></tr>
+                    <tr><td class="value-col">7</td><td class="def-col">أهمية قوية جداً</td><td class="desc-col">أحد المعيارين أهم بشكل واضح وقوي جداً من الآخر.</td></tr>
+                    <tr><td class="value-col">8</td><td class="def-col">أهمية قوية جداً إلى مطلقة</td><td class="desc-col">تفضيل بين القوي جداً والمطلق.</td></tr>
+                    <tr><td class="value-col">9</td><td class="def-col">أهمية مطلقة</td><td class="desc-col">أحد المعيارين أهم بشكل مطلق ولا جدال فيه عن الآخر.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== PAIRWISE COMPARISONS ===== -->
+        <div class="card">
+            <h2><i class="fas fa-arrows-left-right"></i> المقارنات الزوجية بين المعايير الأربعة <span class="step-badge">6 مقارنات</span></h2>
+            <p style="font-size:15px;color:#3a5a6a;margin-bottom:20px;line-height:1.8;">
+                <i class="fas fa-hand-pointer" style="color:#2a9d8f;margin-left:6px;"></i>
+                اختر الرقم الذي يعبر عن درجة تفضيل المعيار الأيمن مقابل المعيار الأيسر. الرقم <strong>1</strong> يعني تساوي الأهمية.
+            </p>
+
+            <!-- مقارنة 1: EC vs EN -->
+            <div class="pairwise-container">
+                <div class="pairwise-title">
+                    <span style="color:#cc0000;font-weight:900;">الأداء الاقتصادي</span>
+                    <span class="vs">مقابل</span>
+                    <span style="color:#008800;font-weight:900;">الأداء البيئي</span>
+                    <span class="pair-desc">(يمين) EC ↔ EN (يسار)</span>
+                </div>
+                <div class="comparison-row" id="comp-ec-en">
+                    <span class="c-label-left en">EN<span class="full-name">الأداء البيئي</span></span>
+                    <div class="c-numbers" id="ec-vs-en-numbers"></div>
+                    <span class="c-label-right ec">EC<span class="full-name">الأداء الاقتصادي</span></span>
+                    <span class="c-result" id="ec-vs-en-result">1 ← متساويان</span>
+                </div>
+            </div>
+
+            <!-- مقارنة 2: EC vs SO -->
+            <div class="pairwise-container">
+                <div class="pairwise-title">
+                    <span style="color:#cc0000;font-weight:900;">الأداء الاقتصادي</span>
+                    <span class="vs">مقابل</span>
+                    <span style="color:#000;font-weight:900;">الأداء الاجتماعي</span>
+                    <span class="pair-desc">(يمين) EC ↔ SO (يسار)</span>
+                </div>
+                <div class="comparison-row" id="comp-ec-so">
+                    <span class="c-label-left so">SO<span class="full-name">الأداء الاجتماعي</span></span>
+                    <div class="c-numbers" id="ec-vs-so-numbers"></div>
+                    <span class="c-label-right ec">EC<span class="full-name">الأداء الاقتصادي</span></span>
+                    <span class="c-result" id="ec-vs-so-result">1 ← متساويان</span>
+                </div>
+            </div>
+
+            <!-- مقارنة 3: EC vs TC -->
+            <div class="pairwise-container">
+                <div class="pairwise-title">
+                    <span style="color:#cc0000;font-weight:900;">الأداء الاقتصادي</span>
+                    <span class="vs">مقابل</span>
+                    <span style="color:#0055cc;font-weight:900;">الأداء التقني</span>
+                    <span class="pair-desc">(يمين) EC ↔ TC (يسار)</span>
+                </div>
+                <div class="comparison-row" id="comp-ec-tc">
+                    <span class="c-label-left tc">TC<span class="full-name">الأداء التقني</span></span>
+                    <div class="c-numbers" id="ec-vs-tc-numbers"></div>
+                    <span class="c-label-right ec">EC<span class="full-name">الأداء الاقتصادي</span></span>
+                    <span class="c-result" id="ec-vs-tc-result">1 ← متساويان</span>
+                </div>
+            </div>
+
+            <!-- مقارنة 4: EN vs TC -->
+            <div class="pairwise-container">
+                <div class="pairwise-title">
+                    <span style="color:#008800;font-weight:900;">الأداء البيئي</span>
+                    <span class="vs">مقابل</span>
+                    <span style="color:#0055cc;font-weight:900;">الأداء التقني</span>
+                    <span class="pair-desc">(يمين) EN ↔ TC (يسار)</span>
+                </div>
+                <div class="comparison-row" id="comp-en-tc">
+                    <span class="c-label-left tc">TC<span class="full-name">الأداء التقني</span></span>
+                    <div class="c-numbers" id="en-vs-tc-numbers"></div>
+                    <span class="c-label-right en">EN<span class="full-name">الأداء البيئي</span></span>
+                    <span class="c-result" id="en-vs-tc-result">1 ← متساويان</span>
+                </div>
+            </div>
+
+            <!-- مقارنة 5: EN vs SO -->
+            <div class="pairwise-container">
+                <div class="pairwise-title">
+                    <span style="color:#008800;font-weight:900;">الأداء البيئي</span>
+                    <span class="vs">مقابل</span>
+                    <span style="color:#000;font-weight:900;">الأداء الاجتماعي</span>
+                    <span class="pair-desc">(يمين) EN ↔ SO (يسار)</span>
+                </div>
+                <div class="comparison-row" id="comp-en-so">
+                    <span class="c-label-left so">SO<span class="full-name">الأداء الاجتماعي</span></span>
+                    <div class="c-numbers" id="en-vs-so-numbers"></div>
+                    <span class="c-label-right en">EN<span class="full-name">الأداء البيئي</span></span>
+                    <span class="c-result" id="en-vs-so-result">1 ← متساويان</span>
+                </div>
+            </div>
+
+            <!-- مقارنة 6: SO vs TC -->
+            <div class="pairwise-container">
+                <div class="pairwise-title">
+                    <span style="color:#000;font-weight:900;">الأداء الاجتماعي</span>
+                    <span class="vs">مقابل</span>
+                    <span style="color:#0055cc;font-weight:900;">الأداء التقني</span>
+                    <span class="pair-desc">(يمين) SO ↔ TC (يسار)</span>
+                </div>
+                <div class="comparison-row" id="comp-so-tc">
+                    <span class="c-label-left tc">TC<span class="full-name">الأداء التقني</span></span>
+                    <div class="c-numbers" id="so-vs-tc-numbers"></div>
+                    <span class="c-label-right so">SO<span class="full-name">الأداء الاجتماعي</span></span>
+                    <span class="c-result" id="so-vs-tc-result">1 ← متساويان</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== RESULTS ===== -->
+        <div class="card">
+            <h2><i class="fas fa-chart-pie"></i> نتائج الأوزان النسبية <span class="step-badge">المخرجات</span></h2>
+            <div class="results-container">
+                <h3><i class="fas fa-weight-scale"></i> الأوزان النسبية للمعايير</h3>
+                <div class="results-grid" id="resultsGrid">
+                    <div class="result-item"><div class="r-code ec">EC</div><div class="r-name">الاقتصادي</div><div class="r-value" id="weight-ec">0.00</div><div class="r-bar"><div class="r-fill ec" id="bar-ec" style="width:0%;"></div></div></div>
+                    <div class="result-item"><div class="r-code en">EN</div><div class="r-name">البيئي</div><div class="r-value" id="weight-en">0.00</div><div class="r-bar"><div class="r-fill en" id="bar-en" style="width:0%;"></div></div></div>
+                    <div class="result-item"><div class="r-code tc">TC</div><div class="r-name">التقني</div><div class="r-value" id="weight-tc">0.00</div><div class="r-bar"><div class="r-fill tc" id="bar-tc" style="width:0%;"></div></div></div>
+                    <div class="result-item"><div class="r-code so">SO</div><div class="r-name">الاجتماعي</div><div class="r-value" id="weight-so">0.00</div><div class="r-bar"><div class="r-fill so" id="bar-so" style="width:0%;"></div></div></div>
+                </div>
+                <div class="consistency-result" id="consistencyResult">
+                    <span><i class="fas fa-check-circle"></i> نسبة الاتساق (CR):</span>
+                    <span class="cr-value" id="crValue">0.00</span>
+                    <span id="crStatus" class="cr-status pass">✓ متسق</span>
+                    <span style="font-size:14px;font-weight:500;color:#5a6a7a;margin-right:auto;" id="crDetail">(CR ≤ 0.10 مقبول)</span>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn-save" onclick="saveData()"><i class="fas fa-save"></i> حفظ التقدم</button>
+                <button class="btn-export" onclick="exportData()"><i class="fas fa-file-excel"></i> تصدير النتائج</button>
+                <button class="btn-reset" onclick="resetAll()"><i class="fas fa-trash"></i> إعادة تعيين</button>
+            </div>
+        </div>
+
+        <div class="footer-msg">
+            <p><i class="fas fa-heart" style="color:#cc0000;"></i> شكراً لتقييمكم — حكمكم المهني هو الركيزة الأساسية لبناء نموذج تقييم متكامل للاقتصاد الدائري</p>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="btn-prev" onclick="goToPage('دليل بطاقات المعلومات الموحدة.html')">
+                <i class="fas fa-arrow-right"></i> السابق
+            </button>
+            <span class="page-indicator">الجزء <span>6</span> من <span>10</span></span>
+            <button class="btn-next" onclick="goToPage('الاستبيان الثاني.html')">
+                التالي <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        function goToPage(page) { window.location.href = page; }
+
+        const criteria = ['EC', 'EN', 'TC', 'SO'];
+        const criteriaNames = { 'EC': 'الأداء الاقتصادي', 'EN': 'الأداء البيئي', 'TC': 'الأداء التقني', 'SO': 'الأداء الاجتماعي' };
+        const criteriaColors = { 'EC': '#cc0000', 'EN': '#008800', 'TC': '#0055cc', 'SO': '#000' };
+
+        const pairs = [
+            { id: 'ec-vs-en', left: 'EN', right: 'EC', leftLabel: 'الأداء البيئي', rightLabel: 'الأداء الاقتصادي' },
+            { id: 'ec-vs-so', left: 'SO', right: 'EC', leftLabel: 'الأداء الاجتماعي', rightLabel: 'الأداء الاقتصادي' },
+            { id: 'ec-vs-tc', left: 'TC', right: 'EC', leftLabel: 'الأداء التقني', rightLabel: 'الأداء الاقتصادي' },
+            { id: 'en-vs-tc', left: 'TC', right: 'EN', leftLabel: 'الأداء التقني', rightLabel: 'الأداء البيئي' },
+            { id: 'en-vs-so', left: 'SO', right: 'EN', leftLabel: 'الأداء الاجتماعي', rightLabel: 'الأداء البيئي' },
+            { id: 'so-vs-tc', left: 'TC', right: 'SO', leftLabel: 'الأداء التقني', rightLabel: 'الأداء الاجتماعي' }
+        ];
+
+        function buildNumbersTable(pairId) {
+            const container = document.getElementById(pairId + '-numbers');
+            if (!container) return;
+
+            // استخدام القيم من 1 إلى 9 مباشرةً مع عرض الأرقام الزوجية بوضوح
+            const leftValues = [9, 8, 7, 6, 5, 4, 3, 2];
+            const rightValues = [2, 3, 4, 5, 6, 7, 8, 9];
+
+            let html = '';
+
+            // الأرقام على اليسار (تفضيل المعيار الأيسر) — القيم السالبة تدل على تفضيل اليسار
+            leftValues.forEach(val => {
+                const radioVal = -(val - 1); // تحويل 9→-8, 8→-7, ... 2→-1
+                const evenClass = (val % 2 === 0) ? 'even-value' : '';
+                html += `<input type="radio" name="${pairId}" value="${radioVal}" id="${pairId}_${radioVal}">`;
+                html += `<label for="${pairId}_${radioVal}" class="left-pref ${evenClass}">${val}</label>`;
+            });
+
+            // المركز (1)
+            html += `<input type="radio" name="${pairId}" value="0" id="${pairId}_0" checked>`;
+            html += `<label for="${pairId}_0" style="background:#f0f4f8;border-color:#d0d8e0;font-weight:900;color:#1a3a5a;">1</label>`;
+
+            // الأرقام على اليمين (تفضيل المعيار الأيمن) — القيم الموجبة تدل على تفضيل اليمين
+            rightValues.forEach(val => {
+                const radioVal = val - 1; // تحويل 2→1, 3→2, ... 9→8
+                const evenClass = (val % 2 === 0) ? 'even-value' : '';
+                html += `<input type="radio" name="${pairId}" value="${radioVal}" id="${pairId}_${radioVal}">`;
+                html += `<label for="${pairId}_${radioVal}" class="right-pref ${evenClass}">${val}</label>`;
+            });
+
+            container.innerHTML = html;
+
+            container.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const val = parseInt(this.value);
+                    updatePairResult(pairId, val);
+                    saveData();
+                    calculateWeights();
+                });
+            });
+
+            // تحميل البيانات المحفوظة
+            const saved = localStorage.getItem('ahp_pairwise');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    if (data[pairId] !== undefined) {
+                        const val = data[pairId];
+                        const radio = document.getElementById(`${pairId}_${val}`);
+                        if (radio) {
+                            radio.checked = true;
+                            updatePairResult(pairId, val);
+                        }
+                    }
+                } catch (e) {}
+            }
+        }
+
+        function updatePairResult(pairId, val) {
+            const resultEl = document.getElementById(pairId + '-result');
+            if (!resultEl) return;
+            const pair = pairs.find(p => p.id === pairId);
+            if (!pair) return;
+            const leftLabel = pair.leftLabel;
+            const rightLabel = pair.rightLabel;
+            const absVal = Math.abs(val);
+            const displayVal = absVal === 0 ? 1 : absVal + 1;
+
+            let text = '';
+            if (val === 0) { text = `1 ← متساويان`; }
+            else if (val < 0) { text = `${displayVal} → ${leftLabel} أهم`; }
+            else { text = `${displayVal} → ${rightLabel} أهم`; }
+            resultEl.textContent = text;
+        }
+
+        function getPairwiseMatrix() {
+            const matrix = {};
+            criteria.forEach(c => matrix[c] = {});
+            criteria.forEach(c => matrix[c][c] = 1);
+            pairs.forEach(p => {
+                const radios = document.querySelectorAll(`input[name="${p.id}"]`);
+                let selectedVal = 0;
+                radios.forEach(r => { if (r.checked) selectedVal = parseInt(r.value); });
+                const absVal = Math.abs(selectedVal);
+                const displayVal = absVal === 0 ? 1 : absVal + 1;
+                if (selectedVal >= 0) {
+                    matrix[p.right][p.left] = displayVal;
+                    matrix[p.left][p.right] = 1 / displayVal;
+                } else {
+                    matrix[p.left][p.right] = displayVal;
+                    matrix[p.right][p.left] = 1 / displayVal;
+                }
+            });
+            return matrix;
+        }
+
+        function calculateWeights() {
+            const matrix = getPairwiseMatrix();
+            const geoMeans = {};
+            criteria.forEach(c => {
+                let product = 1;
+                criteria.forEach(d => { product *= matrix[c][d]; });
+                geoMeans[c] = Math.pow(product, 1 / criteria.length);
+            });
+            const sum = Object.values(geoMeans).reduce((a, b) => a + b, 0);
+            const weights = {};
+            criteria.forEach(c => { weights[c] = geoMeans[c] / sum; });
+            criteria.forEach(c => {
+                const pct = (weights[c] * 100).toFixed(1);
+                const el = document.getElementById('weight-' + c.toLowerCase());
+                const bar = document.getElementById('bar-' + c.toLowerCase());
+                if (el) el.textContent = weights[c].toFixed(4);
+                if (bar) bar.style.width = pct + '%';
+            });
+            const CR = calculateConsistency(matrix, weights);
+            document.getElementById('crValue').textContent = CR.toFixed(4);
+            const statusEl = document.getElementById('crStatus');
+            const detailEl = document.getElementById('crDetail');
+            if (CR <= 0.10) {
+                statusEl.textContent = '✓ متسق';
+                statusEl.className = 'cr-status pass';
+                detailEl.textContent = '(CR ≤ 0.10 مقبول)';
+            } else {
+                statusEl.textContent = '✗ غير متسق';
+                statusEl.className = 'cr-status fail';
+                detailEl.textContent = '(CR > 0.10 يُوصى بإعادة التقييم)';
+            }
+            return weights;
+        }
+
+        function calculateConsistency(matrix, weights) {
+            const n = criteria.length;
+            const RI = [0, 0, 0.58, 0.9, 1.12, 1.24, 1.32, 1.41, 1.45];
+            const weightedSum = {};
+            criteria.forEach(c => {
+                let sum = 0;
+                criteria.forEach(d => { sum += matrix[c][d] * weights[d]; });
+                weightedSum[c] = sum / weights[c];
+            });
+            const lambdaMax = Object.values(weightedSum).reduce((a, b) => a + b, 0) / n;
+            const CI = (lambdaMax - n) / (n - 1);
+            const CR = CI / (RI[n] || 0.9);
+            return CR;
+        }
+
+        function saveData() {
+            const data = {};
+            pairs.forEach(p => {
+                const radios = document.querySelectorAll(`input[name="${p.id}"]`);
+                radios.forEach(r => { if (r.checked) data[p.id] = parseInt(r.value); });
+            });
+            localStorage.setItem('ahp_pairwise', JSON.stringify(data));
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('ahp_pairwise');
+            if (!saved) return;
+            try {
+                const data = JSON.parse(saved);
+                pairs.forEach(p => {
+                    if (data[p.id] !== undefined) {
+                        const radio = document.getElementById(`${p.id}_${data[p.id]}`);
+                        if (radio) { radio.checked = true; updatePairResult(p.id, data[p.id]); }
+                    }
+                });
+            } catch (e) {}
+        }
+
+        function exportData() {
+            const weights = calculateWeights();
+            const matrix = getPairwiseMatrix();
+            const comparisons = {};
+            pairs.forEach(p => {
+                const radios = document.querySelectorAll(`input[name="${p.id}"]`);
+                let val = 0;
+                radios.forEach(r => { if (r.checked) val = parseInt(r.value); });
+                const absVal = Math.abs(val);
+                const displayVal = absVal === 0 ? 1 : absVal + 1;
+                const direction = val >= 0 ? p.right + ' ← ' + p.left : p.left + ' ← ' + p.right;
+                comparisons[p.id] = {
+                    left: p.left,
+                    right: p.right,
+                    leftName: p.leftLabel,
+                    rightName: p.rightLabel,
+                    value: displayVal,
+                    direction: direction,
+                    raw: val
+                };
+            });
+            const exportData = {
+                timestamp: new Date().toISOString(),
+                weights: weights,
+                pairwise_matrix: matrix,
+                comparisons: comparisons,
+                consistency_ratio: parseFloat(document.getElementById('crValue').textContent)
+            };
+            const json = JSON.stringify(exportData, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ahp_weights_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            alert('✅ تم تصدير البيانات بنجاح!');
+        }
+
+        function resetAll() {
+            if (!confirm('⚠️ هل تريد إعادة تعيين جميع التقييمات؟')) return;
+            pairs.forEach(p => {
+                const radios = document.querySelectorAll(`input[name="${p.id}"]`);
+                radios.forEach(r => { r.checked = false; });
+                const center = document.getElementById(`${p.id}_0`);
+                if (center) { center.checked = true; updatePairResult(p.id, 0); }
+            });
+            localStorage.removeItem('ahp_pairwise');
+            calculateWeights();
+            alert('✅ تم إعادة التعيين بنجاح!');
+        }
+
+        window.onload = function() {
+            pairs.forEach(p => buildNumbersTable(p.id));
+            loadData();
+            setTimeout(calculateWeights, 200);
+        };
+    </script>
+
+</body>
+</html>

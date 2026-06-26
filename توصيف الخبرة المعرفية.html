@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توصيف الخبرة المعرفية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+            line-height: 1.8;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container { max-width: 1100px; width: 100%; margin: 0 auto; }
+
+        nav {
+            background: #123050;
+            padding: 14px 30px;
+            border-bottom: 4px solid #14b8a6;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(20, 184, 166, 0.08);
+        }
+        nav .brand {
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        nav .brand i { color: #14b8a6; margin-left: 8px; }
+        nav .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            align-items: center;
+        }
+        nav .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            color: #ffffff;
+        }
+        nav .nav-links a:hover {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.08);
+        }
+        nav .nav-links .active {
+            color: #14b8a6;
+            background: rgba(20,184,166,0.12);
+            border: 1px solid rgba(20,184,166,0.15);
+        }
+        nav .nav-links .sep {
+            color: rgba(255,255,255,0.1);
+            font-weight: 300;
+        }
+        nav .nav-links .hint {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.1);
+            margin-right: 6px;
+        }
+
+        .hero {
+            background: linear-gradient(160deg, #0a1620, #0f2847, #0a1620);
+            background-size: 300% 300%;
+            animation: gradientMove 12s ease-in-out infinite;
+            padding: 50px 30px 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #c0392b;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .hero .icon-badge {
+            width: 80px;
+            height: 80px;
+            background: rgba(192, 57, 43, 0.15);
+            border: 3px solid rgba(192, 57, 43, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 40px;
+            color: #c0392b;
+            box-shadow: 0 0 40px rgba(192, 57, 43, 0.1);
+            transition: 0.3s;
+        }
+        .hero .icon-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(192, 57, 43, 0.15);
+        }
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 900;
+            color: #fdcb6e;
+        }
+        .hero .sub {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 400;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 35px 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            border: 1px solid #e8edf2;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0a2a3a;
+            border-bottom: 3px solid #fdcb6e;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .card h2 i { color: #2a9d8f; }
+
+        .alert-red {
+            background: #fde8e8;
+            border-right: 5px solid #b91c1c;
+            padding: 16px 22px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .alert-red .icon {
+            font-size: 28px;
+            color: #b91c1c;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .alert-red .content {
+            font-size: 15px;
+            color: #7f1d1d;
+            line-height: 1.9;
+        }
+        .alert-red .content strong {
+            color: #991b1b;
+            font-weight: 800;
+        }
+        .alert-red .content .highlight {
+            background: #fef2f2;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            color: #b91c1c;
+        }
+
+        .scale-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 8px;
+            text-align: center;
+            border: 1px solid #e8edf2;
+        }
+        .scale-box .item {
+            background: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            border: 1px solid #e2e8f0;
+            color: #1a2a3a;
+        }
+        .scale-box .item .num {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #2a9d8f;
+            color: white;
+            line-height: 28px;
+            font-size: 13px;
+            margin-left: 5px;
+        }
+
+        .question-item {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            border: 1px solid #e8edf2;
+            transition: 0.3s;
+        }
+        .question-item:hover { background: #f1f5f9; }
+        .question-item .q-text {
+            flex: 1;
+            font-weight: 600;
+            font-size: 15px;
+            min-width: 200px;
+            color: #1a2a3a;
+        }
+        .question-item .q-text .q-num {
+            color: #2a9d8f;
+            font-weight: 800;
+            margin-left: 8px;
+        }
+        .question-item .q-options {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .question-item .q-options label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid #d8dce0;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: 0.3s;
+            background: white;
+            color: #1a2a3a;
+        }
+        .question-item .q-options input[type="radio"] {
+            display: none;
+        }
+        .question-item .q-options input[type="radio"]:checked + label {
+            background: #2a9d8f;
+            border-color: #2a9d8f;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .progress-container {
+            background: #e8edf2;
+            border-radius: 20px;
+            height: 10px;
+            margin: 16px 0;
+            overflow: hidden;
+        }
+        .progress-container .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2a9d8f, #fdcb6e);
+            border-radius: 20px;
+            transition: width 0.3s;
+        }
+        .progress-text {
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: #3a5a6a;
+            margin-bottom: 6px;
+        }
+
+        .result-box {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 18px;
+            font-size: 18px;
+            font-weight: 700;
+            display: none;
+        }
+        .result-box.pass { background: #e8f5e9; color: #1a5a3a; border: 2px solid #1a5a3a; display: block; }
+        .result-box.fail { background: #fde8e8; color: #7f1d1d; border: 2px solid #b91c1c; display: block; }
+        .result-box .score { font-size: 28px; }
+
+        .encyclopedia-link {
+            text-align: center;
+            margin-top: 18px;
+            padding: 14px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e8edf2;
+        }
+        .encyclopedia-link a {
+            color: #2a9d8f;
+            font-weight: 700;
+            font-size: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .encyclopedia-link a:hover {
+            color: #1a7a6e;
+            text-decoration: underline;
+        }
+        .encyclopedia-link i { margin-left: 8px; }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 2px solid #e8edf2;
+        }
+        .nav-buttons button {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-buttons .btn-prev {
+            background: #e8edf2;
+            color: #3a5a6a;
+        }
+        .nav-buttons .btn-prev:hover {
+            background: #d8dce0;
+            transform: translateX(-3px);
+        }
+        .nav-buttons .btn-next {
+            background: #14b8a6;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(20,184,166,0.25);
+        }
+        .nav-buttons .btn-next:hover {
+            background: #0d9488;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(20,184,166,0.35);
+        }
+        .nav-buttons .btn-next:disabled {
+            background: #b8c0c8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .nav-buttons .page-indicator {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5a6a7a;
+        }
+        .nav-buttons .page-indicator span {
+            color: #14b8a6;
+            font-weight: 800;
+        }
+
+        .knowledge-intro {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px 30px;
+            margin-bottom: 24px;
+            border-right: 6px solid #c0392b;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .knowledge-intro p {
+            color: #1a2a3a;
+            font-size: 16px;
+            line-height: 2;
+            font-weight: 500;
+        }
+        .knowledge-intro p strong {
+            color: #0a2a3a;
+            font-weight: 800;
+        }
+        .knowledge-intro .highlight-gold {
+            color: #b7950b;
+            font-weight: 700;
+        }
+
+        @media (max-width: 992px) {
+            nav .nav-links a { font-size: 0.7rem; padding: 4px 8px; }
+            nav .nav-links { gap: 4px 8px; }
+        }
+        @media (max-width: 768px) {
+            nav { flex-direction: column; align-items: stretch; padding: 12px 16px; }
+            nav .nav-links { justify-content: center; }
+            nav .nav-links a { font-size: 0.65rem; padding: 4px 6px; }
+            nav .nav-links .sep { display: none; }
+            .card { padding: 24px 18px; }
+            .hero h1 { font-size: 28px; }
+            .hero .icon-badge { width: 60px; height: 60px; font-size: 30px; }
+            .question-item { flex-direction: column; align-items: stretch; }
+            .question-item .q-options { justify-content: center; }
+            .nav-buttons { flex-wrap: wrap; justify-content: center; }
+            .nav-buttons button { padding: 10px 20px; font-size: 14px; }
+            .knowledge-intro { padding: 18px 20px; }
+            .knowledge-intro p { font-size: 14px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 22px; }
+            .hero .icon-badge { width: 50px; height: 50px; font-size: 24px; }
+            nav .brand { font-size: 0.9rem; }
+            nav .nav-links a { font-size: 0.55rem; padding: 2px 4px; }
+            nav .nav-links a i { display: none; }
+            .scale-box .item { font-size: 11px; }
+            .scale-box .item .num { width: 24px; height: 24px; line-height: 24px; font-size: 11px; }
+            .question-item .q-text { font-size: 13px; }
+            .question-item .q-options label { width: 34px; height: 34px; font-size: 12px; }
+            .knowledge-intro { padding: 14px 16px; }
+            .knowledge-intro p { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <nav>
+            <div class="brand"><i class="fas fa-infinity"></i> استطلاع رأي الخبراء</div>
+            <div class="nav-links">
+                <a href="كلمة الي المشارك.html"><i class="fas fa-flag"></i> المشارك</a>
+                <span class="sep">|</span>
+                <a href="بيانات الخبير.html"><i class="fas fa-user-graduate"></i> بيانات الخبير</a>
+                <span class="sep">|</span>
+                <a href="#" class="active"><i class="fas fa-brain"></i> توصيف الخبرة</a>
+                <span class="sep">|</span>
+                <a href="المفاهيم الأساسية - إطار مرجعي لتوحيد الرؤى والمصطلحات.html"><i class="fas fa-book-open"></i> المفاهيم</a>
+                <span class="sep">|</span>
+                <a href="مبررات تطوير أداة التقييم.html"><i class="fas fa-rocket"></i> المبررات</a>
+                <span class="sep">|</span>
+                <a href="دليل بطاقات المعلومات الموحدة.html"><i class="fas fa-id-card"></i> البطاقات</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الأول.html"><i class="fas fa-balance-scale"></i> است1</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثاني.html"><i class="fas fa-table"></i> است2</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الثالث.html"><i class="fas fa-globe"></i> است3</a>
+                <span class="sep">|</span>
+                <a href="الاستبيان الرابع.html"><i class="fas fa-weight-scale"></i> است4</a>
+                <span class="sep">|</span>
+                <a href="صفحة التقديم.html"><i class="fas fa-check-circle"></i> تقديم</a>
+                <span class="hint"><i class="fas fa-sync-alt"></i> حفظ تلقائي</span>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="hero-content">
+                <div class="icon-badge">🧠</div>
+                <h1>توصيف الخبرة المعرفية</h1>
+                <div class="sub">الجزء الثاني من رحلة التقييم</div>
+            </div>
+        </div>
+
+        <div class="knowledge-intro">
+            <p>
+                <strong>🎯 الهدف من قياس المعرفة:</strong><br>
+                نهدف من خلال هذا القسم إلى <span class="highlight-gold">توحيد المستوى المعرفي</span> بين الخبراء المشاركين، 
+                وضمان أن جميع التقييمات تستند إلى <span class="highlight-gold">فهم مشترك</span> للمفاهيم الجوهرية، 
+                مما يعزز <span class="highlight-gold">موضوعية النتائج</span> وقابليتها للمقارنة.
+            </p>
+        </div>
+
+        <div class="alert-red">
+            <div class="icon">⚠️</div>
+            <div class="content">
+                <strong>تنبيه:</strong> هذا القسم <strong>ليس اختباراً</strong>، ولا مقياساً لقدراتكم.
+                <br>
+                نظراً للأهمية العلمية للدراسة وجودة البيانات، نطلب منكم <strong>الدقة في التقييم</strong>.
+                <br>
+                سيتم استبعاد الاستجابات التي يقل متوسط درجات المعرفة في <span class="highlight">المحور الأول (K1–K6)</span> عن (3).
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-list"></i> المفاهيم المعرفية</h2>
+
+            <div class="scale-box">
+                <div class="item"><span class="num">1</span> محدودة جداً</div>
+                <div class="item"><span class="num">2</span> متوسطة</div>
+                <div class="item"><span class="num">3</span> جيدة</div>
+                <div class="item"><span class="num">4</span> متعمقة</div>
+                <div class="item"><span class="num">5</span> خبير</div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">0% مكتمل</div>
+
+            <div id="questionsContainer"></div>
+
+            <div id="resultBox" class="result-box">
+                <div class="score" id="avgScore">0.00</div>
+                <div id="resultMessage"></div>
+            </div>
+
+            <div class="encyclopedia-link">
+                <i class="fas fa-infinity"></i>
+                <a href="https://circular-encyclopedia.pages.dev/" target="_blank">
+                    للاطلاع على موسوعة الاقتصاد الدائري في البناء
+                </a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn-prev" onclick="goToPage('بيانات الخبير.html')">
+                    <i class="fas fa-arrow-right"></i> السابق
+                </button>
+                <span class="page-indicator">الجزء <span>2</span> من <span>10</span></span>
+                <button class="btn-next" id="nextBtn" onclick="saveAndNext()" disabled>
+                    التالي <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // الأسئلة الـ 17
+        // ============================================================
+        const questions = [
+            "مفهوم الاقتصاد الدائري ومبادئه الأساسية",
+            "الفرق بين الاقتصاد الخطي والاقتصاد الدائري",
+            "مفهوم الاستدامة وأبعادها الثلاثة",
+            "مفهوم الموارد الطبيعية وأنواعها",
+            "مفهوم إدارة الموارد وكفاءة استخدامها",
+            "الفرق بين الطاقة المتجددة والغير متجددة",
+            "العلاقة بين الاقتصاد الدائري والاستدامة",
+            "مبدأ تقليل النفايات وأهميته",
+            "مفهوم إعادة الاستخدام (Reuse)",
+            "مفهوم التدوير (Recycling)",
+            "هرم الأولويات الدائرية",
+            "مفهوم البصمة الكربونية",
+            "مفهوم التنمية المستدامة وأهدافها (SDGs)",
+            "مفهوم دورة حياة المنتج",
+            "مفهوم سلاسل التوريد الدائرية",
+            "مفهوم الاقتصاد التشاركي ودوره في الاستدامة",
+            "مفهوم التصميم الدائري وأهميته في تقليل الهدر"
+        ];
+
+        // ============================================================
+        // عرض الأسئلة
+        // ============================================================
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            let html = '';
+            questions.forEach((q, index) => {
+                const num = index + 1;
+                const saved = getSavedAnswer(num);
+                html += `
+                    <div class="question-item">
+                        <div class="q-text">
+                            <span class="q-num">${num}.</span> ${q}
+                        </div>
+                        <div class="q-options">
+                            ${[1,2,3,4,5].map(val => `
+                                <input type="radio" name="q${num}" value="${val}" id="q${num}_${val}" ${saved == val ? 'checked' : ''} onchange="checkCompletion()">
+                                <label for="q${num}_${val}">${val}</label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            setTimeout(checkCompletion, 100);
+        }
+
+        // ============================================================
+        // استرجاع الإجابة المحفوظة
+        // ============================================================
+        function getSavedAnswer(num) {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) return null;
+            const allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            const expertData = allData[expertID] || {};
+            const knowledge = expertData.knowledge || {};
+            return knowledge[`K${num}`] || null;
+        }
+
+        // ============================================================
+        // التحقق من الإكتمال
+        // ============================================================
+        function checkCompletion() {
+            const total = questions.length;
+            let answered = 0;
+            let sum = 0;
+
+            for (let i = 1; i <= total; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    answered++;
+                    sum += parseInt(selected.value);
+                }
+            }
+
+            const percent = Math.round((answered / total) * 100);
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').textContent = percent + '% مكتمل';
+
+            const avg = answered > 0 ? sum / answered : 0;
+            const resultBox = document.getElementById('resultBox');
+            const avgScore = document.getElementById('avgScore');
+            const resultMsg = document.getElementById('resultMessage');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (answered === total) {
+                resultBox.style.display = 'block';
+                avgScore.textContent = avg.toFixed(2);
+
+                // المحور الأول (K1-K6)
+                let sumFirst6 = 0;
+                for (let i = 1; i <= 6; i++) {
+                    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (selected) sumFirst6 += parseInt(selected.value);
+                }
+                const avgFirst6 = sumFirst6 / 6;
+
+                if (avgFirst6 < 3) {
+                    resultBox.className = 'result-box fail';
+                    resultMsg.innerHTML = `
+                        ❌ متوسط المحور الأول (K1–K6) = ${avgFirst6.toFixed(2)}<br>
+                        <span style="font-size:16px;">⚠️ غير مؤهل للمشاركة في باقي الاستبيانات</span>
+                    `;
+                    nextBtn.disabled = true;
+                } else {
+                    resultBox.className = 'result-box pass';
+                    resultMsg.innerHTML = `
+                        ✅ متوسط المحور الأول (K1–K6) = ${avgFirst6.toFixed(2)} (≥ 3)<br>
+                        <span style="font-size:16px;">✔ مؤهل للمشاركة في باقي الاستبيانات</span>
+                    `;
+                    nextBtn.disabled = false;
+                }
+            } else {
+                resultBox.style.display = 'none';
+                nextBtn.disabled = true;
+            }
+        }
+
+        // ============================================================
+        // حفظ البيانات والانتقال
+        // ============================================================
+        function saveAndNext() {
+            const expertID = localStorage.getItem('expertID');
+            if (!expertID) {
+                alert('❌ خطأ: لم يتم التعرف على معرف الخبير.');
+                return;
+            }
+
+            const data = {};
+            for (let i = 1; i <= questions.length; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                data[`K${i}`] = selected ? parseInt(selected.value) : 0;
+            }
+
+            let allData = JSON.parse(localStorage.getItem('surveyData') || '{}');
+            allData[expertID] = allData[expertID] || {};
+            allData[expertID]['knowledge'] = data;
+            localStorage.setItem('surveyData', JSON.stringify(allData));
+
+            goToPage('المفاهيم الأساسية - إطار مرجعي لتوحيد الرؤى والمصطلحات.html');
+        }
+
+        // ============================================================
+        // دالة التنقل بين الصفحات
+        // ============================================================
+        function goToPage(page) {
+            window.location.href = page;
+        }
+
+        // ============================================================
+        // تشغيل عند التحميل
+        // ============================================================
+        window.addEventListener('DOMContentLoaded', renderQuestions);
+    </script>
+
+</body>
+</html>
